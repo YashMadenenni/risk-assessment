@@ -1,10 +1,14 @@
 const express = require("express");
 const MongoClient = require('mongodb').MongoClient;
-// const path = require("path");
+const path = require("path");
 const API_PORT = 8000;
 const app = express();
-const login = require('./login');
+const login = require('./Login');
 
+//Change to express sessions
+// const globalUser = {  
+//     userEmail : ""
+// }
 
 //MongoDB set up ans start server
 //build url for client 
@@ -12,6 +16,8 @@ const url = `mongodb+srv://yashwanthkumarms11:WBQsOI0CMrzpUbQl@cluster0.zf3rn5p.
 const client = new MongoClient(url, { useUnifiedTopology: true });
 let collection = null; // initially null 
 let collectionLogin = null;
+
+app.use(express.static(path.join(__dirname, '../client'))); // using client files
 
 //connect to database
 client.connect()
@@ -40,5 +46,7 @@ client.connect()
     })
     .catch(err => console.log(`Could not start server`, err))
 //.finally(()=>{client.close(); console.log("Disconnected");})
+
+
 
  app.use('/user', login);

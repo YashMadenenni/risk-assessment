@@ -44,16 +44,19 @@ client.connect()
 //Endpoint to login in with email and password
 
 router.post('/login',function (request,response) {
- const userEmail = request.body.userEmail;
+ const userEmail = (request.body.userEmail).toLowerCase();
  const password = request.body.password;
  
  collectionLogin.find({_id:userEmail},{password:password}).toArray()
     .then(doc => {
         if(doc.length > 0) {
             response.status(200).json({message: `Login Successful`});
+            //globalUser.userEmail = userEmail;//set the user email to global variable
         }else{
             response.status(401).json({message:`Unauthorised`})
         }
+        
+
     })
     .catch(err => {
         response.status.json({ message: `User Not Found`})
@@ -64,9 +67,10 @@ router.post('/login',function (request,response) {
 //Endpoint to register
 
 router.post("/register", function (request, response) {
-    const userEmail = request.body.userEmail;
-    const userName = request.body.userName;
+    const userEmail = (request.body.userEmail).toLowerCase();
+    const userName = (request.body.userName).toLowerCase();
     const password = request.body.password;
+    console.log(userEmail)
 
     collectionLogin.find({ _id: userEmail }).toArray()
         .then(doc => {

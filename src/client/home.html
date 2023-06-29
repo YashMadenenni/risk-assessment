@@ -10,6 +10,7 @@
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="css/home.css">
+        <script src="./js/home.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -23,67 +24,50 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
                     <h2>Risk Assessment Form</h2>
                     <!-- form -->
-                    <div class="">
+                    <div class>
                         <!-- <form action="" method="post" class=""> -->
-                            <div class="row flex-column">
+                        <div class="row flex-column">
                             <div class="form-group mt-3 mb-3">
-                            <label for="activity">Activity Name:</label>
-                            <input type="activity" class="form-control-sm"
-                                id="activity" placeholder="Activity"
-                                name="activity">
-                        </div>
-                        <div class="form-group mb-3 col-sm-7  col-lg-3 ms-lg-4  text-center">
-                            <label for="date">Date:</label>
-                            <input type="date" class="form-control-sm">
-                        </div>
+                                <label for="activity">Activity Name:</label>
+                                <input type="activity" class="form-control-sm"
+                                    id="activity" placeholder="Activity"
+                                    name="activity">
+                            </div>
+                            <div
+                                class="form-group mb-3 col-sm-7  col-lg-3 ms-lg-4  text-center">
+                                <label for="date">Date:</label>
+                                <input type="date" class="form-control-sm">
+                            </div>
 
-                        <div class="form-group mb-3 activity-desc ms-3">
-                            <label for="activity-description">Description:</label>
-                            <textarea rows="5" class="form-control w-50 h-100 ms-1"></textarea>
+                            <div class="form-group mb-3 activity-desc ms-3">
+                                <label for="activity-description">Description:</label>
+                                <textarea rows="5"
+                                    class="form-control w-50 h-100 ms-1"></textarea>
+                            </div>
+
                         </div>
-                       
-                            
+                        <!-- table -->
+                        <div>
+                            <table class="table table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Risk Name</th>
+                                        <th>Casualties</th>
+                                        <th>Probability of occurance</th>
+                                        <th>Degree of severity</th>
+                                        <th>Risk Level</th>
+                                        <th>Control measure</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Risk Name</th>
-                                    <th>Casualties</th>
-                                    <th>Probability of occurance</th>
-                                    <th>Degree of severity</th>
-                                    <th>Risk Level</th>
-                                    <th>Control measure</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td class="d-flex"><input type="text" class="form-control">
-                                        <button class="btn-info mx-1 rounded-5">+</button></td>
-                                    <td><select class="form-select">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-
-                                        </select></td>
-                                    <td><select class="form-select">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-
-                                        </select></td>
-                                    <td><select class="form-select">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-
-                                        </select></td>
-                                    <td class="d-flex">
-                                        <input type="text" class="form-control">
-                                        <button class="btn-info rounded-5 mx-1">+</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <!-- tabel end -->
 
                         <!-- </form> -->
                     </div>
@@ -94,7 +78,106 @@
         </div>
 
         <!-- Risk Assessment form End -->
-
+<!-- table custom -->
+<div class="custom">
+    <h4>Custom</h4>
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>Risk Name</th>
+                <th>Casualties</th>
+                <th>Probability of occurance</th>
+                <th>Degree of severity</th>
+                <th>Risk Level</th>
+                <th>Control measure</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="form-control"></td>
+                <td class="d-flex"><input type="text" class="form-control">
+                    <button class="btn-info mx-1 rounded-5">+</button></td>
+                <td><select class="form-select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+    
+                    </select></td>
+                <td><select class="form-select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+    
+                    </select></td>
+                <td><select class="form-select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+    
+                    </select></td>
+                <td class="d-flex">
+                    <textarea type="text" class="form-control overflow-auto" ></textarea>
+                    <button class="btn-info rounded-5 mx-1">+</button></td>
+    
+                    <td>
+                        <button class="btn btn-outline-success">Add</button>
+                    </td>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+<!-- table custom end -->
+<!-- pre populated -->
+<div class="pre-populated">
+    <h4>Suggestions</h4>
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>Risk Name</th>
+                <th>Casualties</th>
+                <th>Probability of occurance</th>
+                <th>Degree of severity</th>
+                <th>Risk Level</th>
+                <th>Control measure</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="form-control"></td>
+                <td class="d-flex"><input type="text" class="form-control">
+                    <button class="btn-info mx-1 rounded-5">+</button></td>
+                <td><select class="form-select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+    
+                    </select></td>
+                <td><select class="form-select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+    
+                    </select></td>
+                <td><select class="form-select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+    
+                    </select></td>
+                <td class="d-flex">
+                    <textarea type="text" class="form-control overflow-auto" ></textarea>
+                    <button class="btn-info rounded-5 mx-1">+</button></td>
+    
+                    <td>
+                        <button class="btn btn-outline-success">Add</button>
+                    </td>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+<!-- pre populated end -->
         <!-- Footer -->
         <iframe src="footer.html" frameborder="0"></iframe>
         <!-- Footer End -->

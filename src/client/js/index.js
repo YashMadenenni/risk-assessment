@@ -8,12 +8,20 @@ async function login() {
     } else {
         const request = await fetch(`/user/login`, { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userEmail: email, password: password }) });
 
-        const respone = await (request.json());
-        console.log(respone.message);
+        // const respone = await (request.json());
+        // console.log(respone.message);
+        if (request.redirected) {
+            window.location.href = request.url;
+            
+          } else {
+            const response = await request.json();
+            console.log(response.message);
+            
+          }
 
-        if (request.ok) {
-            window.location.href = `http://localhost:8000/home.html`;
-        }
+        // if (request.ok) {
+        //     window.location.href = `http://localhost:8000/home.html`;
+        // }
     }
 
 

@@ -1,8 +1,10 @@
 const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
+router.use(express.static(path.join(__dirname, '../client')));
 
 // //MongoDB set up ans start server
 // //build url for client
@@ -37,30 +39,43 @@ client.connect()
     })
     .then(() => insertOneStarterDataLogin()) //invoke insert data for loading initial data
 
-
+ 
 
 //Login END points
 
 //Endpoint to login in with email and password
 
-router.post('/login',function (request,response) {
- const userEmail = (request.body.userEmail).toLowerCase();
- const password = request.body.password;
- 
- collectionLogin.find({_id:userEmail},{password:password}).toArray()
-    .then(doc => {
-        if(doc.length > 0) {
-            response.status(200).json({message: `Login Successful`});
-            //globalUser.userEmail = userEmail;//set the user email to global variable
-        }else{
-            response.status(401).json({message:`Unauthorised`})
-        }
-        
+router.post('/login', function (request, response) {
+    const userEmail = (request.body.userEmail).toLowerCase();
+    const password = request.body.password;
 
-    })
-    .catch(err => {
-        response.status.json({ message: `User Not Found`})
-    });
+    collectionLogin.find({ _id: userEmail }, { password: password }).toArray()
+        .then(doc => {
+            if (doc.length > 0) {
+
+                // Set session data
+                request.session.loggedIn = true;
+                request.session.userEmail = userEmail;
+
+                console.log('userEmail after setting session:', request.session.userEmail);
+
+                response.redirect('/home.html');
+                // Redirect after session values are saved
+                // request.session.save(() => {
+                //     response.redirect('/home.html');
+                // });
+                // response.status(200).json({ message: `Login Successful` });
+                //globalUser.userEmail = userEmail;//set the user email to global variable
+            } else {
+                response.status(401).json({ message: `Unauthorised` })
+            }
+
+
+        })
+        .catch(err => {
+            console.log(err);
+
+        });
 
 })
 
@@ -87,4 +102,10 @@ router.post("/register", function (request, response) {
         });
 })
 
-    module.exports = router;
+router.get('/email', (req, res) => {
+    const userEmail = req.session.userEmail;
+    console.log(userEmail);
+    res.json({ userEmail });
+});
+
+module.exports = router;

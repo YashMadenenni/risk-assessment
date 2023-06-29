@@ -4,7 +4,10 @@ const path = require("path");
 const API_PORT = 8000;
 const app = express();
 const login = require('./Login');
+const risks = require('./risks');
+const sessionMiddleware = require('./sessionMiddleware');
 
+app.use(sessionMiddleware);
 //Change to express sessions
 // const globalUser = {  
 //     userEmail : ""
@@ -49,4 +52,5 @@ client.connect()
 
 
 
- app.use('/user', login);
+app.use('/user', sessionMiddleware ,login);
+app.use('/risks', sessionMiddleware ,risks);

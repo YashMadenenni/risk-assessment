@@ -15,9 +15,11 @@ let collecttionRisks = null; // initially null
 //Insert some data for testing  
 const insertStarterDataRisks = async function () {
     return collecttionRisks.insertMany([
-        { _id: "test@gmail.com", userEmail: "test@gmail.com", userName: "Test", password: "test@123" },
-        { _id: "testNew@gmail.com", userEmail: "testNew@gmail.com", userName: "testNew", password: "testNew@123" },
-        // { _id: "yash@gmail.com", userEmail: "yash@gmail.com", userName: "Yash", password: "yash@123" }
+        {
+           _id:1, riskname: "Position of oven",risks:["Sited in traffic routes being knocked over "],probability:"1",severity:"1",riskLevel:"1",precautions:["oven is sited in an area free of vehicle and pedestrian traffic with access limited to staff that operate the equipment. ","A suitable barrier is positioned around the oven to keep children and visitors etc away from hot surfaces","A sheltered position is used to help eliminate wind and other natural elements from blowing across the oven causing food to spill and smoke/embers from blowing into people. ","Only designated people fuel used to light the oven following manufacturer’s instructions on the packaging. "]
+          },{
+           _id:2,riskname: "Firefighting equipment ",risks:["No provision to fight fire "],probability:"1",severity:"3",riskLevel:"1",precautions:[]
+          }
     ])
         .then(res => console.log("data inserted with ID", res.insertedIds))
         .catch(err => {
@@ -30,22 +32,24 @@ const insertStarterDataRisks = async function () {
 //connect to database
 client.connect()
     .then(connection => {
-        collecttionRisks = client.db().collection("login");
-        console.log("Login: Connected to Database Login");
+        collecttionRisks = client.db().collection("risks");
+        console.log("Risks: Connected to Database Risks");
     })
     .catch(err => {
-        console.log(`Error in connecting to Database Login ${url.replace(/:([^:@]{1,})@/, ':****@')}`, err);
+        console.log(`Error in connecting to Database Risks ${url.replace(/:([^:@]{1,})@/, ':****@')}`, err);
     })
     .then(() => insertStarterDataRisks()) //invoke insert data for loading initial data
 
  //Endpoint to return all risks
- router.get("/",function (request,response) {
+ router.get("/all",function (request,response) {
     collecttionRisks.find().toArray()
     .then(doc=>
         {
             try {
-                if(doc.length()>0){
-                    response.send(doc)
+                if(doc.length>0){
+                    response.send(doc);
+                }else{
+                    response.send("No documents");
                 }
             } catch (error) {
                 console.log(error);
@@ -54,3 +58,5 @@ client.connect()
         }
         )
  })
+
+ module.exports = router;

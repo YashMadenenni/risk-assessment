@@ -1,9 +1,0 @@
-{
-  "risks": [
-    {
-      "riskname": "Position of oven","risks":["Sited in traffic routes being knocked over "],"Probability":"1","Severity":"1","Risk Level":"1","precautions":["oven is sited in an area free of vehicle and pedestrian traffic with access limited to staff that operate the equipment. ","A suitable barrier is positioned around the oven to keep children and visitors etc away from hot surfaces","A sheltered position is used to help eliminate wind and other natural elements from blowing across the oven causing food to spill and smoke/embers from blowing into people. ","Only designated people fuel used to light the oven following manufacturer’s instructions on the packaging. "]
-    },{
-        "riskname": "Firefighting equipment ","risks":["No provision to fight fire "],"Probability":"1","Severity":"3","Risk Level":"1","precautions":[]
-    }
-  ]
-}

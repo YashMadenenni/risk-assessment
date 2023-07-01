@@ -53,4 +53,4 @@ client.connect()
 
 
 app.use('/user', sessionMiddleware ,login);
-app.use('/risks', sessionMiddleware ,risks);
+app.use('/risks',risks);

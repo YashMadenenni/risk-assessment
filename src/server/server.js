@@ -5,6 +5,7 @@ const API_PORT = 8000;
 const app = express();
 const login = require('./Login');
 const risks = require('./risks');
+const forms = require('./forms');
 const sessionMiddleware = require('./sessionMiddleware');
 
 app.use(sessionMiddleware);
@@ -54,3 +55,4 @@ client.connect()
 
 app.use('/user', sessionMiddleware ,login);
 app.use('/risks',risks);
+app.use('/forms',forms);

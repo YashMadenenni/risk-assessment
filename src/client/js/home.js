@@ -173,7 +173,18 @@ function addCustomRow(addButton) {
 }
 
 //function to submit form 
-function submitForm() {
+function submitForm(button) {
+
+    //get user 
+    var currentUrl = window.location.href;
+
+    //get query string from URL 
+    var queryString = currentUrl.split('?')[1];
+    var params = new URLSearchParams(queryString);
+    var userEmail = params.get("user");
+
+    console.log(userEmail);
+
     var activityName = document.getElementById("activity").value;
     var date = document.getElementById("formDate").value;
     var description = document.getElementById("formDescription").value;
@@ -185,13 +196,13 @@ function submitForm() {
     var riskData = [];
 
     for (let index = 0; index < rows.length; index++) {
-        const elementrow = array[index];
-        var riskName = elementrow.cells[0].innerHTML;
-        var casualties = elementrow.cells[1].innerHTML;
-        var probability = elementrow.cells[2].innerHTML;
-        var severity = elementrow.cells[3].innerHTML;
-        var riskLevel = elementrow.cells[4].innerHTML;
-        var controlMeasure = elementrow.cells[5].innerHTML;
+        const elementrow = rows[index];
+        var riskName = elementrow.cells[0].querySelector('label').innerHTML;
+        var casualties = elementrow.cells[1].querySelector('label').innerHTML;
+        var probability = elementrow.cells[2].querySelector('label').innerHTML;
+        var severity = elementrow.cells[3].querySelector('label').innerHTML;
+        var riskLevel = elementrow.cells[4].querySelector('label').innerHTML;
+        var controlMeasure = elementrow.cells[5].querySelector('label').innerHTML;
 
 
         var risk = {
@@ -207,14 +218,18 @@ function submitForm() {
     }
 
     var formData = {
+        userEmail:userEmail,
         activity: activityName,
         date: date,
         description: description,
         risks: riskData
     }
 
-    //POST Request 
-    fetch("/risk/submit",{
+    console.log(formData);
+
+    if (button == 'submit') {
+        //POST submit Request 
+    fetch("/forms/submit",{
         method:"POST",
         headers:{
             "Content-Type": "application/json"
@@ -229,4 +244,22 @@ function submitForm() {
     }).catch(error=>{
         console.log("Error in sending request",error);
     });
+    }else{
+        //POST save Request 
+    fetch("/forms/save",{
+        method:"POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify(formData)
+    }).then(response => {
+        if (response.ok) {
+            window.alert("Saved Successfully");
+        } else {
+            window.alert("Error Saving");
+        }
+    }).catch(error=>{
+        console.log("Error in request",error);
+    });
+    }
 }

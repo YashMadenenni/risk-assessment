@@ -59,12 +59,12 @@ router.post('/login', function (request, response) {
 
                 console.log('userEmail after setting session:', request.session.userEmail);
 
-                response.redirect('/home.html');
+                // response.redirect('/home.html');
                 // Redirect after session values are saved
                 // request.session.save(() => {
                 //     response.redirect('/home.html');
                 // });
-                // response.status(200).json({ message: `Login Successful` });
+                 response.status(200).json({ message: `Login Successful` });
                 //globalUser.userEmail = userEmail;//set the user email to global variable
             } else {
                 response.status(401).json({ message: `Unauthorised` })

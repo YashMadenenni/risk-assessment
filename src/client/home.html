@@ -20,7 +20,36 @@
     </head>
     <body>
         <!-- Header -->
-        <iframe src="header.html" frameborder="0" style="width: 100%; "></iframe>
+        <!-- <iframe src="header.html" frameborder="0" style="width: 100%; "></iframe> -->
+       
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a href="" class="navbar-brand">Risk Assessment</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav flex col-12">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="./home.html">New Form</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="./savedForms.html">Saved Forms</a>
+                        </li> -->
+                        <li class="nav-item dropdown ms-auto">
+                            <a class="nav-link dropdown-toggle  " role="button"
+                                data-bs-toggle="dropdown" href="#">Profile</a>
+                            <!-- <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"></a></li>
+                            </ul> -->
+                        </li>
+                    </ul>
+                  </div>
+                
+            </div>
+
+        </nav>
+       
         <!-- Header End -->
 
         <!-- Risk Assement form -->
@@ -74,8 +103,8 @@
 
                         <!-- tabel end -->
                         <div class="saveButton d-flex justify-content-center">
-                            <button class="btn btn-success m-3" onclick="submitForm()"> Submit </button>
-                            <button class="btn btn-dark m-3"> Save </button>
+                            <button class="btn btn-success m-3" onclick="submitForm('submit')"> Submit </button>
+                            <button class="btn btn-dark m-3" onclick="submitForm('save')"> Save </button>
                         </div>
                         <!-- </form> -->
                     </div>
@@ -87,6 +116,7 @@
 
         <!-- Risk Assessment form End -->
 <!-- table custom -->
+<button class="btn btn-info">Custom</button>
 <div class="container custom">
     <h4>Custom</h4>
     <table class="table table-bordered text-center">

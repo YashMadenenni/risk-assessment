@@ -104,7 +104,7 @@ router.post("/register", function (request, response) {
 
 router.get('/email', (req, res) => {
     const userEmail = req.session.userEmail;
-    console.log(userEmail);
+    //console.log(userEmail);
     res.json({ userEmail });
 });
 

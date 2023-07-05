@@ -1,4 +1,3 @@
-
 window.onload = function () {
     //set href for saved forms
     //get user 
@@ -12,9 +11,10 @@ window.onload = function () {
     console.log(userEmail);
 
     document.getElementById("home").href = "./home.html?user=" + userEmail;
+    document.getElementById("saved").href = "./saved.html?user=" + userEmail;
 
 
-    fetch(`/forms/saved/${userEmail}`, { method: 'GET' }).then(response => {
+    fetch(`/forms/submitted/${userEmail}`, { method: 'GET' }).then(response => {
         if (response.ok) {
             return response.json();
         } else {

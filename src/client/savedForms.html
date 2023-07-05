@@ -16,11 +16,36 @@
         <!-- JQuery CDN -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-        <script src="./js/home.js"></script>
+        <script src="./js/saved.js"></script>
     </head>
     <body>
-        <div class="savedForms">
-            Saved
-        </div>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a href="" class="navbar-brand">Risk Assessment</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav flex col-12">
+                        <li class="nav-item ">
+                            <a class="nav-link " href="./home.html" id="home">New Form</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Saved Forms</a>
+                        </li>
+                        <li class="nav-item dropdown ms-auto">
+                            <a class="nav-link dropdown-toggle  " role="button"
+                                data-bs-toggle="dropdown" href="#">Profile</a>
+                            <!-- <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"></a></li>
+                            </ul> -->
+                        </li>
+                    </ul>
+                  </div>
+                
+            </div>
+
+        </nav>
+       
     </body>
 </html>

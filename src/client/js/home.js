@@ -1,5 +1,19 @@
 window.onload = async function () {
 
+    //set href for saved forms
+    //get user 
+    var currentUrl = window.location.href;
+
+    //get query string from URL 
+    var queryString = currentUrl.split('?')[1];
+    var params = new URLSearchParams(queryString);
+    var userEmail = params.get("user");
+
+    console.log(userEmail);
+
+    document.getElementById("saved").href = "/savedForms.html?user="+userEmail;
+
+
     // const request = await fetch(`/user/email`, { method: "GET", });
     // const respone = await (request.json());
     // console.log(respone);
@@ -194,8 +208,8 @@ function submitForm(button) {
     var tbody = table.getElementsByTagName("tbody")[0];
     var rows = tbody.getElementsByTagName("tr");
     var riskData = [];
-
-    for (let index = 0; index < rows.length; index++) {
+if(rows.length>1){
+    for (let index = 1; index < rows.length; index++) {
         const elementrow = rows[index];
         var riskName = elementrow.cells[0].querySelector('label').innerHTML;
         var casualties = elementrow.cells[1].querySelector('label').innerHTML;
@@ -262,4 +276,6 @@ function submitForm(button) {
         console.log("Error in request",error);
     });
     }
+}
+    
 }

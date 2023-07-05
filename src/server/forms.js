@@ -87,4 +87,29 @@ router.post("/save", function (request, response) {
 });
 
 
+router.get('/saved/:user',function (request,response) {
+     console.log("here");
+    var userEmail = request.params.user;
+    console.log(userEmail)
+    collecttionFormsSave.find({_id:userEmail}).toArray()
+    .then(doc=>{
+        console.log(doc)
+        response.status(200).json({"saved":doc});
+    }).catch(err=>{ response.status(404).json({ message: "Error finding favourites" }); });
+
+})
+
+router.get('/submitted/:user',function (request,response) {
+    
+   var userEmail = request.params.user;
+   
+   collecttionForms.find({_id:userEmail}).toArray()
+   .then(doc=>{
+       console.log(doc)
+       response.status(200).json({"saved":doc});
+   }).catch(err=>{ response.status(404).json({ message: "Error finding favourites" }); });
+
+})
+
+
 module.exports = router;

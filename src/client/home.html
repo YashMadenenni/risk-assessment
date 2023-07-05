@@ -31,11 +31,11 @@
                   <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="navbar-nav flex col-12">
                         <li class="nav-item ">
-                            <a class="nav-link" href="./home.html">New Form</a>
+                            <a class="nav-link active" href="./home.html">New Form</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="./savedForms.html">Saved Forms</a>
-                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="./savedForms.html" id="saved">Saved Forms</a>
+                        </li>
                         <li class="nav-item dropdown ms-auto">
                             <a class="nav-link dropdown-toggle  " role="button"
                                 data-bs-toggle="dropdown" href="#">Profile</a>
@@ -96,7 +96,45 @@
                                     </tr>
                                 </thead>
                                 <tbody id="table-risk-body">
-                                    
+                                    <!-- customRow -->
+                                    <tr>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td class="d-flex flex-column" id="casual">
+                                            <div class="d-flex flex-row">
+                                                <input type="text" class="form-control">
+                                            <button class="btn btn-info mx-1 rounded-5" onclick="addTextField('casual')">+</button>
+                                            </div>
+                                        </td>
+                                        <td><select class="form-select" id="occurance">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                            
+                                            </select></td>
+                                        <td><select class="form-select" id="severity">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                            
+                                            </select></td>
+                                        <td><select class="form-select" id="riskLevel">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                            
+                                            </select></td>
+                                        <td class="d-flex flex-column" id="cntrlMeasures">
+                                        <div class="d-flex">
+                                            <textarea type="text" class="form-control overflow-auto" ></textarea>
+                                            <button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>
+                                        </div>    
+                                        </td>
+                            
+                                            <td>
+                                                <button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>
+                                            </td>
+                                    </tr>
+                                    <!-- customRow end -->
                                 </tbody>
                             </table>
                         </div>
@@ -116,7 +154,7 @@
 
         <!-- Risk Assessment form End -->
 <!-- table custom -->
-<button class="btn btn-info">Custom</button>
+<!-- <button class="btn btn-info">Custom</button>
 <div class="container custom">
     <h4>Custom</h4>
     <table class="table table-bordered text-center">
@@ -132,46 +170,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><input type="text" class="form-control"></td>
-                <td class="d-flex flex-column" id="casual">
-                    <div class="d-flex flex-row">
-                        <input type="text" class="form-control">
-                    <button class="btn btn-info mx-1 rounded-5" onclick="addTextField('casual')">+</button>
-                    </div>
-                </td>
-                <td><select class="form-select" id="occurance">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-    
-                    </select></td>
-                <td><select class="form-select" id="severity">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-    
-                    </select></td>
-                <td><select class="form-select" id="riskLevel">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-    
-                    </select></td>
-                <td class="d-flex flex-column" id="cntrlMeasures">
-                <div class="d-flex">
-                    <textarea type="text" class="form-control overflow-auto" ></textarea>
-                    <button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>
-                </div>    
-                </td>
-    
-                    <td>
-                        <button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>
-                    </td>
-            </tr>
+            
         </tbody>
     </table> 
-</div>
+</div> -->
 <!-- table custom end -->
 <!-- pre populated -->
 <div class="container pre-populated">

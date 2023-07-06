@@ -21,7 +21,7 @@ async function login() {
         
         if (request.ok) {
             window.location.href = `http://localhost:8000/home.html?user=`+encodeURIComponent(email);
-        }0
+        }
     }
 
 

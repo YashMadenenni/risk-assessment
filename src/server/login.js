@@ -2,10 +2,14 @@ const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+const cookieParser = require('cookie-parser');
+
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 router.use(express.static(path.join(__dirname, '../client')));
 
+
+router.use(cookieParser());
 // //MongoDB set up ans start server
 // //build url for client
 const url = `mongodb+srv://yashwanthkumarms11:WBQsOI0CMrzpUbQl@cluster0.zf3rn5p.mongodb.net/`;
@@ -58,13 +62,14 @@ router.post('/login', function (request, response) {
                 request.session.userEmail = userEmail;
 
                 console.log('userEmail after setting session:', request.session.userEmail);
+                console.log(request.session);
 
-                // response.redirect('/home.html');
+                //response.sendFile('home.html',{root:path.join(__dirname,"../client")});
                 // Redirect after session values are saved
                 // request.session.save(() => {
                 //     response.redirect('/home.html');
                 // });
-                 response.status(200).json({ message: `Login Successful` });
+                  response.status(200).json({ message: `Login Successful` });
                 //globalUser.userEmail = userEmail;//set the user email to global variable
             } else {
                 response.status(401).json({ message: `Unauthorised` })
@@ -104,7 +109,8 @@ router.post("/register", function (request, response) {
 
 router.get('/email', (req, res) => {
     const userEmail = req.session.userEmail;
-    //console.log(userEmail);
+    console.log(req.session);
+    console.log(userEmail);
     res.json({ userEmail });
 });
 

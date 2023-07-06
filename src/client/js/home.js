@@ -11,23 +11,49 @@ window.onload = async function () {
 
     console.log(userEmail);
 
-    document.getElementById("saved").href = "/savedForms.html?user="+userEmail;
+    document.getElementById("saved").href = "/savedForms.html?user=" + userEmail;
+    document.getElementById("userEmail").innerHTML += userEmail;
 
-
-    // const request = await fetch(`/user/email`, { method: "GET", });
-    // const respone = await (request.json());
-    // console.log(respone);
+    const request = await fetch(`/user/email`);
+    const respone = await (request.json());
+    console.log("Email ",respone);
 
     // Risks fetch request for filling suggestions
     const risksRequest = await fetch('/risks/all', { method: "GET" });
     const responseRisks = await (risksRequest.json());
     console.log(responseRisks);
+    getAllRisks(responseRisks) //helper method to get all pre filled risks
+
+
+
+
+}
+
+function getAllRisks(responseRisks) {
+
+
 
     responseRisks.forEach(element => {
         console.log(element.riskname);
-        const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text"></td>' + '<td><button class="btn btn-outline-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
+
+
+
+        const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-outline-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
         document.getElementById("suggestions").innerHTML += newRow;
 
+        //append control measures 
+        var controlList = document.createElement('ul')
+        var controlListArray = element.precautions;
+        controlListArray.forEach(controlMeasure => {
+            var ul = document.createElement('li');
+            ul.innerHTML = controlMeasure;
+            controlList.append(ul);
+        })
+        var controlListCell = document.getElementById(element.riskname);
+        controlListCell.appendChild(controlList);
+
+        const newOption = ' <option value="' + element.riskname + '" >' + element.riskname + '</option>';
+        document.getElementById("selectRiskName").innerHTML += newOption;
     });
 }
 
@@ -53,6 +79,7 @@ function addRowToMain(thisButton) {
 
 function deleteRowFromMain(thisButton) {
     var currentRow = thisButton.parentNode.parentNode;
+    console.log(currentRow);
     var newRow = createNewRow(currentRow);
 
 
@@ -68,7 +95,9 @@ function deleteRowFromMain(thisButton) {
     }
 
     // delete row from current table
-    document.getElementById("table-risk-body").deleteRow(currentRow);
+    var tableBody = document.getElementById("table-risk-body");
+    var rowIndex = currentRow.rowIndex;
+    tableBody.deleteRow(rowIndex - 1); // substract 1 because table rows starts from 0, whereas the rowIndex property returns the index starting from 1
 }
 
 
@@ -81,7 +110,7 @@ function createNewRow(thisRow) {
     var cells = thisRow.getElementsByTagName('td');
     //console.log(cells)
     for (var j = 0; j < cells.length; j++) {
-        rowData.push(cells[j].innerText);
+        rowData.push(cells[j].innerHTML);
     }
 
 
@@ -171,15 +200,22 @@ function addCustomRow(addButton) {
     for (var j = 0; j < controlMeasuresTextareas.length; j++) {
         controlMeasures.push(controlMeasuresTextareas[j].value);
     }
+
+    var controlMeasuresList = '';
+    for (var j = 0; j < controlMeasuresTextareas.length; j++) {
+        controlMeasuresList += '<li>' + controlMeasuresTextareas[j].value + '</li>';
+    }
+
+
     // Create a new row in the other table with the collected data
     var newRow = document.createElement('tr');
     newRow.innerHTML =
-        '<td>' + riskName + '</td>' +
-        '<td>' + possibleCasualties.join(', ') + '</td>' +
-        '<td>' + probability + '</td>' +
-        '<td>' + severity + '</td>' +
-        '<td>' + riskLevel + '</td>' +
-        '<td>' + controlMeasures.join(', ') + '</td>' +
+        '<td><label>' + riskName + '</label></td>' +
+        '<td><label>' + possibleCasualties.join(', ') + '</label></td>' +
+        '<td><label>' + probability + '</label></td>' +
+        '<td><label>' + severity + '</label></td>' +
+        '<td><label>' + riskLevel + '</label></td>' +
+        '<td><label>' + controlMeasuresList + '</label></td>' +
         '<td><button class="btn btn-danger " onclick="deleteRowFromMain(this)" id="custom"> X </button></td>';
     //   var newRow = createNewRow(tableRow);
     // append the new row to main table
@@ -208,74 +244,109 @@ function submitForm(button) {
     var tbody = table.getElementsByTagName("tbody")[0];
     var rows = tbody.getElementsByTagName("tr");
     var riskData = [];
-if(rows.length>1){
-    for (let index = 1; index < rows.length; index++) {
-        const elementrow = rows[index];
-        var riskName = elementrow.cells[0].querySelector('label').innerHTML;
-        var casualties = elementrow.cells[1].querySelector('label').innerHTML;
-        var probability = elementrow.cells[2].querySelector('label').innerHTML;
-        var severity = elementrow.cells[3].querySelector('label').innerHTML;
-        var riskLevel = elementrow.cells[4].querySelector('label').innerHTML;
-        var controlMeasure = elementrow.cells[5].querySelector('label').innerHTML;
+    if (rows.length > 1) {
+        for (let index = 1; index < rows.length; index++) {
+            const elementrow = rows[index];
+            var riskName = elementrow.cells[0].querySelector('label').innerHTML;
+            var casualties = elementrow.cells[1].querySelector('label').innerHTML;
+            var probability = elementrow.cells[2].querySelector('label').innerHTML;
+            var severity = elementrow.cells[3].querySelector('label').innerHTML;
+            var riskLevel = elementrow.cells[4].querySelector('label').innerHTML;
+            var controlMeasure = elementrow.cells[5].querySelector('label').innerHTML;
 
 
-        var risk = {
-            riskName: riskName,
-            casualties: casualties,
-            probability: probability,
-            severity: severity,
-            riskLevel: riskLevel,
-            controlMeasure: controlMeasure
+            var risk = {
+                riskName: riskName,
+                casualties: casualties,
+                probability: probability,
+                severity: severity,
+                riskLevel: riskLevel,
+                controlMeasure: controlMeasure
+            }
+
+            riskData.push(risk);
         }
 
-        riskData.push(risk);
-    }
+        var formData = {
+            userEmail: userEmail,
+            activity: activityName,
+            date: date,
+            description: description,
+            risks: riskData
+        }
 
-    var formData = {
-        userEmail:userEmail,
-        activity: activityName,
-        date: date,
-        description: description,
-        risks: riskData
-    }
+        console.log(formData);
 
-    console.log(formData);
-
-    if (button == 'submit') {
-        //POST submit Request 
-    fetch("/forms/submit",{
-        method:"POST",
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body:JSON.stringify(formData)
-    }).then(response => {
-        if (response.ok) {
-            window.alert("Submitted Successfully");
+        if (button == 'submit') {
+            //POST submit Request 
+            fetch("/forms/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            }).then(response => {
+                if (response.ok) {
+                    window.alert("Submitted Successfully");
+                } else {
+                    window.alert("Error Submitting");
+                }
+            }).catch(error => {
+                console.log("Error in sending request", error);
+            });
         } else {
-            window.alert("Error Submitting");
+            //POST save Request 
+            fetch("/forms/save", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            }).then(response => {
+                if (response.ok) {
+                    window.alert("Saved Successfully");
+                } else {
+                    window.alert("Error Saving");
+                }
+            }).catch(error => {
+                console.log("Error in request", error);
+            });
         }
-    }).catch(error=>{
-        console.log("Error in sending request",error);
-    });
-    }else{
-        //POST save Request 
-    fetch("/forms/save",{
-        method:"POST",
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body:JSON.stringify(formData)
-    }).then(response => {
-        if (response.ok) {
-            window.alert("Saved Successfully");
-        } else {
-            window.alert("Error Saving");
-        }
-    }).catch(error=>{
-        console.log("Error in request",error);
-    });
     }
+
 }
-    
+
+async function displaySuggestion(optionSelect) {
+    // Risks fetch request for  suggestions
+    const risksRequest = await fetch('/risks/all', { method: "GET" });
+    const responseRisks = await (risksRequest.json());
+
+    var rowsArray = responseRisks;
+    document.getElementById("suggestions").innerHTML = ""
+    if (optionSelect != "all") {
+
+
+        rowsArray.forEach(element => {
+
+            if (element.riskname == optionSelect) {
+                console.log(element);
+                const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-outline-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
+                document.getElementById("suggestions").innerHTML += newRow;
+                //append control measures 
+                var controlList = document.createElement('ul')
+                var controlListArray = element.precautions;
+                controlListArray.forEach(controlMeasure => {
+                    var ul = document.createElement('li');
+                    ul.innerHTML = controlMeasure;
+                    controlList.append(ul);
+                })
+                var controlListCell = document.getElementById(element.riskname);
+                controlListCell.appendChild(controlList);
+            }
+
+        })
+    } else {
+
+        getAllRisks(responseRisks)
+    }
 }

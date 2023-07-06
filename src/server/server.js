@@ -6,9 +6,13 @@ const app = express();
 const login = require('./Login');
 const risks = require('./risks');
 const forms = require('./forms');
+const cookieParser = require('cookie-parser');
 const sessionMiddleware = require('./sessionMiddleware');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(sessionMiddleware);
+ app.use(cookieParser());
 //Change to express sessions
 // const globalUser = {  
 //     userEmail : ""
@@ -53,6 +57,6 @@ client.connect()
 
 
 
-app.use('/user', sessionMiddleware ,login);
+app.use('/user' ,login);
 app.use('/risks',risks);
 app.use('/forms',forms);

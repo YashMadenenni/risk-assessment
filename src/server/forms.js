@@ -22,7 +22,7 @@ client.connect()
     })
     .catch(err => {
         console.log(`Error in connecting to Database Forms ${url.replace(/:([^:@]{1,})@/, ':****@')}`, err);
-    })
+    });
 
 
 
@@ -58,7 +58,7 @@ router.post("/submit", function (request, response) {
 
 router.post("/save", function (request, response) {
     var userEmail = request.body.userEmail;
-    var activity = request.body.activityName;
+    var activity = request.body.activity;
     var date = request.body.date;
     var description = request.body.description;
     var risks = request.body.risks;

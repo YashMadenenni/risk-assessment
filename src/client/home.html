@@ -17,6 +17,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
         <script src="./js/home.js"></script>
+        <!-- <script src="./js/helper.js"></script> -->
     </head>
     <body>
         <!-- Header -->
@@ -36,12 +37,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./savedForms.html" id="saved">Saved Forms</a>
                         </li>
-                        <li class="nav-item dropdown ms-auto">
+                        <li class="nav-item dropdown profile" >
                             <a class="nav-link dropdown-toggle  " role="button"
                                 data-bs-toggle="dropdown" href="#">Profile</a>
-                            <!-- <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#"></a></li>
-                            </ul> -->
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" id="userEmail"></a></li>
+                                <li><a class="dropdown-item" href="./index.html" id="userEmail">Logout</a></li>
+                            </ul>
                         </li>
                     </ul>
                   </div>
@@ -87,7 +89,7 @@
                                 <thead>
                                     <tr>
                                         <th>Risk Name</th>
-                                        <th>Casualties</th>
+                                        <th>Hazards</th>
                                         <th>Probability of occurance</th>
                                         <th>Degree of severity</th>
                                         <th>Risk Level</th>
@@ -161,7 +163,7 @@
         <thead>
             <tr>
                 <th>Risk Name</th>
-                <th>Possible Casualties</th>
+                <th>Possible Hazards</th>
                 <th>Probability of occurance</th>
                 <th>Degree of severity</th>
                 <th>Risk Level</th>
@@ -176,24 +178,32 @@
 </div> -->
 <!-- table custom end -->
 <!-- pre populated -->
-<div class="container pre-populated">
+<div class="container pre-populated ">
     <h4>Suggestions</h4>
-    <table class="table table-bordered text-center">
-        <thead>
-            <tr>
-                <th>Risk Name</th>
-                <th>Casualties</th>
-                <th>Probability of occurance</th>
-                <th>Degree of severity</th>
-                <th>Risk Level</th>
-                <th>Control measure</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="suggestions">
-            
-        </tbody>
-    </table> 
+     
+    <select name="RiskName" id="selectRiskName" class="" required="required" onchange="displaySuggestion(value)">
+        <option value="all">All</option>
+    </select>
+    
+
+    <div class=" overflow-auto" style="height: 500px;">
+        <table class="table table-bordered text-center h-25 overflow-auto">
+            <thead>
+                <tr>
+                    <th>Risk Name</th>
+                    <th>Hazards</th>
+                    <th>Probability of occurance</th>
+                    <th>Degree of severity</th>
+                    <th>Risk Level</th>
+                    <th>Control measure</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="suggestions">
+                
+            </tbody>
+        </table> 
+    </div>
 </div>
 <!-- pre populated end -->
         <!-- Footer -->

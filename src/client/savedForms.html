@@ -118,76 +118,97 @@
                                         <th>Degree of severity</th>
                                         <th>Risk Level</th>
                                         <th>Control measure</th>
-                                        <!-- <th>Action</th> -->
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-risk-body">
                                     <!-- customRow -->
-                                    <!-- <tr>
-                                        <td><input type="text"
-                                                class="form-control"></td>
-                                        <td class="d-flex flex-column"
-                                            id="casual">
+                                    <!-- customRow -->
+                                    <tr id="customRow" >
+                                        <td><input type="text" class="form-control" id="customRiskName"></td>
+                                        <td class="d-flex flex-column" id="casual">
                                             <div class="d-flex flex-row">
-                                                <input type="text"
-                                                    class="form-control">
-                                                <button
-                                                    class="btn btn-info mx-1 rounded-5"
-                                                    onclick="addTextField('casual')">+</button>
+                                                <input type="text" class="form-control" id="customRiskHazards">
+                                            <button class="btn btn-info mx-1 rounded-5" onclick="addTextField('casual')">+</button>
                                             </div>
                                         </td>
-                                        <td><select class="form-select"
-                                                id="occurance">
+                                        <td><select class="form-select" id="occurance">
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
-
+                            
                                             </select></td>
-                                        <td><select class="form-select"
-                                                id="severity">
+                                        <td><select class="form-select" id="severity">
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
-
+                            
                                             </select></td>
-                                        <td><select class="form-select"
-                                                id="riskLevel">
+                                        <td><select class="form-select" id="riskLevel">
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
-
+                            
                                             </select></td>
-                                        <td class="d-flex flex-column"
-                                            id="cntrlMeasures">
-                                            <div class="d-flex">
-                                                <textarea type="text"
-                                                    class="form-control overflow-auto"></textarea>
-                                                <button
-                                                    class="btn btn-info rounded-5 mx-1"
-                                                    onclick="addTextField()">+</button>
-                                            </div>
+                                        <td class="d-flex flex-column" id="cntrlMeasures">
+                                        <div class="d-flex">
+                                            <textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>
+                                            <button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>
+                                        </div>    
                                         </td>
-
-                                        <td>
-                                            <button
-                                                class="btn btn-outline-success"
-                                                onclick="addCustomRow(this)">Add</button>
-                                        </td>
-                                    </tr> -->
+                            
+                                            <td>
+                                                <button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>
+                                            </td>
+                                    </tr>
                                     <!-- customRow end -->
+
                                 </tbody>
                             </table>
                         </div>
+
+                        
 
                         <!-- tabel end -->
                         <div class="saveButton d-flex justify-content-center">
                             <button class="btn btn-success m-3"
                                 onclick="submitForm('submitSaved')"> Submit </button>
-                            <!-- <button class="btn btn-dark m-3"
-                                onclick="submitForm('save')"> Save </button> -->
-                                <button class="btn btn-info m-3" onclick="backToList()">Back</button>
+                            <button class="btn btn-info m-3"
+                                onclick="submitForm('save')"> Save </button>
+                                <button class="btn btn-dark m-3" onclick="backToList()">Back</button>
+                                <!-- <button class="btn btn-info m-3" onclick="editForm()">Edit</button> -->
                         </div>
                         <!-- </form> -->
+
+                        <!-- pre populated -->
+<div class="container pre-populated ">
+    <h4>Suggestions</h4>
+     
+    <select name="RiskName" id="selectRiskName" class="" required="required" onchange="displaySuggestion(value)">
+        <option value="all">All</option>
+    </select>
+    
+
+    <div class=" overflow-auto" style="height: 500px;">
+        <table class="table table-bordered text-center h-25 overflow-auto">
+            <thead>
+                <tr>
+                    <th>Risk Name</th>
+                    <th>Hazards</th>
+                    <th>Probability of occurance</th>
+                    <th>Degree of severity</th>
+                    <th>Risk Level</th>
+                    <th>Control measure</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="suggestions">
+                
+            </tbody>
+        </table> 
+    </div>
+</div>
+<!-- pre populated end -->
                     </div>
                     <!-- form end -->
                 </div>

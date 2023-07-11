@@ -61,8 +61,8 @@ router.post('/login', function (request, response) {
                 request.session.loggedIn = true;
                 request.session.userEmail = userEmail;
 
-                console.log('userEmail after setting session:', request.session.userEmail);
-                console.log(request.session);
+                // console.log('userEmail after setting session:', request.session.userEmail);
+                // console.log(request.session);
 
                 //response.sendFile('home.html',{root:path.join(__dirname,"../client")});
                 // Redirect after session values are saved
@@ -109,8 +109,8 @@ router.post("/register", function (request, response) {
 
 router.get('/email', (req, res) => {
     const userEmail = req.session.userEmail;
-    console.log(req.session);
-    console.log(userEmail);
+    // console.log(req.session);
+    // console.log(userEmail);
     res.json({ userEmail });
 });
 

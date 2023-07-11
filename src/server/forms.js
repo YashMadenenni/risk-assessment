@@ -32,11 +32,12 @@ router.post("/submit", function (request, response) {
     var date = request.body.date;
     var description = request.body.description;
     var risks = request.body.risks;
+    var approval = false;
 
     collecttionForms.find({ _id: userEmail }).toArray()
         .then(doc => {
             if (doc.length == 0) {
-                collecttionForms.insertOne({ _id: userEmail, activity: [{ activityName: activity, date: date, description: description, risks: risks }] });
+                collecttionForms.insertOne({ _id: userEmail, activity: [{ activityName: activity, date: date, description: description, risks: risks ,approval:approval}] });
                 response.status(200).json({ message: "Success" });
 
             } else {

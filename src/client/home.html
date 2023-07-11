@@ -37,6 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./savedForms.html" id="saved">Saved Forms</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./history.html" id="history">History</a>
+                        </li>
                         <li class="nav-item dropdown profile" >
                             <a class="nav-link dropdown-toggle  " role="button"
                                 data-bs-toggle="dropdown" href="#">Profile</a>
@@ -99,11 +102,11 @@
                                 </thead>
                                 <tbody id="table-risk-body">
                                     <!-- customRow -->
-                                    <tr>
-                                        <td><input type="text" class="form-control"></td>
+                                    <tr id="customRow">
+                                        <td><input type="text" class="form-control" id="customRiskName"></td>
                                         <td class="d-flex flex-column" id="casual">
                                             <div class="d-flex flex-row">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" id="customRiskHazards">
                                             <button class="btn btn-info mx-1 rounded-5" onclick="addTextField('casual')">+</button>
                                             </div>
                                         </td>
@@ -127,7 +130,7 @@
                                             </select></td>
                                         <td class="d-flex flex-column" id="cntrlMeasures">
                                         <div class="d-flex">
-                                            <textarea type="text" class="form-control overflow-auto" ></textarea>
+                                            <textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>
                                             <button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>
                                         </div>    
                                         </td>

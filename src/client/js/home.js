@@ -16,20 +16,21 @@ window.onload = async function () {
 
     const request = await fetch(`/user/email`);
     const respone = await (request.json());
-    console.log("Email ",respone);
+    console.log("Email ", respone);
 
     // Risks fetch request for filling suggestions
     const risksRequest = await fetch('/risks/all', { method: "GET" });
     const responseRisks = await (risksRequest.json());
     console.log(responseRisks);
-    getAllRisks(responseRisks) //helper method to get all pre filled risks
+    getAllRisks(responseRisks, "onload") //helper method to get all pre filled risks
 
 
 
 
 }
 
-function getAllRisks(responseRisks) {
+//caller checks if the function is called from displaySuggestion to prevent redisplay of dropdown options
+function getAllRisks(responseRisks, caller) {
 
 
 
@@ -52,8 +53,10 @@ function getAllRisks(responseRisks) {
         var controlListCell = document.getElementById(element.riskname);
         controlListCell.appendChild(controlList);
 
-        const newOption = ' <option value="' + element.riskname + '" >' + element.riskname + '</option>';
-        document.getElementById("selectRiskName").innerHTML += newOption;
+        if (caller != "all") {
+            const newOption = ' <option value="' + element.riskname + '" >' + element.riskname + '</option>';
+            document.getElementById("selectRiskName").innerHTML += newOption;
+        }
     });
 }
 
@@ -67,6 +70,7 @@ function addRowToMain(thisButton) {
     // add new button for remove row
     var dataCell = document.createElement('td');
     dataCell.innerHTML += '<button class="btn btn-danger" onclick="deleteRowFromMain(this)"> X </button>'
+    dataCell.innerHTML += '<button class="btn btn-info text-white my-3" onclick="editRowInMain(this)"> Edit </button>'
     newRow.appendChild(dataCell);
 
     // append the new row to main table
@@ -74,7 +78,76 @@ function addRowToMain(thisButton) {
     // console.log(rowData);
 
     // delete row from current table
-    document.getElementById("suggestions").deleteRow(thisRow);
+   // document.getElementById("suggestions").deleteRow(thisRow);
+
+    // delete row from current table
+    var tableBody = document.getElementById("suggestions");
+    var rowIndex = thisRow.rowIndex;
+    tableBody.deleteRow(rowIndex - 1);
+}
+
+function editRowInMain(thisButton) {
+    document.getElementById("cntrlMeasures").innerHTML = '<div class="d-flex">' +
+        '<textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>' +
+        '<button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>' +
+        '</div>';
+    var currentRow = thisButton.parentNode.parentNode;
+    console.log(currentRow);
+
+    // delete row from current table
+    var tableBody = document.getElementById("table-risk-body");
+    var rowIndex = currentRow.rowIndex;
+    tableBody.deleteRow(rowIndex - 1); // substract 1 because table rows starts from 0, whereas the rowIndex property returns the index starting from 1
+
+    var rowData = [];
+    var rowCells = currentRow.getElementsByTagName('td');
+    for (var j = 0; j < rowCells.length; j++) {
+        rowData.push(rowCells[j].innerText);
+    }
+
+    var controlMeasures = [];
+    var controlMeasuresTextareas = rowCells[5].querySelector('label').querySelector('label').querySelector('ul').querySelectorAll('li');
+    document.getElementById("customControlMeasures").value = controlMeasuresTextareas[0].innerHTML // put the first value to exsisting textarea
+    
+    for (var j = 1; j < controlMeasuresTextareas.length; j++) {
+       
+        controlMeasures.push(controlMeasuresTextareas[j].innerHTML);
+
+
+        //add new text feild
+        var newTextfield = document.createElement("textarea");
+        newTextfield.className = "form-control me-2";
+        newTextfield.type = "text";
+        newTextfield.style = "margin-top:4px; margin-right";
+        newTextfield.innerHTML = controlMeasuresTextareas[j].innerHTML //append the value 
+
+        var newDiv = document.createElement('div');
+        newDiv.appendChild(newTextfield);
+        // newDiv.appendChild(buttonRemove);
+        newDiv.innerHTML += '<button class="btn btn-info rounded-5" onclick="removeTextField(this)"> - </button>'
+        newDiv.className = "d-flex";
+
+        var currentNode = document.getElementById("cntrlMeasures");
+
+        currentNode.append(newDiv);
+
+    }
+
+    console.log(controlMeasures)
+
+
+
+    console.log(rowData);
+    //set values to custom row in main
+    document.getElementById("customRiskName").value = rowData[0]
+    document.getElementById("customRiskHazards").value = rowData[1]
+    document.getElementById("occurance").value = rowData[2]
+    document.getElementById("severity").value = rowData[3]
+    document.getElementById("riskLevel").value = rowData[4]
+    
+    // document.getElementById()
+
+
 }
 
 function deleteRowFromMain(thisButton) {
@@ -129,7 +202,7 @@ function createNewRow(thisRow) {
 }
 
 
-//function to add additional text field for casualties and control measures.
+//function to add additional text field for hazards/casualties and control measures.
 function addTextField(type) {
     var newTextfield;
 
@@ -144,21 +217,11 @@ function addTextField(type) {
     newTextfield.type = "text";
     newTextfield.style = "margin-top:4px; margin-right";
 
-    // var buttonRemove = document.createElement("button");
-    // buttonRemove.innerHTML ="-";
-    // buttonRemove.type="button"
-    // buttonRemove.className ="btn btn-info rounded-5"
-    // buttonRemove.onclick = removeTextField(this);
-
-
-
     var newDiv = document.createElement('div');
     newDiv.appendChild(newTextfield);
     // newDiv.appendChild(buttonRemove);
     newDiv.innerHTML += '<button class="btn btn-info rounded-5" onclick="removeTextField(this)"> - </button>'
     newDiv.className = "d-flex";
-
-
 
     //Check if the column is casual or control measures
     if (type === "casual") {
@@ -215,8 +278,10 @@ function addCustomRow(addButton) {
         '<td><label>' + probability + '</label></td>' +
         '<td><label>' + severity + '</label></td>' +
         '<td><label>' + riskLevel + '</label></td>' +
-        '<td><label>' + controlMeasuresList + '</label></td>' +
-        '<td><button class="btn btn-danger " onclick="deleteRowFromMain(this)" id="custom"> X </button></td>';
+        '<td><label><label><ul>' + controlMeasuresList + '</ul></label></label></td>' +
+        '<td><button class="btn btn-danger " onclick="deleteRowFromMain(this)" id="custom"> X </button>'+
+        '<button class="btn btn-info my-3" onclick="editRowInMain(this)" id="custom"> Edit </button>'
+        '</td>';
     //   var newRow = createNewRow(tableRow);
     // append the new row to main table
     document.getElementById("table-risk-body").appendChild(newRow);
@@ -252,8 +317,8 @@ function submitForm(button) {
             var probability = elementrow.cells[2].querySelector('label').innerHTML;
             var severity = elementrow.cells[3].querySelector('label').innerHTML;
             var riskLevel = elementrow.cells[4].querySelector('label').innerHTML;
-            var controlMeasure = elementrow.cells[5].querySelector('label').innerHTML;
-
+            var controlMeasure = elementrow.cells[5].querySelector('label').querySelector('label').innerHTML;
+            
 
             var risk = {
                 riskName: riskName,
@@ -346,7 +411,6 @@ async function displaySuggestion(optionSelect) {
 
         })
     } else {
-
-        getAllRisks(responseRisks)
+        getAllRisks(responseRisks, "all");
     }
 }

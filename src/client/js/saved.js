@@ -52,6 +52,9 @@ window.onload = function () {
 }
 
 function viewForm(activityThis) {
+
+    
+
     var selectedActivity = activityThis;
     console.log(selectedActivity);
     console.log(globalForms);
@@ -63,7 +66,9 @@ function viewForm(activityThis) {
         displayForm(element);
     }
     })
-   })
+   });
+
+   loadRisksContent(); //invoke the method in helper.js 
 
 }
 
@@ -72,6 +77,7 @@ function displayForm(formData){
     var date = formData.date;
     var description = formData.description;
     var risksArray = formData.risks;
+    //reset
 
     document.getElementById("activity").value = activity;
     document.getElementById("formDate").value = date;
@@ -79,7 +85,9 @@ function displayForm(formData){
     
     risksArray.forEach(element => {
         console.log(element.riskName);
-        const newRow = ' <tr ><td><label type="text">' + element.riskName + '</td>' + '<td><label type="text">' + element.casualties + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text">'+element.controlMeasure+'</td></tr>'
+        const newRow = ' <tr ><td><label type="text">' + element.riskName + '</td>' + '<td><label type="text">' + element.casualties + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text">'+element.controlMeasure+'</td><td><button class="btn btn-danger " onclick="deleteRowFromMain(this)" id="custom"> X </button>'+
+        '<button class="btn btn-info my-3" onclick="editRowInMain(this)" id="custom"> Edit </button>'
+        '</td></tr>'
         document.getElementById("table-risk-body").innerHTML += newRow;
 
     });
@@ -91,4 +99,52 @@ function displayForm(formData){
 function backToList() {
     document.getElementById("formDisplayBody").style = "display:none";
     document.getElementById("savedForms").style = "display:block";
+
+    resetForm();
+
+}
+
+function resetForm() {
+    document.getElementById("suggestions").innerHTML = "";
+    document.getElementById("selectRiskName").innerHTML = '<option value="all">All</option>';
+
+
+    document.getElementById('table-risk-body').innerHTML = '<tr id="customRow" > '+
+    '<td><input type="text" class="form-control" id="customRiskName"></td>'+
+    '<td class="d-flex flex-column" id="casual">'+
+        '<div class="d-flex flex-row">'+
+         '   <input type="text" class="form-control" id="customRiskHazards">'+
+        '<button class="btn btn-info mx-1 rounded-5" onclick="addTextField("casual")">+</button>'+
+        '</div>'+
+    '</td>'+
+    '<td><select class="form-select" id="occurance">'+
+            '<option>1</option>'+
+            '<option>2</option>'+
+            '<option>3</option>'+
+
+        '</select></td>'+
+    '<td><select class="form-select" id="severity">'+
+            '<option>1</option>'+
+            '<option>2</option>'+
+            '<option>3</option>'+
+
+        '</select></td>'+
+    '<td><select class="form-select" id="riskLevel">'+
+            '<option>1</option>'+
+            '<option>2</option>'+
+            '<option>3</option>'+
+
+        '</select></td>'+
+    '<td class="d-flex flex-column" id="cntrlMeasures">'+
+    '<div class="d-flex">'+
+        '<textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>'+
+        '<button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>'+
+    '</div>    '+
+    '</td>'+
+
+        '<td>'+
+            '<button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>'+
+        '</td>'+
+'</tr>'
+
 }

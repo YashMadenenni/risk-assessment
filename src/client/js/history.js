@@ -17,7 +17,7 @@ window.onload = function () {
     // document.getElementById("home").href = "./home.html?user=" + userEmail;
     // document.getElementById("userEmail").innerHTML += userEmail;
 
-    fetch(`/forms/submitted/${userEmail}`, { method: 'GET' }).then(response => {
+    fetch(`/forms/submitted/test@gmail.com`, { method: 'GET' }).then(response => {
         if (response.ok) {
             return response.json();
         } else {
@@ -40,7 +40,7 @@ window.onload = function () {
                 const elementActivity = activity[activityIndex]; //each activity
                 console.log(elementActivity);
 
-                document.getElementById("savedFormsTable").innerHTML += `<tr onclick="viewForm('${elementActivity.activityName}')"><td>`+elementActivity.activityName+`</td><td>`+elementActivity.date+`</td><td>`+elementActivity.description+`</td></tr>`;
+                document.getElementById("submittedFormsTable").innerHTML += `<tr onclick="viewForm('${elementActivity.activityName}')"><td>`+elementActivity.activityName+`</td><td>`+elementActivity.date+`</td><td>`+elementActivity.description+`</td><td>`+elementActivity.approval+`</td></tr>`;
                 
             }
 
@@ -49,4 +49,55 @@ window.onload = function () {
         .catch(error => {
             console.log("error" + error);
         });
+}
+
+function viewForm(activityThis) {
+
+    
+
+    var selectedActivity = activityThis;
+    console.log(selectedActivity);
+    console.log(globalForms);
+   globalForms.forEach(element =>{
+    element.forEach(element =>{
+        
+    if(element.activityName == selectedActivity){
+        console.log(element);
+        displayForm(element);
+    }
+    })
+   });
+
+   loadRisksContent(); //invoke the method in helper.js 
+
+}
+
+function displayForm(formData){
+    var activity = formData.activityName;
+    var date = formData.date;
+    var description = formData.description;
+    var risksArray = formData.risks;
+    //reset
+
+    document.getElementById("activity").value = activity;
+    document.getElementById("formDate").value = date;
+    document.getElementById("formDescription").innerHTML = description;
+    
+    risksArray.forEach(element => {
+        console.log(element.riskName);
+        const newRow = ' <tr ><td><label type="text">' + element.riskName + '</td>' + '<td><label type="text">' + element.casualties + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text">'+element.controlMeasure+'</td></tr>'
+        document.getElementById("table-risk-body").innerHTML += newRow;
+
+    });
+
+    document.getElementById("formDisplayBody").style = "display:block";
+    document.getElementById("submittedForms").style = "display:none";
+}
+
+function backToList() {
+    document.getElementById("formDisplayBody").style = "display:none";
+    document.getElementById("savedForms").style = "display:block";
+
+    //resetForm();
+
 }

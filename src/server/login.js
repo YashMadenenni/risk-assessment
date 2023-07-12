@@ -15,6 +15,7 @@ router.use(cookieParser());
 const url = `mongodb+srv://yashwanthkumarms11:WBQsOI0CMrzpUbQl@cluster0.zf3rn5p.mongodb.net/`;
 const client = new MongoClient(url, { useUnifiedTopology: true });
 let collectionLogin = null; // initially null
+let collectionLoginAdmin = null;
 
 //Insert some data for testing  
 const insertOneStarterDataLogin = async function () {
@@ -31,18 +32,31 @@ const insertOneStarterDataLogin = async function () {
         })
 }
 
+//Insert some data for testing  
+const insertOneStarterDataLoginAdmin = async function () {
+    return collectionLogin.insertMany([
+        { _id: "test@gmail.com", userEmail: "test@gmail.com", userName: "Test", password: "test@123" },
+    ])
+        .then(res => console.log("data inserted with ID", res.insertedIds))
+        .catch(err => {
+            console.log("Could not add data ", err.message);
+            //For now, ingore duplicate entry errors, otherwise re-throw the error for the next catch
+            if (err.name != 'MongoBulkWriteError' || err.code != 11000) throw err;
+        })
+}
 
 //connect to database
 client.connect()
     .then(connection => {
         collectionLogin = client.db().collection("login");
+        collectionLoginAdmin = client.db().collection("loginAdmin");
         console.log("Login: Connected to Database Login");
     })
     .catch(err => {
         console.log(`Error in connecting to Database Login ${url.replace(/:([^:@]{1,})@/, ':****@')}`, err);
     })
     .then(() => insertOneStarterDataLogin()) //invoke insert data for loading initial data
-
+    .then(()=>insertOneStarterDataLoginAdmin()) //add admin data 
  
 
 //Login END points
@@ -52,8 +66,9 @@ client.connect()
 router.post('/login', function (request, response) {
     const userEmail = (request.body.userEmail).toLowerCase();
     const password = request.body.password;
-
-    collectionLogin.find({ _id: userEmail }, { password: password }).toArray()
+    const admin = "admin";
+    if(admin != "admin"){
+        collectionLogin.find({ _id: userEmail }, { password: password }).toArray()
         .then(doc => {
             if (doc.length > 0) {
 
@@ -81,6 +96,30 @@ router.post('/login', function (request, response) {
             console.log(err);
 
         });
+    }else{
+        collectionLogin.find({ _id: userEmail }, { password: password }).toArray()
+        .then(doc => {
+            if (doc.length > 0) {
+
+                // Set session data
+                request.session.loggedIn = true;
+                request.session.userEmail = userEmail;
+
+                
+                  response.status(200).json({ message: `Login Successful` });
+                
+                response.status(401).json({ message: `Unauthorised` })
+            }
+
+
+        })
+        .catch(err => {
+            console.log(err);
+
+        });
+    }
+
+    
 
 })
 

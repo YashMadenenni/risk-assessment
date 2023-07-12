@@ -28,7 +28,7 @@ client.connect()
 
 router.post("/submit", function (request, response) {
     var userEmail = request.body.userEmail;
-    var activity = request.body.activityName;
+    var activity = request.body.activity;
     var date = request.body.date;
     var description = request.body.description;
     var risks = request.body.risks;

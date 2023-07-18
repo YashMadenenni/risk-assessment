@@ -2,22 +2,17 @@
 //global value that stores all forms 
 var globalForms=[];
 
-window.onload = function () {
-    //set href for saved forms
-    //get user 
-    var currentUrl = window.location.href;
+// window.onload = 
 
-    //get query string from URL 
-    var queryString = currentUrl.split('?')[1];
-    var params = new URLSearchParams(queryString);
-    var userEmail = params.get("user");
 
-    console.log(userEmail);
+async function getSavedForms() {
+    
+    // const request = await fetch(`/user/email`);
+    // const respone = await (request.json());
+    // console.log("Email ", respone.userEmail);
+    // document.getElementById("userEmail").innerHTML += respone.userEmail;
 
-    document.getElementById("home").href = "./home.html?user=" + userEmail;
-    document.getElementById("userEmail").innerHTML += userEmail;
-
-    fetch(`/forms/saved/${userEmail}`, { method: 'GET' }).then(response => {
+    fetch(`/forms/saved/`, { method: 'GET' }).then(response => {
         if (response.ok) {
             return response.json();
         } else {
@@ -40,7 +35,7 @@ window.onload = function () {
                 const elementActivity = activity[activityIndex]; //each activity
                 console.log(elementActivity);
 
-                document.getElementById("savedFormsTable").innerHTML += `<tr onclick="viewForm('${elementActivity.activityName}')"><td>`+elementActivity.activityName+`</td><td>`+elementActivity.date+`</td><td>`+elementActivity.description+`</td></tr>`;
+                document.getElementById("savedFormsTable").innerHTML += `<tr onclick="viewForm('${elementActivity.activityName}')"><td  class="col-3">`+elementActivity.activityName+`</td><td  class="col-3">`+elementActivity.date+`</td><td  class="col-6">`+elementActivity.description+`</td></tr>`;
                 
             }
 
@@ -84,7 +79,8 @@ function displayForm(formData){
     document.getElementById("formDescription").innerHTML = description;
     
     risksArray.forEach(element => {
-        console.log(element.riskName);
+        console.log(element.controlMeasure);
+        
         const newRow = ' <tr ><td><label type="text">' + element.riskName + '</td>' + '<td><label type="text">' + element.casualties + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text">'+element.controlMeasure+'</td><td><button class="btn btn-danger " onclick="deleteRowFromMain(this)" id="custom"> X </button>'+
         '<button class="btn btn-info my-3" onclick="editRowInMain(this)" id="custom"> Edit </button>'
         '</td></tr>'
@@ -97,54 +93,56 @@ function displayForm(formData){
 }
 
 function backToList() {
-    document.getElementById("formDisplayBody").style = "display:none";
-    document.getElementById("savedForms").style = "display:block";
-
-    resetForm();
-
-}
-
-function resetForm() {
-    document.getElementById("suggestions").innerHTML = "";
-    document.getElementById("selectRiskName").innerHTML = '<option value="all">All</option>';
-
-
-    document.getElementById('table-risk-body').innerHTML = '<tr id="customRow" > '+
-    '<td><input type="text" class="form-control" id="customRiskName"></td>'+
-    '<td class="d-flex flex-column" id="casual">'+
-        '<div class="d-flex flex-row">'+
-         '   <input type="text" class="form-control" id="customRiskHazards">'+
-        '<button class="btn btn-info mx-1 rounded-5" onclick="addTextField("casual")">+</button>'+
-        '</div>'+
-    '</td>'+
-    '<td><select class="form-select" id="occurance">'+
-            '<option>1</option>'+
-            '<option>2</option>'+
-            '<option>3</option>'+
-
-        '</select></td>'+
-    '<td><select class="form-select" id="severity">'+
-            '<option>1</option>'+
-            '<option>2</option>'+
-            '<option>3</option>'+
-
-        '</select></td>'+
-    '<td><select class="form-select" id="riskLevel">'+
-            '<option>1</option>'+
-            '<option>2</option>'+
-            '<option>3</option>'+
-
-        '</select></td>'+
-    '<td class="d-flex flex-column" id="cntrlMeasures">'+
-    '<div class="d-flex">'+
-        '<textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>'+
-        '<button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>'+
-    '</div>    '+
-    '</td>'+
-
-        '<td>'+
-            '<button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>'+
-        '</td>'+
-'</tr>'
+    // document.getElementById("formDisplayBody").style = "display:none";
+    // document.getElementById("savedForms").style = "display:block";
+location.reload()
+    //resetForm();
 
 }
+
+// function resetForm() {
+//     document.getElementById("suggestions").innerHTML = "";
+//     document.getElementById("selectRiskName").innerHTML = '<option value="all">All</option>';
+
+
+//     document.getElementById('table-risk-body').innerHTML = '<tr id="customRow" > '+
+//     '<td><input type="text" class="form-control" id="customRiskName"></td>'+
+//     '<td class="d-flex flex-column" id="casual">'+
+//         '<div class="d-flex flex-row">'+
+//          '   <input type="text" class="form-control" id="customRiskHazards">'+
+//         '<button class="btn btn-info mx-1 rounded-5" onclick="addTextField("casual")">+</button>'+
+//         '</div>'+
+//     '</td>'+
+//     '<td><select class="form-select" id="occurance">'+
+//             '<option>1</option>'+
+//             '<option>2</option>'+
+//             '<option>3</option>'+
+
+//         '</select></td>'+
+//     '<td><select class="form-select" id="severity">'+
+//             '<option>1</option>'+
+//             '<option>2</option>'+
+//             '<option>3</option>'+
+
+//         '</select></td>'+
+//     '<td><select class="form-select" id="riskLevel">'+
+//             '<option>1</option>'+
+//             '<option>2</option>'+
+//             '<option>3</option>'+
+
+//         '</select></td>'+
+//     '<td class="d-flex flex-column" id="cntrlMeasures">'+
+//     '<div class="d-flex">'+
+//         '<textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>'+
+//         '<button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>'+
+//     '</div>    '+
+//     '</td>'+
+
+//         '<td>'+
+//             '<button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>'+
+//         '</td>'+
+// '</tr>'
+
+// }
+
+window.onload = () => createHeader(getSavedForms,"saved");

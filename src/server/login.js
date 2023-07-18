@@ -34,8 +34,8 @@ const insertOneStarterDataLogin = async function () {
 
 //Insert some data for testing  
 const insertOneStarterDataLoginAdmin = async function () {
-    return collectionLogin.insertMany([
-        { _id: "test@gmail.com", userEmail: "test@gmail.com", userName: "Test", password: "test@123" },
+    return collectionLoginAdmin.insertMany([
+        { _id: "testadmin@gmail.com", userEmail: "testadmin@gmail.com", userName: "Test", password: "test@123" },
     ])
         .then(res => console.log("data inserted with ID", res.insertedIds))
         .catch(err => {
@@ -56,8 +56,8 @@ client.connect()
         console.log(`Error in connecting to Database Login ${url.replace(/:([^:@]{1,})@/, ':****@')}`, err);
     })
     .then(() => insertOneStarterDataLogin()) //invoke insert data for loading initial data
-    .then(()=>insertOneStarterDataLoginAdmin()) //add admin data 
- 
+    .then(() => insertOneStarterDataLoginAdmin()) //add admin data 
+
 
 //Login END points
 
@@ -66,60 +66,68 @@ client.connect()
 router.post('/login', function (request, response) {
     const userEmail = (request.body.userEmail).toLowerCase();
     const password = request.body.password;
-    const admin = "admin";
-    if(admin != "admin"){
+    const isAdmin = request.body.isAdmin;
+
+    if (isAdmin) {
+        collectionLoginAdmin.find({ _id: userEmail }, { password: password }).toArray()
+            .then(doc => {
+                if (doc.length > 0) {
+
+                    // Set session data
+                    request.session.loggedIn = true;
+                    request.session.userEmail = userEmail;
+                    request.session.isAdmin = true;
+
+                    console.log('userEmail after setting session:', request.session.userEmail);
+                    console.log(request.session);
+
+                    //response.sendFile('home.html',{root:path.join(__dirname,"../client")});
+                    // Redirect after session values are saved
+                    // request.session.save(() => {
+                        response.redirect('/home.html');
+                    // });
+                   // response.status(200).json({ message: `Login Successful` });
+                    //globalUser.userEmail = userEmail;//set the user email to global variable
+                } else {
+                    response.status(401).json({ message: `Unauthorised` })
+                }
+
+
+            })
+            .catch(err => {
+                console.log(err);
+
+            });
+    } else {
         collectionLogin.find({ _id: userEmail }, { password: password }).toArray()
-        .then(doc => {
-            if (doc.length > 0) {
+            .then(doc => {
+                if (doc.length > 0) {
 
-                // Set session data
-                request.session.loggedIn = true;
-                request.session.userEmail = userEmail;
+                    // Set session data
+                    request.session.loggedIn = true;
+                    request.session.userEmail = userEmail;
+                    request.session.isAdmin = false;
 
-                // console.log('userEmail after setting session:', request.session.userEmail);
-                // console.log(request.session);
+                    console.log('userEmail after setting session:', request.session.userEmail);
+                    console.log(request.session);
 
-                //response.sendFile('home.html',{root:path.join(__dirname,"../client")});
-                // Redirect after session values are saved
-                // request.session.save(() => {
-                //     response.redirect('/home.html');
-                // });
-                  response.status(200).json({ message: `Login Successful` });
-                //globalUser.userEmail = userEmail;//set the user email to global variable
-            } else {
-                response.status(401).json({ message: `Unauthorised` })
-            }
+                    // response.sendFile('home.html',{root:path.join(__dirname,"../client")});
+                    // Redirect after session values are saved
+                    // request.session.save(() => {
+                        response.redirect('/home.html');
+                    // });
+                   // response.status(200).json({ message: `Login Successful` });
+                    //globalUser.userEmail = userEmail;//set the user email to global variable
+                } else {
+                    response.status(401).json({ message: `Unauthorised` })
+                }
 
+            })
+            .catch(err => {
+                console.log(err);
 
-        })
-        .catch(err => {
-            console.log(err);
-
-        });
-    }else{
-        collectionLogin.find({ _id: userEmail }, { password: password }).toArray()
-        .then(doc => {
-            if (doc.length > 0) {
-
-                // Set session data
-                request.session.loggedIn = true;
-                request.session.userEmail = userEmail;
-
-                
-                  response.status(200).json({ message: `Login Successful` });
-                
-                response.status(401).json({ message: `Unauthorised` })
-            }
-
-
-        })
-        .catch(err => {
-            console.log(err);
-
-        });
+            });
     }
-
-    
 
 })
 
@@ -148,9 +156,10 @@ router.post("/register", function (request, response) {
 
 router.get('/email', (req, res) => {
     const userEmail = req.session.userEmail;
+    const isAdmin = req.session.isAdmin;
     // console.log(req.session);
     // console.log(userEmail);
-    res.json({ userEmail });
+    res.json({ userEmail :userEmail, isAdmin:isAdmin });
 });
 
 module.exports = router;

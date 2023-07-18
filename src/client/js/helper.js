@@ -91,7 +91,8 @@ function editRowInMain(thisButton) {
     }
 
     var controlMeasures = [];
-    var controlMeasuresTextareas = rowCells[5].querySelector('label').querySelector('label').querySelector('ul').querySelectorAll('li');
+    var controlMeasuresTextareas = rowCells[5].querySelector('label').querySelector('ul').querySelectorAll('li');
+    //rowCells[5].querySelector('label').querySelector('label').querySelector('ul').querySelectorAll('li');
     document.getElementById("customControlMeasures").value = controlMeasuresTextareas[0].innerHTML // put the first value to exsisting textarea
     
     for (var j = 1; j < controlMeasuresTextareas.length; j++) {
@@ -270,6 +271,41 @@ function addCustomRow(addButton) {
     //   var newRow = createNewRow(tableRow);
     // append the new row to main table
     document.getElementById("table-risk-body").appendChild(newRow);
+    document.getElementById("customRow").innerHTML = `<td><input type="text" class="form-control" id="customRiskName"></td>
+    <td class="d-flex flex-column" id="casual">
+        <div class="d-flex flex-row">
+            <input type="text" class="form-control" id="customRiskHazards">
+        <button class="btn btn-info mx-1 rounded-5" onclick="addTextField('casual')">+</button>
+        </div>
+    </td>
+    <td><select class="form-select" id="occurance">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+
+        </select></td>
+    <td><select class="form-select" id="severity">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+
+        </select></td>
+    <td><select class="form-select" id="riskLevel">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+
+        </select></td>
+    <td class="d-flex flex-column" id="cntrlMeasures">
+    <div class="d-flex">
+        <textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>
+        <button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>
+    </div>    
+    </td>
+
+        <td>
+            <button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>
+        </td>`
 }
 
 //function to submit form 
@@ -302,7 +338,7 @@ async function submitForm(button) {
             var probability = elementrow.cells[2].querySelector('label').innerHTML;
             var severity = elementrow.cells[3].querySelector('label').innerHTML;
             var riskLevel = elementrow.cells[4].querySelector('label').innerHTML;
-            var controlMeasure = elementrow.cells[5].querySelector('label').innerText;
+            var controlMeasure = elementrow.cells[5].querySelector('label').innerHTML;
 
 
             var risk = {
@@ -329,23 +365,21 @@ async function submitForm(button) {
 
         if (button == 'submit' ||button == 'submitSaved') {
             //POST submit Request 
-        var request = await fetch("/forms/submit", {
+            fetch("/forms/submit", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(formData)
-            })
-            var response = await request.json()
-            // then(response => {
+            }).then(response => {
                 if (response.ok) {
                     window.alert("Submitted Successfully");
                 } else {
                     window.alert("Error Submitting");
                 }
-            // }).catch(error => {
-            //     console.log("Error in sending request", error);
-            // });
+            }).catch(error => {
+                console.log("Error in sending request", error);
+            });
         } else {
             //POST save Request 
             fetch("/forms/save", {

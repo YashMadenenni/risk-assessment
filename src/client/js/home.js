@@ -1,22 +1,9 @@
-window.onload = async function () {
+async function getRisksSuggestion() {
 
-    //set href for saved forms
-    //get user 
-    var currentUrl = window.location.href;
-
-    //get query string from URL 
-    var queryString = currentUrl.split('?')[1];
-    var params = new URLSearchParams(queryString);
-    var userEmail = params.get("user");
-
-    console.log(userEmail);
-
-    document.getElementById("saved").href = "/savedForms.html?user=" + userEmail;
-    document.getElementById("userEmail").innerHTML += userEmail;
-
-    const request = await fetch(`/user/email`);
-    const respone = await (request.json());
-    console.log("Email ", respone);
+    // const request = await fetch(`/user/email`);
+    // const respone = await (request.json());
+    // console.log("Email ", respone.userEmail);
+    // document.getElementById("userEmail").innerHTML += respone.userEmail;
 
     // Risks fetch request for filling suggestions
     const risksRequest = await fetch('/risks/all', { method: "GET" });
@@ -24,20 +11,13 @@ window.onload = async function () {
     console.log(responseRisks);
     getAllRisks(responseRisks, "onload") //helper method to get all pre filled risks
 
-
-
-
 }
 
 //caller checks if the function is called from displaySuggestion to prevent redisplay of dropdown options
 function getAllRisks(responseRisks, caller) {
 
-
-
     responseRisks.forEach(element => {
         console.log(element.riskname);
-
-
 
         const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-outline-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
         document.getElementById("suggestions").innerHTML += newRow;
@@ -285,20 +265,45 @@ function addCustomRow(addButton) {
     //   var newRow = createNewRow(tableRow);
     // append the new row to main table
     document.getElementById("table-risk-body").appendChild(newRow);
+    document.getElementById("customRow").innerHTML = `<td><input type="text" class="form-control" id="customRiskName"></td>
+    <td class="d-flex flex-column" id="casual">
+        <div class="d-flex flex-row">
+            <input type="text" class="form-control" id="customRiskHazards">
+        <button class="btn btn-info mx-1 rounded-5" onclick="addTextField('casual')">+</button>
+        </div>
+    </td>
+    <td><select class="form-select" id="occurance">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+
+        </select></td>
+    <td><select class="form-select" id="severity">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+
+        </select></td>
+    <td><select class="form-select" id="riskLevel">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+
+        </select></td>
+    <td class="d-flex flex-column" id="cntrlMeasures">
+    <div class="d-flex">
+        <textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>
+        <button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>
+    </div>    
+    </td>
+
+        <td>
+            <button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>
+        </td>`
 }
 
 //function to submit form 
 function submitForm(button) {
-
-    //get user 
-    var currentUrl = window.location.href;
-
-    //get query string from URL 
-    var queryString = currentUrl.split('?')[1];
-    var params = new URLSearchParams(queryString);
-    var userEmail = params.get("user");
-
-    console.log(userEmail);
 
     var activityName = document.getElementById("activity").value;
     var date = document.getElementById("formDate").value;
@@ -333,7 +338,7 @@ function submitForm(button) {
         }
 
         var formData = {
-            userEmail: userEmail,
+          //  userEmail: userEmail,
             activity: activityName,
             date: date,
             description: description,
@@ -414,3 +419,6 @@ async function displaySuggestion(optionSelect) {
         getAllRisks(responseRisks, "all");
     }
 }
+
+
+window.onload = () => createHeader(getRisksSuggestion) // callbackfunction in header.js

@@ -1,0 +1,16 @@
+.pending{
+    color: #ffcb00d4 !important;
+}
+
+.approved{
+    color: green;
+}
+
+@media print {
+    .btn, .navbar-brand {
+        display: none;
+    }
+
+    
+
+  }

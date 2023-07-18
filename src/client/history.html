@@ -13,17 +13,19 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <link rel="stylesheet" href="css/savedForms.css">
+<link rel="stylesheet" href="css/history.css">
 
 <!-- JQuery CDN -->
 <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <script src="js/history.js"></script>
-    <script src="js/helper.js"></script>
+    <script src="./js/history.js"></script>
+    <script src="./js/helper.js"></script>
+    <script src="./js/header.js"></script>
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <!-- <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
             <a href class="navbar-brand">Risk Assessment</a>
             <button class="navbar-toggler" type="button"
@@ -37,7 +39,7 @@
                             Form</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="">Saved Forms</a>
+                        <a class="nav-link " href="./savedForms.html">Saved Forms</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#">History</a>
@@ -55,7 +57,7 @@
 
         </div>
 
-    </nav>
+    </nav> -->
             <!-- Submitted Body -->
             <div class=" container-fluid" id="submittedForms">
            
@@ -63,13 +65,13 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Activity Name</th>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Status</th>
+                            <th  class="col-3">Activity Name</th>
+                            <th  class="col-3">Date</th>
+                            <th  class="col-4">Description</th>
+                            <th  class="col-2">Status</th>
                         </tr>
                     </thead>
-                    <tbody id="submittedFormsTable">
+                    <tbody id="submittedFormsTable" style="cursor: pointer;">
                         
                     </tbody>
                 </table>
@@ -84,11 +86,25 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  ">
-                    <h2>Risk Assessment Form</h2>
+                    <h2 class="d-print-none">Risk Assessment Form</h2>
+                    <div class="d-print-block d-none my-3" style="font-weight: 600;">
+                        <div class="flex">
+                            <label for="activity ">Activity Name:</label>
+                            <label id="p-activity"></label>
+                        </div>
+                        <div class="flex">
+                            <label for="date">Date:</label>
+                            <label id="p-date"></label>
+                        </div>
+                        <div class="flex">
+                            <label for="description">Description:</label>
+                            <label id="p-description"></label>
+                        </div>
+                    </div>
                     <!-- form -->
-                    <div class>
+                    <div class="">
                         <!-- <form action="" method="post" class=""> -->
-                        <div class="row flex-column">
+                        <div class="row flex-column d-print-none">
                             <div class="form-group mt-3 mb-3">
                                 <label for="activity">Activity Name:</label>
                                 <input type="activity" class="form-control-sm"
@@ -112,12 +128,12 @@
                         </div>
                         <!-- table -->
                         <div>
-                            <table class="table table-bordered text-center"
+                            <table class="table table-bordered text-center d-print-table " 
                                 id="table-risk">
                                 <thead>
                                     <tr>
                                         <th>Risk Name</th>
-                                        <th>Casualties</th>
+                                        <th>Hazards</th>
                                         <th>Probability of occurance</th>
                                         <th>Degree of severity</th>
                                         <th>Risk Level</th>
@@ -179,8 +195,14 @@
                                 onclick="submitForm('submitSaved')"> Submit </button> -->
                             <!-- <button class="btn btn-info m-3"
                                 onclick="submitForm('save')"> Save </button> -->
+                                <button class="btn btn-warning m-3 text-white" onclick="">Use Template</button> 
+                                
                                 <button class="btn btn-dark m-3" onclick="backToList()">Back</button>
-                                <!-- <button class="btn btn-info m-3" onclick="editForm()">Edit</button> -->
+                                
+                                <button class="btn btn-success m-3" onclick="approveForm()" id="approveBtn">Approve</button> 
+                                <button class="btn btn-link m-3" onclick='window.print()'>Download</button> 
+                                
+                                <!-- editForm() -->
                         </div>
                         <!-- </form> -->
 

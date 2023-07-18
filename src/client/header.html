@@ -9,10 +9,14 @@
             rel="stylesheet">
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        
+            <!-- <link rel="stylesheet" href="css/home.css"> -->
+            <script src="./js/header.js"></script>
         </head>
     <body>
 
+        <!-- Header -->
+        
+       
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container-fluid">
                 <a href="" class="navbar-brand">Risk Assessment</a>
@@ -22,17 +26,21 @@
                   <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="navbar-nav flex col-12">
                         <li class="nav-item ">
-                            <a class="nav-link active" href="#">New Form</a>
+                            <a class="nav-link active" href="./home.html">New Form</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="saved">Saved Forms</a>
+                            <a class="nav-link" href="./savedForms.html" id="saved">Saved Forms</a>
                         </li>
-                        <li class="nav-item dropdown ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./history.html" id="history">History</a>
+                        </li>
+                        <li class="nav-item dropdown profile" >
                             <a class="nav-link dropdown-toggle  " role="button"
                                 data-bs-toggle="dropdown" href="#">Profile</a>
-                            <!-- <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#"></a></li>
-                            </ul> -->
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" id="userEmail"></a></li>
+                                <li><a class="dropdown-item" href="./index.html" id="userEmail">Logout</a></li>
+                            </ul>
                         </li>
                     </ul>
                   </div>
@@ -40,6 +48,8 @@
             </div>
 
         </nav>
+       
+        <!-- Header End -->
 
     </body>
 </html>

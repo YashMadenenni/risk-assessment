@@ -14,9 +14,9 @@ app.use(express.json());
 app.use(sessionMiddleware);
  app.use(cookieParser());
 //Change to express sessions
-// const globalUser = {  
-//     userEmail : ""
-// }
+const globalUser = {  
+    userEmail : ""
+}
 
 //MongoDB set up ans start server
 //build url for client 

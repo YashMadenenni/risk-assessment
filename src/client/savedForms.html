@@ -20,9 +20,10 @@
 
         <script src="./js/saved.js"></script>
         <script src="./js/helper.js"></script>
+        <script src="./js/header.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <!-- <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container-fluid">
                 <a href class="navbar-brand">Risk Assessment</a>
                 <button class="navbar-toggler" type="button"
@@ -38,6 +39,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Saved Forms</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./history.html" id="history">History</a>
+                        </li>
                         <li class="nav-item dropdown profile">
                             <a class="nav-link dropdown-toggle  " role="button"
                                 data-bs-toggle="dropdown" href="#">Profile</a>
@@ -51,7 +55,7 @@
 
             </div>
 
-        </nav>
+        </nav> -->
 
         <!-- Saved Body -->
         <div class=" container-fluid" id="savedForms">
@@ -60,12 +64,12 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Activity Name</th>
-                            <th>Date</th>
-                            <th>Description</th>
+                            <th  class="col-3">Activity Name</th>
+                            <th  class="col-3">Date</th>
+                            <th  class="col-6">Description</th>
                         </tr>
                     </thead>
-                    <tbody id="savedFormsTable">
+                    <tbody id="savedFormsTable" style="cursor: pointer;">
                         
                     </tbody>
                 </table>
@@ -113,7 +117,7 @@
                                 <thead>
                                     <tr>
                                         <th>Risk Name</th>
-                                        <th>Casualties</th>
+                                        <th>Hazards</th>
                                         <th>Probability of occurance</th>
                                         <th>Degree of severity</th>
                                         <th>Risk Level</th>

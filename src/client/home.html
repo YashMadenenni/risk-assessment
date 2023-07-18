@@ -184,14 +184,16 @@
 <!-- pre populated -->
 <div class="container pre-populated ">
     <h4>Suggestions</h4>
+
+    <input class="form-control my-1" id="myInput" type="text" placeholder="Search..">
      
-    <select name="RiskName" id="selectRiskName" class="" required="required" onchange="displaySuggestion(value)">
+    <!-- <select name="RiskName" id="selectRiskName" class="" required="required" onchange="displaySuggestion(value)">
         <option value="all">All</option>
     </select>
-    
+     -->
 
     <div class=" overflow-auto" style="height: 500px;">
-        <table class="table table-bordered text-center h-25 overflow-auto">
+        <table class="table table-bordered text-center h-25 overflow-auto" id="suggestionsTable">
             <thead>
                 <tr>
                     <th>Risk Name</th>

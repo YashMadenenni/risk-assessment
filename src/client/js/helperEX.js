@@ -1,7 +1,7 @@
-//Similar Start
+ async function loadRisksContent() {
 
-//Function to get all risks for suggestions table 
-async function getRisksSuggestion() {
+
+    
 
     // Risks fetch request for filling suggestions
     const risksRequest = await fetch('/risks/all', { method: "GET" });
@@ -9,14 +9,20 @@ async function getRisksSuggestion() {
     console.log(responseRisks);
     getAllRisks(responseRisks, "onload") //helper method to get all pre filled risks
 
-}
+ }
 
-//Funtion to display all risks 
-//@Param caller checks if the function is called from displaySuggestion to prevent redisplay of dropdown options
+
+
+
+//caller checks if the function is called from displaySuggestion to prevent redisplay of dropdown options
 function getAllRisks(responseRisks, caller) {
+
+
 
     responseRisks.forEach(element => {
         console.log(element.riskname);
+
+
 
         const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-outline-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
         document.getElementById("suggestions").innerHTML += newRow;
@@ -32,11 +38,10 @@ function getAllRisks(responseRisks, caller) {
         var controlListCell = document.getElementById(element.riskname);
         controlListCell.appendChild(controlList);
 
-       //Suggestions append option
-        // if (caller != "all") {
-        //     const newOption = ' <option value="' + element.riskname + '" >' + element.riskname + '</option>';
-        //     document.getElementById("selectRiskName").innerHTML += newOption;
-        // }
+        if (caller != "all") {
+            const newOption = ' <option value="' + element.riskname + '" >' + element.riskname + '</option>';
+            document.getElementById("selectRiskName").innerHTML += newOption;
+        }
     });
 }
 
@@ -66,8 +71,6 @@ function addRowToMain(thisButton) {
     tableBody.deleteRow(rowIndex - 1);
 }
 
-
-//Function to edit row in main function
 function editRowInMain(thisButton) {
     document.getElementById("cntrlMeasures").innerHTML = '<div class="d-flex">' +
         '<textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>' +
@@ -89,6 +92,7 @@ function editRowInMain(thisButton) {
 
     var controlMeasures = [];
     var controlMeasuresTextareas = rowCells[5].querySelector('label').querySelector('ul').querySelectorAll('li');
+    //rowCells[5].querySelector('label').querySelector('label').querySelector('ul').querySelectorAll('li');
     document.getElementById("customControlMeasures").value = controlMeasuresTextareas[0].innerHTML // put the first value to exsisting textarea
     
     for (var j = 1; j < controlMeasuresTextareas.length; j++) {
@@ -132,8 +136,6 @@ function editRowInMain(thisButton) {
 
 }
 
-
-//Funtion to delete row from main risks table
 function deleteRowFromMain(thisButton) {
     var currentRow = thisButton.parentNode.parentNode;
     console.log(currentRow);
@@ -159,7 +161,7 @@ function deleteRowFromMain(thisButton) {
 
 
 
-//helper method to create new row with selected row
+//helper method to create new row
 function createNewRow(thisRow) {
     // console.log(thisRow);
 
@@ -178,7 +180,7 @@ function createNewRow(thisRow) {
     for (let index = 0; index < rowData.length - 1; index++) {
         const element = rowData[index];
         var dataCell = document.createElement('td');
-        dataCell.innerHTML +=   element;
+        dataCell.innerHTML = '<label type="text">' + element;
         newRow.appendChild(dataCell);
     }
 
@@ -221,7 +223,7 @@ function addTextField(type) {
 
 //Function to remove the text field
 function removeTextField(thisTextField) {
-    var padeleteRowFromMainrentDiv = thisTextField.parentNode;
+    var parentDiv = thisTextField.parentNode;
     parentDiv.remove();
 }
 
@@ -262,15 +264,13 @@ function addCustomRow(addButton) {
         '<td><label>' + probability + '</label></td>' +
         '<td><label>' + severity + '</label></td>' +
         '<td><label>' + riskLevel + '</label></td>' +
-        '<td><label><ul>' + controlMeasuresList + '</ul></label></td>' +
+        '<td><label><label><ul>' + controlMeasuresList + '</ul></label></label></td>' +
         '<td><button class="btn btn-danger " onclick="deleteRowFromMain(this)" id="custom"> X </button>'+
         '<button class="btn btn-info my-3" onclick="editRowInMain(this)" id="custom"> Edit </button>'
         '</td>';
     //   var newRow = createNewRow(tableRow);
     // append the new row to main table
     document.getElementById("table-risk-body").appendChild(newRow);
-   
-   //Reset custom row
     document.getElementById("customRow").innerHTML = `<td><input type="text" class="form-control" id="customRiskName"></td>
     <td class="d-flex flex-column" id="casual">
         <div class="d-flex flex-row">
@@ -309,7 +309,17 @@ function addCustomRow(addButton) {
 }
 
 //function to submit form 
-function submitForm(button) {
+async function submitForm(button) {
+
+    //get user 
+    var currentUrl = window.location.href;
+
+    //get query string from URL 
+    var queryString = currentUrl.split('?')[1];
+    var params = new URLSearchParams(queryString);
+    var userEmail = params.get("user");
+
+    console.log(userEmail);
 
     var activityName = document.getElementById("activity").value;
     var date = document.getElementById("formDate").value;
@@ -329,7 +339,7 @@ function submitForm(button) {
             var severity = elementrow.cells[3].querySelector('label').innerHTML;
             var riskLevel = elementrow.cells[4].querySelector('label').innerHTML;
             var controlMeasure = elementrow.cells[5].querySelector('label').innerHTML;
-            
+
 
             var risk = {
                 riskName: riskName,
@@ -344,7 +354,7 @@ function submitForm(button) {
         }
 
         var formData = {
-          //  userEmail: userEmail,
+            userEmail: userEmail,
             activity: activityName,
             date: date,
             description: description,
@@ -353,7 +363,7 @@ function submitForm(button) {
 
         console.log(formData);
 
-        if (button == 'submit') {
+        if (button == 'submit' ||button == 'submitSaved') {
             //POST submit Request 
             fetch("/forms/submit", {
                 method: "POST",
@@ -406,7 +416,7 @@ async function displaySuggestion(optionSelect) {
 
             if (element.riskname == optionSelect) {
                 console.log(element);
-                const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id=""></td>' + '<td><button class="btn btn-outline-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
+                const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-outline-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
                 document.getElementById("suggestions").innerHTML += newRow;
                 //append control measures 
                 var controlList = document.createElement('ul')
@@ -425,19 +435,3 @@ async function displaySuggestion(optionSelect) {
         getAllRisks(responseRisks, "all");
     }
 }
-
-
-//function for search suggestion
-$(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#suggestionsTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  });
-
-
-//Similar end
-
-window.onload = () => createHeader(getRisksSuggestion) // callbackfunction in header.js

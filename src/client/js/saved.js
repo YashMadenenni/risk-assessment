@@ -63,7 +63,8 @@ function viewForm(activityThis) {
     })
    });
 
-   loadRisksContent(); //invoke the method in helper.js 
+//    loadRisksContent(); //invoke the method in helper.js 
+getRisksSuggestion(); //invoke suggestions in home.js
 
 }
 

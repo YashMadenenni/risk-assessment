@@ -18,7 +18,7 @@
 
         <script src="./js/home.js"></script>
         <script src="./js/header.js"></script>
-        <!-- <script src="./js/helper.js"></script> -->
+        <script src="./js/helper.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -59,15 +59,15 @@
         <!-- Header End -->
 
         <!-- Risk Assement form -->
-        <div class="container ">
+        <div class="container my-5">
 
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  ">
-                    <h2>Risk Assessment Form</h2>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  card">
+                    <h4 class="card-title my-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Risk Assessment Form</h4 >
                     <!-- form -->
-                    <div class>
+                    <div class="" >
                         <!-- <form action="" method="post" class=""> -->
-                        <div class="row flex-column">
+                        <div class="row flex-column card-header">
                             <div class="form-group mt-3 mb-3">
                                 <label for="activity">Activity Name:</label>
                                 <input type="activity" class="form-control-sm"
@@ -75,12 +75,12 @@
                                     name="activity">
                             </div>
                             <div
-                                class="form-group mb-3 col-sm-7  col-lg-3 ms-lg-4  text-center">
+                                class="form-group mb-3 col-sm-7  col-lg-3   ">
                                 <label for="date">Date:</label>
                                 <input type="date" class="form-control-sm" id="formDate">
                             </div>
 
-                            <div class="form-group mb-3 activity-desc ms-3">
+                            <div class="form-group mb-3 activity-desc ">
                                 <label for="activity-description">Description:</label>
                                 <textarea rows="5"
                                     class="form-control w-50 h-100 ms-1" id="formDescription"></textarea>
@@ -88,48 +88,51 @@
 
                         </div>
                         <!-- table -->
-                        <div>
+                        <div class="card-body">
                             <table class="table table-bordered text-center" id="table-risk">
                                 <thead>
                                     <tr>
-                                        <th>Risk Name</th>
-                                        <th>Hazards</th>
-                                        <th>Probability of occurance</th>
-                                        <th>Degree of severity</th>
-                                        <th>Risk Level</th>
-                                        <th>Control measure</th>
-                                        <th>Action</th>
+                                        <th class="col-2">Risk Name</th>
+                                        <th class="col-2">Hazards</th>
+                                        <th class="col-1">Probability of occurance</th>
+                                        <th class="col-1">Degree of severity</th>
+                                        <th class="col-1">Risk Level</th>
+                                        <th class="col-5">Control measure</th>
+                                        <th class="col-2">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-risk-body">
                                     <!-- customRow -->
                                     <tr id="customRow">
-                                        <td><input type="text" class="form-control" id="customRiskName"></td>
-                                        <td class="d-flex flex-column" id="casual">
+                                        <td class=""><input type="text" class="form-control" id="customRiskName"></td>
+                                        <td class="d-flex flex-column " id="casual">
                                             <div class="d-flex flex-row">
                                                 <input type="text" class="form-control" id="customRiskHazards">
                                             <button class="btn btn-info mx-1 rounded-5" onclick="addTextField('casual')">+</button>
                                             </div>
                                         </td>
-                                        <td><select class="form-select" id="occurance">
+                                        <td><select class="form-select col-1" id="occurance">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <!-- <option value="1">High</option>
+                                                <option value="2">Medium</option>
+                                                <option value="3">Low</option> -->
+                            
+                                            </select></td>
+                                        <td><select class="form-select col-1" id="severity">
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
                             
                                             </select></td>
-                                        <td><select class="form-select" id="severity">
+                                        <td><select class="form-select col-1" id="riskLevel">
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
                             
                                             </select></td>
-                                        <td><select class="form-select" id="riskLevel">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                            
-                                            </select></td>
-                                        <td class="d-flex flex-column" id="cntrlMeasures">
+                                        <td class="d-flex flex-column " id="cntrlMeasures">
                                         <div class="d-flex">
                                             <textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>
                                             <button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>
@@ -137,7 +140,7 @@
                                         </td>
                             
                                             <td>
-                                                <button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>
+                                                <button class="btn btn-outline-success " onclick="addCustomRow(this)">Add</button>
                                             </td>
                                     </tr>
                                     <!-- customRow end -->
@@ -196,13 +199,13 @@
         <table class="table table-bordered text-center h-25 overflow-auto" id="suggestionsTable">
             <thead>
                 <tr>
-                    <th>Risk Name</th>
-                    <th>Hazards</th>
-                    <th>Probability of occurance</th>
-                    <th>Degree of severity</th>
-                    <th>Risk Level</th>
-                    <th>Control measure</th>
-                    <th>Action</th>
+                    <th class="col-2">Risk Name</th>
+                    <th class="col-2">Hazards</th>
+                    <th class="col-1">Probability of occurance</th>
+                    <th class="col-1">Degree of severity</th>
+                    <th class="col-1">Risk Level</th>
+                    <th class="col-5">Control measure</th>
+                    <th class="col-2">Action</th>
                 </tr>
             </thead>
             <tbody id="suggestions">

@@ -1,3 +1,5 @@
+//Similar Start
+
 //Function to get all risks for suggestions table 
 async function getRisksSuggestion() {
 
@@ -434,3 +436,8 @@ $(document).ready(function(){
       });
     });
   });
+
+
+//Similar end
+
+window.onload = () => createHeader(getRisksSuggestion) // callbackfunction in header.js

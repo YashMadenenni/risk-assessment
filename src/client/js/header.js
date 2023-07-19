@@ -27,6 +27,9 @@ async function createHeader(callback,navItem) {
                <li class="nav-item">
                    <a class="nav-link" href="./history.html" id="history">Submitted</a>
                </li>
+               <li class="nav-item">
+                            <a class="nav-link" href="./report.html" id="report">Report</a>
+                        </li>
                <li class="nav-item dropdown profile" >
                    <a class="nav-link dropdown-toggle  " role="button"
                        data-bs-toggle="dropdown" href="#">Profile</a>
@@ -45,11 +48,17 @@ async function createHeader(callback,navItem) {
         document.getElementById("history").classList.add("active");
         document.getElementById("saved").classList.remove("active");
         document.getElementById("new").classList.remove("active");
+        document.getElementById("report").classList.remove("active");
     }else if (navItem=="saved") {
         document.getElementById("saved").classList.add("active");
         document.getElementById("history").classList.remove("active");
         document.getElementById("new").classList.remove("active");
-        
+        document.getElementById("report").classList.remove("active");
+    }else if (navItem=="report") {
+        document.getElementById("saved").classList.remove("active");
+        document.getElementById("history").classList.remove("active");
+        document.getElementById("new").classList.remove("active");
+        document.getElementById("report").classList.add("active");
     }
      if (callback != undefined) {
         callback();

@@ -6,6 +6,7 @@ const app = express();
 const login = require('./Login');
 const risks = require('./risks');
 const forms = require('./forms');
+const incidentReport = require('./incident');
 const cookieParser = require('cookie-parser');
 const sessionMiddleware = require('./sessionMiddleware');
 app.use(express.urlencoded({ extended: true }));
@@ -57,6 +58,10 @@ client.connect()
 
 
 
+
+
+
 app.use('/user' ,login);
 app.use('/risks',risks);
 app.use('/forms',forms);
+app.use('/incident',incidentReport)

@@ -39,7 +39,9 @@ router.post("/submit", function (request, response) {
             if (doc.length == 0) {
                 //if no forms submitted 
                 collecttionForms.insertOne({ _id: userEmail, activity: [{ activityName: activity, date: date, description: description, risks: risks ,approval:approval}] });
+                
                 response.status(200).json({ message: "Success" });
+
 
             } else {
                 // var newActivity = doc[0].activity;
@@ -56,7 +58,16 @@ router.post("/submit", function (request, response) {
                 })
             }
         })
-});
+
+        collecttionFormsSave.find({_id:userEmail,"activity.activityName":activity}).toArray()
+        .then(doc=>{
+            console.log("in delete saved")
+            console.log( doc);
+            if(doc.length){
+                collecttionFormsSave.updateOne( { "_id": userEmail },{ $pull: { "activity": { "activityName": activity } } }).then(console.log("deleted"))
+            }
+        })
+    });
 
 router.post("/save", function (request, response) {
     var userEmail = request.session.userEmail;
@@ -75,14 +86,12 @@ router.post("/save", function (request, response) {
                 response.status(200).json({ message: "Success" });
 
             } else {
-                // var newActivity = doc[0].activity;
-                // newActivity = 
-                // //     .then(doc => {})
-                console.log("in 1")
+                
+               // console.log("in 1")
                 collecttionFormsSave.find({_id:userEmail,"activity.activityName":activity}).toArray()
                 
                 .then(doc=>{
-                    console.log("in 2")
+                   // console.log("in 2")
                     if (doc.length == 0) {
                         console.log("in 3")
                         console.log(doc)
@@ -120,7 +129,7 @@ router.post("/save", function (request, response) {
 
 
 router.get('/saved',function (request,response) {
-     console.log("here");
+    // console.log("here");
     var userEmail = request.session.userEmail;
     console.log(userEmail)
     collecttionFormsSave.find({_id:userEmail}).toArray()
@@ -152,12 +161,16 @@ router.get('/submitted',function (request,response) {
        response.status(200).json({"submitted":doc});
    }).catch(err=>{ response.status(404).json({ message: "Error finding favourites" }); });
 }
+
+
 })
 
-router.post('/approve/:formName',function (request,response) {
-    var formName = request.params.formName;
-    var userEmail = request.session.userEmail;
-    console.log("error")
+router.post('/approve',function (request,response) {
+    var formName = request.body.formName;
+    var userEmail = request.body.userEmail;
+    //console.log("here")
+    console.log(formName)
+    console.log(userEmail)
     collecttionForms.find({_id:userEmail,"activity.activityName":formName}).toArray()
     .then(doc=>{
         if(doc.length == 0){

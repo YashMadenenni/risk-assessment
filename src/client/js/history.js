@@ -3,24 +3,7 @@
 var globalForms = [];
 
 async function getAllHistoryForms() {
-    //set href for saved forms
-    //get user 
-    // var currentUrl = window.location.href;
-
-    // //get query string from URL 
-    // var queryString = currentUrl.split('?')[1];
-    // var params = new URLSearchParams(queryString);
-    // var userEmail = params.get("user");
-
-    // console.log(userEmail);
-
-    // document.getElementById("home").href = "./home.html?user=" + userEmail;
-    // document.getElementById("userEmail").innerHTML += userEmail;
-
-    
-    // console.log("Email ", respone.userEmail);
-    // document.getElementById("userEmail").innerHTML += respone.userEmail;
-    
+      
 
     fetch(`/forms/submitted`, { method: 'GET' }).then(response => {
         if (response.ok) {
@@ -31,12 +14,14 @@ async function getAllHistoryForms() {
     }).then(data => {
         //console.log(data.saved);
         var savedFormsArray = data.submitted;
+        
         for (let index = 0; index < savedFormsArray.length; index++) {
             const element = savedFormsArray[index];
             //console.log(element); //each risk
 
             var activity = element.activity;
-
+            var userEmail = element._id;
+             
             activity.forEach(element=>{
                 globalForms.push(element);
 
@@ -46,8 +31,7 @@ async function getAllHistoryForms() {
                 if (elementActivity.approval) {
                     approved = "Approved"
                 }
-                document.getElementById("submittedFormsTable").innerHTML += `<tr onclick="viewForm('${activityIndexInGlobal}')"><td  class="col-3">` + elementActivity.activityName + `</td><td  class="col-3">` + elementActivity.date + `</td><td  class="col-4">` + elementActivity.description + `</td><td class='${approved.toLowerCase()}  col-2'>` + approved + `</td></tr>`;
-
+                document.getElementById("submittedFormsTable").innerHTML += `<tr onclick="viewForm('${activityIndexInGlobal}','${userEmail}')"><td  class="col-3">` + elementActivity.activityName + `</td><td  class="col-3">` + elementActivity.date + `</td><td  class="col-4">` + elementActivity.description + `</td><td class='${approved.toLowerCase()}  col-2'>` + approved + `</td></tr>`;
             })
             
             
@@ -56,17 +40,7 @@ async function getAllHistoryForms() {
             console.log(activity);
             console.log(globalForms)
 
-            // for (let activityIndex = 0; activityIndex < activity.length; activityIndex++) {
-            //     const elementActivity = activity[activityIndex]; //each activity
-            //     console.log(elementActivity);
-            //     var approved = "Pending";
-            //     if (elementActivity.approval) {
-            //         approved = "Approved"
-            //     }
-            //     document.getElementById("submittedFormsTable").innerHTML += `<tr onclick="viewForm('${activityIndexInGlobal}')"><td>` + elementActivity.activityName + `</td><td>` + elementActivity.date + `</td><td>` + elementActivity.description + `</td><td class='${approved.toLowerCase()}'>` + approved + `</td></tr>`;
-
-            // }
-
+           
         }
     })
         .catch(error => {
@@ -74,7 +48,7 @@ async function getAllHistoryForms() {
         });
 }
 
-async function viewForm(activityThisIndex) {
+async function viewForm(activityThisIndex,userName) {
 
 
 
@@ -91,7 +65,7 @@ async function viewForm(activityThisIndex) {
 
             // if (element.activityName == selectedActivity) {
                 console.log(element);
-                displayForm(element);
+                displayForm(element,userName);
                 
     
                 if ( respone.isAdmin == false) {
@@ -106,13 +80,13 @@ async function viewForm(activityThisIndex) {
 
 
 
-    loadRisksContent(); //invoke the method in helper.js 
-
+    //    loadRisksContent(); //invoke the method in helper.js 
+//getRisksSuggestion(); //invoke suggestions in home.js
     
 
 }
 
-function displayForm(formData) {
+function displayForm(formData,userName) {
     var activity = formData.activityName;
     var date = formData.date;
     var description = formData.description;
@@ -122,6 +96,7 @@ function displayForm(formData) {
     document.getElementById("activity").value = activity;
     document.getElementById("formDate").value = date;
     document.getElementById("formDescription").innerHTML = description;
+    document.getElementById("author").innerHTML = userName;
 
     document.getElementById("p-activity").innerHTML = activity;
     document.getElementById("p-date").innerHTML = date;
@@ -149,7 +124,15 @@ function backToList() {
 
 async function approveForm() {
     var formName = document.getElementById('activity').value;
-    var request = await fetch(`/forms/approve/${formName}`, { method: "POST" })
+    var userEmail =  document.getElementById("author").innerHTML;
+
+    var request = await fetch(`/forms/approve`, { method: "POST", body: JSON.stringify({
+        formName:formName,
+        userEmail:userEmail
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }})
     var response = await request.json()
     console.log(response);
     if (response.message == "Successful") {

@@ -19,19 +19,61 @@
  <script src="./js/header.js"></script>
  <script src="./js/report.js"></script>
 
+ <link rel="stylesheet" href="./css/report.css">
+
 </head>
 <body>
     
     <div class="container d-none" id="allReports">
 
         <div class=" row " id="allIncidents">
-            
-            
 
-            
-            
         </div>
     </div>
+    
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title"> Related risks </h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body" >
+            <!-- Submitted Body -->
+            <div class=" container-fluid" id="submittedForms">
+               <div class="col-2 ms-auto">
+                <input class="form-control my-1 d-none" id="myInput" type="text" placeholder="Search..">
+               </div>
+                <table class="table table-hover" id="tableSubmitted" style="cursor: pointer;">
+                    <thead>
+                        <tr >
+                            <th class="col-3" onclick="sortTable(0)">Activity Name</th>
+                            <th class="col-3" onclick="sortTable(1)">Date</th>
+                            <th class="col-4">Description</th>
+                            <th class="col-2" onclick="sortTable(3)">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="submittedFormsTable" style="cursor: pointer;">
+      
+                    </tbody>
+                </table>
+      
+            </div>
+            <!-- Submitted Body End-->
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
+        </div>
+      </div>
 
     <div class="container card my-5 " id="reportForm">
         <div class="row card-header">

@@ -25,49 +25,19 @@
 
     </head>
     <body>
-        <!-- <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a href class="navbar-brand">Risk Assessment</a>
-            <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse" data-bs-target="#mynavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav flex col-12">
-                    <li class="nav-item ">
-                        <a class="nav-link " href="./home.html" id="home">New
-                            Form</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="./savedForms.html">Saved Forms</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">History</a>
-                    </li>
-                    <li class="nav-item dropdown profile">
-                        <a class="nav-link dropdown-toggle  " role="button"
-                            data-bs-toggle="dropdown" href="#">Profile</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" id="userEmail"></a></li>
-                            <li><a class="dropdown-item" href="./index.html" id="userEmail">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-    </nav> -->
+        
         <!-- Submitted Body -->
         <div class=" container-fluid" id="submittedForms">
-
-            <table class="table table-hover">
+           <div class="col-2 ms-auto">
+            <input class="form-control my-1" id="myInput" type="text" placeholder="Search..">
+           </div>
+            <table class="table table-hover" id="tableSubmitted" style="cursor: pointer;">
                 <thead>
-                    <tr>
-                        <th class="col-3">Activity Name</th>
-                        <th class="col-3">Date</th>
+                    <tr >
+                        <th class="col-3" onclick="sortTable(0)">Activity Name</th>
+                        <th class="col-3" onclick="sortTable(1)">Date</th>
                         <th class="col-4">Description</th>
-                        <th class="col-2">Status</th>
+                        <th class="col-2" onclick="sortTable(3)">Status</th>
                     </tr>
                 </thead>
                 <tbody id="submittedFormsTable" style="cursor: pointer;">
@@ -113,7 +83,7 @@
                         <!-- <form action="" method="post" class=""> -->
                         <div class="row flex-column d-print-none card-header">
                             <div class="form-group mt-3 mb-3">
-                                <label for="activity">Activity Name:</label>
+                                <label for="activity" >Activity Name:</label>
                                 <input type="activity" class="form-control-sm"
                                     id="activity" placeholder="Activity"
                                     name="activity" disabled>

@@ -115,10 +115,9 @@ function displayForm(formData,userName) {
 }
 
 function backToList() {
-    // document.getElementById("formDisplayBody").style = "display:none";
-    // document.getElementById("submittedForms").style = "display:block";
+   
     location.reload();
-    //resetForm();
+     
 
 }
 

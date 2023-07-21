@@ -377,6 +377,7 @@ function submitForm(button) {
                 },
                 body: JSON.stringify(formData)
             }).then(response => {
+                window.alert("Saved Response");
                 if (response.ok) {
                     window.alert("Saved Successfully");
                 } else {

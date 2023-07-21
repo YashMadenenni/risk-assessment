@@ -38,8 +38,8 @@ router.post("/submit", function (request, response) {
         .then(doc => {
             if (doc.length == 0) {
                 //if no forms submitted 
-                collecttionForms.insertOne({ _id: userEmail, activity: [{ activityName: activity, date: date, description: description, risks: risks ,approval:approval}] });
-                
+                collecttionForms.insertOne({ _id: userEmail, activity: [{ activityName: activity, date: date, description: description, risks: risks, approval: approval }] });
+
                 response.status(200).json({ message: "Success" });
 
 
@@ -59,15 +59,15 @@ router.post("/submit", function (request, response) {
             }
         })
 
-        collecttionFormsSave.find({_id:userEmail,"activity.activityName":activity}).toArray()
-        .then(doc=>{
+    collecttionFormsSave.find({ _id: userEmail, "activity.activityName": activity }).toArray()
+        .then(doc => {
             console.log("in delete saved")
-            console.log( doc);
-            if(doc.length){
-                collecttionFormsSave.updateOne( { "_id": userEmail },{ $pull: { "activity": { "activityName": activity } } }).then(console.log("deleted"))
+            console.log(doc);
+            if (doc.length) {
+                collecttionFormsSave.updateOne({ "_id": userEmail }, { $pull: { "activity": { "activityName": activity } } }).then(console.log("deleted"))
             }
         })
-    });
+});
 
 router.post("/save", function (request, response) {
     var userEmail = request.session.userEmail;
@@ -86,101 +86,103 @@ router.post("/save", function (request, response) {
                 response.status(200).json({ message: "Success" });
 
             } else {
-                
-               // console.log("in 1")
-                collecttionFormsSave.find({_id:userEmail,"activity.activityName":activity}).toArray()
-                
-                .then(doc=>{
-                   // console.log("in 2")
-                    if (doc.length == 0) {
-                        console.log("in 3")
-                        console.log(doc)
-                        //if activity is not there
-                        collecttionFormsSave.updateOne({ _id: userEmail }, { $push: { activity: { activityName: activity, date: date, description: description, risks: risks } } }, function (err) {
-                            if (err) {
-                                response.status(400).json({ message: "Error adding new activity" });
-                                console.error("Error adding new activity:", err);
-                            } else {
-                                response.status(200).json({ message: "Success" });
-                                console.log("New activity added successfully");
-                            }
-                        })
-                    }else{
-                        console.log("here in object")
-                        //if activity already exsists
-                        collecttionFormsSave.updateOne({ _id: userEmail,"activity.activityName":activity }, { $set: { "activity.$.activityName": activity, "activity.$.date": date,
-                        "activity.$.description": description,
-                        "activity.$.risks": risks } }, function (err) {
-                            if (err) {
-                                response.status(400).json({ message: "Error adding new activity" });
-                                console.error("Error adding new activity:", err);
-                            } else {
-                                response.status(200).json({ message: "Success" });
-                                console.log("New activity added successfully");
-                            }
-                        })
-                    }
-                })
 
-                
+                // console.log("in 1")
+                collecttionFormsSave.find({ _id: userEmail, "activity.activityName": activity }).toArray()
+
+                    .then(doc => {
+                        // console.log("in 2")
+                        if (doc.length == 0) {
+                            console.log("in 3")
+                            console.log(doc)
+                            //if activity is not there
+                            collecttionFormsSave.updateOne({ _id: userEmail }, { $push: { activity: { activityName: activity, date: date, description: description, risks: risks } } })
+                            .then(res=>{response.status(200).json({ message: "Success" });
+                            console.log("New activity added successfully")})
+                            .catch(error => {
+                                console.error("Catch :", error);
+                                response.status(400).json({ message: "Error adding new activity" })
+                            });
+            } else {
+                console.log("here in object")
+                //if activity already exsists
+                collecttionFormsSave.updateOne({ _id: userEmail, "activity.activityName": activity }, {
+                    $set: {
+                        "activity.$.activityName": activity, "activity.$.date": date,
+                        "activity.$.description": description,
+                        "activity.$.risks": risks
+                    }
+                }, function (err) {
+                    if (err) {
+                        response.status(400).json({ message: "Error adding new activity" });
+                        console.error("Error adding new activity:", err);
+                    } else {
+                        response.status(200).json({ message: "Success" });
+                        console.log("New activity added successfully");
+                    }
+                }).catch(error => { console.error("Catch :", error); response.status(400).json({ message: "Error adding new activity" }) });
             }
-        })
+        }).catch(error => { console.error("Catch :", error); response.status(400).json({ message: "Error adding new activity" }) });
+
+
+}
+        }).catch(error => { console.error("Catch :", error); response.status(400).json({ message: "Error adding new activity" }) });
 });
 
 
-router.get('/saved',function (request,response) {
+router.get('/saved', function (request, response) {
     // console.log("here");
     var userEmail = request.session.userEmail;
     console.log(userEmail)
-    collecttionFormsSave.find({_id:userEmail}).toArray()
-    .then(doc=>{
-        console.log(doc)
-        response.status(200).json({"saved":doc});
-    }).catch(err=>{ response.status(404).json({ message: "Error finding favourites" }); });
+    collecttionFormsSave.find({ _id: userEmail }).toArray()
+        .then(doc => {
+            console.log(doc)
+            response.status(200).json({ "saved": doc });
+        }).catch(err => { response.status(404).json({ message: "Error finding favourites" }); });
 
 })
 
-router.get('/submitted',function (request,response) {
-    
-   var userEmail = request.session.userEmail;
-   var isAdmin = request.session.isAdmin;
+router.get('/submitted', function (request, response) {
 
-   if(isAdmin){
-    console.log(isAdmin)
-    collecttionForms.find({}).toArray()
-    .then(doc=>{
-        console.log(doc)
-        response.status(200).json({"submitted":doc});
-    }).catch(err=>{ response.status(404).json({ message: "Error finding favourites" }); });
- 
-   }else{
-   
-   collecttionForms.find({_id:userEmail}).toArray()
-   .then(doc=>{
-       console.log(doc)
-       response.status(200).json({"submitted":doc});
-   }).catch(err=>{ response.status(404).json({ message: "Error finding favourites" }); });
-}
+    var userEmail = request.session.userEmail;
+    var isAdmin = request.session.isAdmin;
+
+    if (isAdmin) {
+        console.log(isAdmin)
+        collecttionForms.find({}).toArray()
+            .then(doc => {
+                console.log(doc)
+                response.status(200).json({ "submitted": doc });
+            }).catch(err => { response.status(404).json({ message: "Error finding favourites" }); });
+
+    } else {
+
+        collecttionForms.find({ _id: userEmail }).toArray()
+            .then(doc => {
+                console.log(doc)
+                response.status(200).json({ "submitted": doc });
+            }).catch(err => { response.status(404).json({ message: "Error finding favourites" }); });
+    }
 
 
 })
 
-router.post('/approve',function (request,response) {
+router.post('/approve', function (request, response) {
     var formName = request.body.formName;
     var userEmail = request.body.userEmail;
     //console.log("here")
     console.log(formName)
     console.log(userEmail)
-    collecttionForms.find({_id:userEmail,"activity.activityName":formName}).toArray()
-    .then(doc=>{
-        if(doc.length == 0){
-            console.log("error")
-        }else{
-            collecttionForms.updateOne({_id:userEmail,"activity.activityName":formName},{$set:{"activity.$.approval":"true"}})
-            .then( response.status(200).json({"message":"Successful"}))
-            .catch(err=>{ response.status(400).json({ message: "Error Approving" });  console.log(err)})
-        }
-    })
+    collecttionForms.find({ _id: userEmail, "activity.activityName": formName }).toArray()
+        .then(doc => {
+            if (doc.length == 0) {
+                console.log("error")
+            } else {
+                collecttionForms.updateOne({ _id: userEmail, "activity.activityName": formName }, { $set: { "activity.$.approval": "true" } })
+                    .then(response.status(200).json({ "message": "Successful" }))
+                    .catch(err => { response.status(400).json({ message: "Error Approving" }); console.log(err) })
+            }
+        })
 })
 
 

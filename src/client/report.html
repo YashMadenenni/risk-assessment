@@ -21,6 +21,9 @@
 
  <link rel="stylesheet" href="./css/report.css">
 
+ <!-- Font awesome -->
+ <script src="https://kit.fontawesome.com/317e871bf2.js" crossorigin="anonymous"></script>
+
 </head>
 <body class="bg-black bg-opacity-50">
     
@@ -82,29 +85,29 @@
         <div class="row card-body ">
            <div class="col-6">
             <form action="/incident/report" method="post" enctype="multipart/form-data" class="needs-validated">
-                <div class="   d-flex flex-row" >
+                <div class="   col-8 " >
                     <label for="incident">Incident Name : </label>
                     <input class="form-control" type="text" name="incident" id="incident" required>
                     
                 </div>
-                <div class="  my-4 d-flex flex-row" >
+                <div class="  my-4 col-8 " >
                     <label for="incidentDate">Date And Time : </label>
                     <input class="form-control" type="datetime-local" name="incidentDate" id="incidentDate" required>
                     
                 </div>
               
-                <div class=" form-group d-flex flex-row">
+                <div class=" form-group col-8 ">
                     <label for="incidentDescription">Incident Description :</label>
                     <textarea maxlength="250" rows="5" cols="" class="form-control" name="incidentDescription" id="incidentDescription" required></textarea>
                 </div>
 
-                <div class="form-group d-flex flex-row my-4">
+                <div class="form-group col-8  my-4">
                     <label for="incidentImage">Image :</label>
                     <input type="file" class="ps-2" name="incidentImage" id="incidentImage" required></input>
                     <div class="invalid-feedback">select an image</div>
                 </div>
                 <div class="col-12 text-center my-3">
-                    <button class="btn btn-success " type="submit">Report</button>
+                    <button class="btn bg-danger bg-opacity-75 text-light" type="submit">Report <i class="fa-solid fa-triangle-exclamation"></i></button>
                 </div>
             </form>
            </div>

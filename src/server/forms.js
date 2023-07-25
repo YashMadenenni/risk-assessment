@@ -182,7 +182,7 @@ router.get('/saved', function (request, response) {
         .then(doc => {
             console.log(doc)
             response.status(200).json({ "saved": doc });
-        }).catch(err => { response.status(404).json({ message: "Error finding favourites" }); });
+        }).catch(err => { response.status(404).json({ message: "Error finding " }); });
 
 })
 
@@ -197,7 +197,7 @@ router.get('/submitted', function (request, response) {
             .then(doc => {
                 console.log(doc)
                 response.status(200).json({ "submitted": doc });
-            }).catch(err => { response.status(404).json({ message: "Error finding favourites" }); });
+            }).catch(err => { response.status(404).json({ message: "Error finding " }); });
 
     } else {
 
@@ -205,7 +205,7 @@ router.get('/submitted', function (request, response) {
             .then(doc => {
                 console.log(doc)
                 response.status(200).json({ "submitted": doc });
-            }).catch(err => { response.status(404).json({ message: "Error finding favourites" }); });
+            }).catch(err => { response.status(404).json({ message: "Error finding " }); });
     }
 
 
@@ -240,7 +240,18 @@ router.get('/template/:formID/:userEmail',function (request,response) {
     }
 });
 
-//Endpoint to sent selected submitted template
+router.get('/related-risk/:formID/:userEmail',function (request,response) {
+    var formID = encodeURIComponent(request.params.formID);
+    var userEmail = encodeURIComponent(request.params.userEmail);
+
+    if(formID!=undefined && userEmail!=undefined){
+        response.redirect(`/history.html?userEmail=${userEmail}&formID=${formID}`)
+    }else{
+        response.sendStatus(404);
+    }
+});
+
+//Endpoint to send selected submitted template
 router.get('/:userEmail/:formID',function (request,response) {
     var formID = parseInt(request.params.formID);
     var userEmail = request.params.userEmail;
@@ -254,6 +265,24 @@ router.get('/:userEmail/:formID',function (request,response) {
             response.status(200).json({activity:doc});
         }
     })
+});
+
+router.delete('/remove/:formID',function (request,response) {
+    var formID = parseInt(request.params.formID);
+    var userEmail = request.session.userEmail;
+
+    console.log(formID , userEmail)
+
+    collecttionFormsSave.find({ _id: userEmail, "activity.id":formID }).toArray()
+        .then(doc => {
+            console.log("in delete saved")
+            console.log(doc);
+            if (doc.length) {
+                collecttionFormsSave.updateOne({ "_id": userEmail }, { $pull: { "activity": { "id": formID } } })
+                .then(res=>{response.status(200).json({message:"Success"});})
+                .catch(err=>{response.status(404).json({message:err});})
+            }
+        })
 })
 
 

@@ -2,6 +2,30 @@
 //global value that stores all forms 
 var globalForms = [];
 
+async function checkForUrlParams() {
+  const currentURL = window.location.href;
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+
+  if (urlSearchParams && urlSearchParams.has("userEmail") && urlSearchParams.has("formID")) {
+    const userEmail = urlSearchParams.get("userEmail");
+    const formID = urlSearchParams.get("formID");
+
+    var request = await fetch(`/forms/${userEmail}/${formID}`);
+    var response = await request.json();
+    console.log(response);
+    var formDetails = response.activity[0].activity[0];
+    //var userEmail = response.activity[0].activity[0]._id;
+    console.log(formDetails)
+    displayForm(formDetails,userEmail);
+  }
+
+  getAllHistoryForms();
+
+   //loadChatGPT();
+  
+}
+
 async function getAllHistoryForms() {
 
 
@@ -31,7 +55,7 @@ async function getAllHistoryForms() {
         if (elementActivity.approval) {
           approved = "Approved"
         }
-        document.getElementById("submittedFormsTable").innerHTML += `<tr onclick="viewForm('${activityIndexInGlobal}','${userEmail}')"><td  class="col-3">` + elementActivity.activityName + `</td><td  class="col-3">` + elementActivity.date + `</td><td  class="col-4">` + elementActivity.description + `</td><td  class="col-4">` + userEmail + `</td><td class='${approved.toLowerCase()}  col-2'>` + approved + `</td></tr>`;
+        document.getElementById("submittedFormsTable").innerHTML += `<tr onclick="viewForm('${activityIndexInGlobal}','${userEmail}')"><td  class="col-3">` + elementActivity.activityName + `</td><td  class="col-2">` + elementActivity.date + `</td><td  class="col-2">` + userEmail + `</td><td class='${approved.toLowerCase()}  col-1'>` + approved + `</td><td  class="col-4">` + elementActivity.description + `</td></tr>`;
       })
 
 
@@ -225,4 +249,4 @@ $(document).ready(function () {
   });
 });
 
-window.onload = () => createHeader(getAllHistoryForms, "history")
+window.onload = () => createHeader(checkForUrlParams, "history")

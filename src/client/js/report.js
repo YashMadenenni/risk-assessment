@@ -98,11 +98,12 @@ async function getRelatedRsiskAssessment() {
 
                 const activityIndexInGlobal = globalForms.indexOf(element);
                 const elementActivity = element;
+                const formIDServer = element.id;
                 var approved = "Pending";
                 if (elementActivity.approval) {
                     approved = "Approved"
                 }
-                document.getElementById("submittedFormsTable").innerHTML += `<tr onclick="viewForm('${activityIndexInGlobal}','${userEmail}')"><td  class="col-3">` + elementActivity.activityName + `</td><td  class="col-3">` + elementActivity.date + `</td><td  class="col-4">` + elementActivity.description + `</td><td class='${approved.toLowerCase()}  col-2'>` + approved + `</td></tr>`;
+                document.getElementById("submittedFormsTable").innerHTML += `<tr onclick="viewFormReport('${formIDServer}','${userEmail}')"><td  class="col-3">` + elementActivity.activityName + `</td><td  class="col-3">` + elementActivity.date + `</td><td  class="col-4">` + elementActivity.description + `</td><td class='${approved.toLowerCase()}  col-2'>` + approved + `</td></tr>`;
             })
 
 
@@ -132,3 +133,14 @@ function modalOpen(riskName) {
     });
     console.log(riskName)
 }
+
+async function viewFormReport(formID,userEmail) {
+    // var formID = document.getElementById('formID').innerHTML;
+    // var userEmail = document.getElementById("author").value;
+  
+    console.log(formID,userEmail)
+    var request = await fetch(`/forms/related-risk/${formID}/${userEmail}`);
+    if(request.redirected){
+      window.location.href = request.url;
+    }
+  }

@@ -23,24 +23,36 @@
         <script src="./js/helper.js"></script>
         <script src="./js/header.js"></script>
 
+<!-- Font awesome -->
+<script src="https://kit.fontawesome.com/317e871bf2.js" crossorigin="anonymous"></script>
     </head>
     <body>
 
         <!-- Submitted Body -->
         <div class=" container-fluid" id="submittedForms">
             <div class="col-3 ">
-                <input class="form-control my-1" id="myInput" type="text"
-                    placeholder="Search..">
+
+                <!-- <input class="form-control my-1" id="myInput" type="text"
+                    placeholder="Search.."> -->
+
+                    <div class="input-group my-2">
+                        <span class="input-group-text my-1">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input class="form-control my-1" id="myInput" type="text" placeholder="Search..">
+                        
+                    </div>
             </div>
             <table class="table table-hover" id="tableSubmitted"
                 style="cursor: pointer;">
                 <thead>
                     <tr>
-                        <th class="col-3" onclick="sortTable(0)">Activity Name</th>
-                        <th class="col-2" onclick="sortTable(1)">Date</th>
+                        <th class="col-3" onclick="sortTable(0)">Activity Name <i class="fa-solid fa-sort"></i></th>
+                        <th class="col-2" onclick="sortTable(1)">Date <i class="fa-solid fa-sort"></i></th>
+                        
+                        <th class="col-2" onclick="sortTable(2)">User <i class="fa-solid fa-sort"></i></th>
+                        <th class="col-1" onclick="sortTable(3)">Status <i class="fa-solid fa-sort"></i></th>
                         <th class="col-4">Description</th>
-                        <th class="col-2" onclick="sortTable(3)">User</th>
-                        <th class="col-1" onclick="sortTable(4)">Status</th>
                     </tr>
                 </thead>
                 <tbody id="submittedFormsTable" style="cursor: pointer;">
@@ -96,17 +108,17 @@
                                     id="formDate" disabled>
                             </div>
                             <div
-                                class="form-group mb-3 col-sm-7  col-lg-3 ms-lg-4  text-center">
-                                <label for="activity ">Author</label>
+                                class="form-group m-3 col-4  text-center">
+                                <label for="author ">Author:</label>
                                 <input type="text" class="form-control-sm" id="author" disabled>
                             </div>
                             <div class="flex d-none">
-                                <label for="activity " >FormID</label>
+                                <label for="formID" >FormID</label>
                                 <label id="formID"></label>
                             </div>
 
                             <div class="form-group mb-3 activity-desc ms-3">
-                                <label for="activity-description">Description:</label>
+                                <label for="formDescription">Description:</label>
                                 <textarea rows="5"
                                     class="form-control w-50 h-100 ms-1"
                                     id="formDescription" disabled></textarea>
@@ -143,16 +155,16 @@
                                 onclick="submitForm('submitSaved')"> Submit </button> -->
                             <!-- <button class="btn btn-info m-3"
                                 onclick="submitForm('save')"> Save </button> -->
-                            <button class="btn btn-warning m-3 text-white"
-                                onclick="useTemplate()">Use Template</button>
+                            
 
                             <button class="btn btn-dark m-3"
-                                onclick="backToList()">Back</button>
-
+                                onclick="backToList()"><i class="fa-sharp fa-solid fa-arrow-left"></i> Back</button>
+                                <button class="btn btn-warning m-3 text-white"
+                                onclick="useTemplate()"> <i class="fa-solid fa-recycle"></i> Use Template </button>
                             <button class="btn btn-success m-3"
-                                onclick="approveForm()" id="approveBtn">Approve</button>
-                            <button class="btn btn-link m-3"
-                                onclick='window.print()'>Download</button>
+                                onclick="approveForm()" id="approveBtn">Approve <i class="fa-solid fa-thumbs-up"></i></button>
+                            <button class="btn  m-3"
+                                onclick='window.print()'><i class="fa-solid fa-arrow-down fa-lg" ></i> <i class="fa-solid fa-file-pdf fa-lg " style="color: #ff330f;"></i></button>
 
                             <!-- editForm() -->
                         </div>

@@ -6,6 +6,10 @@
     color: green;
 }
 
+body{
+    font-family:math;
+}
+
 @media print {
     .btn, .navbar-brand {
         display: none;

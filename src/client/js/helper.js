@@ -96,8 +96,8 @@ function addRowToMain(thisButton) {
 
     // add new button for remove row
     var dataCell = document.createElement('td');
-    dataCell.innerHTML += '<button class="btn btn-danger" onclick="deleteRowFromMain(this)"> X </button>'
-    dataCell.innerHTML += '<button class="btn btn-info text-white my-3" onclick="editRowInMain(this)"> Edit </button>'
+    dataCell.innerHTML += '<button class="btn " onclick="deleteRowFromMain(this)"> <i class="fa-solid fa-trash-can" style="color: #ff1f0f;"></i> </button>'
+    dataCell.innerHTML += '<button class="btn   my-3" onclick="editRowInMain(this)"> <i class="fa-solid fa-pen-to-square"></i> </button>'
     newRow.appendChild(dataCell);
 
     // append the new row to main table
@@ -118,7 +118,7 @@ function addRowToMain(thisButton) {
 function editRowInMain(thisButton) {
     document.getElementById("cntrlMeasures").innerHTML = '<div class="d-flex">' +
         '<textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>' +
-        '<button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>' +
+        '<button class="btn  rounded-5 mx-1" onclick="addTextField()"><i class="fa-sharp fa-solid fa-plus"></i></button>' +
         '</div>';
     var currentRow = thisButton.parentNode.parentNode;
     console.log(currentRow);
@@ -153,7 +153,7 @@ function editRowInMain(thisButton) {
         var newDiv = document.createElement('div');
         newDiv.appendChild(newTextfield);
         // newDiv.appendChild(buttonRemove);
-        newDiv.innerHTML += '<button class="btn btn-info rounded-5" onclick="removeTextField(this)"> - </button>'
+        newDiv.innerHTML += '<button class="btn  rounded-5" onclick="removeTextField(this)"> <i class="fa-solid fa-trash-can" style="color: #ff1f0f;"></i> </button>'
         newDiv.className = "d-flex";
 
         var currentNode = document.getElementById("cntrlMeasures");
@@ -251,7 +251,7 @@ function addTextField(type) {
     var newDiv = document.createElement('div');
     newDiv.appendChild(newTextfield);
     // newDiv.appendChild(buttonRemove);
-    newDiv.innerHTML += '<button class="btn btn-info rounded-5" onclick="removeTextField(this)"> - </button>'
+    newDiv.innerHTML += '<button class="btn  rounded-5" onclick="removeTextField(this)"> <i class="fa-solid fa-trash-can" style="color: #ff1f0f;"></i> </button>'
     newDiv.className = "d-flex";
 
     //Check if the column is casual or control measures
@@ -310,8 +310,8 @@ function addCustomRow(addButton) {
         '<td><label>' + severity + '</label></td>' +
         '<td><label>' + riskLevel + '</label></td>' +
         '<td><label><ul>' + controlMeasuresList + '</ul></label></td>' +
-        '<td><button class="btn btn-danger " onclick="deleteRowFromMain(this)" id="custom"> X </button>'+
-        '<button class="btn btn-info my-3" onclick="editRowInMain(this)" id="custom"> Edit </button>'
+        '<td><button class="btn " onclick="deleteRowFromMain(this)" id="custom"> <i class="fa-solid fa-trash-can" style="color: #ff1f0f;"></i> </button>'+
+        '<button class="btn  my-3" onclick="editRowInMain(this)" id="custom"> <i class="fa-solid fa-pen-to-square"></i> </button>'
         '</td>';
     //   var newRow = createNewRow(tableRow);
     // append the new row to main table
@@ -322,7 +322,7 @@ function addCustomRow(addButton) {
     <td class="d-flex flex-column" id="casual">
         <div class="d-flex flex-row">
             <input type="text" class="form-control" id="customRiskHazards">
-        <button class="btn btn-info mx-1 rounded-5" onclick="addTextField('casual')">+</button>
+        <button class="btn  mx-1 rounded-5" onclick="addTextField('casual')"><i class="fa-sharp fa-solid fa-plus"></i></button>
         </div>
     </td>
     <td><select class="form-select" id="occurance">
@@ -346,7 +346,7 @@ function addCustomRow(addButton) {
     <td class="d-flex flex-column" id="cntrlMeasures">
     <div class="d-flex">
         <textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>
-        <button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>
+        <button class="btn  rounded-5 mx-1" onclick="addTextField()"><i class="fa-sharp fa-solid fa-plus"></i></button>
     </div>    
     </td>
 

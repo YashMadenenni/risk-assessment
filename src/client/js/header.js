@@ -19,21 +19,21 @@ async function createHeader(callback,navItem) {
          <div class="collapse navbar-collapse" id="mynavbar">
            <ul class="navbar-nav flex col-12">
                <li class="nav-item ">
-                   <a class="nav-link active" href="./home.html" id="new">New</a>
+                   <a class="nav-link active" href="./home.html" id="new"><i class="fa-sharp fa-solid fa-plus"></i> New</a>
                </li>
                <li class="nav-item">
-                   <a class="nav-link" href="./savedForms.html" id="saved">Saved </a>
+                   <a class="nav-link" href="./savedForms.html" id="saved"><i class="fa-sharp fa-solid fa-floppy-disk"></i> Saved </a>
                </li>
                <li class="nav-item">
-                   <a class="nav-link" href="./history.html" id="history">Submitted</a>
+                   <a class="nav-link" href="./history.html" id="history"><i class="fa-sharp fa-solid fa-right-to-bracket"></i> Submitted</a>
                </li>
                <li class="nav-item">
-                            <a class="nav-link" href="./report.html" id="report">Report</a>
+                            <a class="nav-link" href="./report.html" id="report"><i class="fa-sharp fa-solid fa-flag"></i> Report</a>
                         </li>
-               <li class="nav-item dropdown profile" >
+               <li class="nav-item dropdown profile " >
                    <a class="nav-link dropdown-toggle  " role="button"
-                       data-bs-toggle="dropdown" href="#">Profile</a>
-                   <ul class="dropdown-menu  " >
+                       data-bs-toggle="dropdown" href="#"><i class="fa-solid fa-user"></i></a>
+                   <ul class="dropdown-menu  dropstart" >
                    <li><div class="form-floating px-2">
                    <input type="text" class="form-control border-0 " id="pwd" placeholder="Enter password" name="pswd" value="${respone.userEmail}" disabled> 
                    <label for="pwd">${respone.userName}</label>

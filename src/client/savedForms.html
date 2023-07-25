@@ -113,8 +113,8 @@
                                                     class="form-control"
                                                     id="customRiskHazards">
                                                 <button
-                                                    class="btn btn-info mx-1 rounded-5"
-                                                    onclick="addTextField('casual')">+</button>
+                                                    class="btn  mx-1 rounded-5"
+                                                    onclick="addTextField('casual')"><i class="fa-sharp fa-solid fa-plus"></i></button>
                                             </div>
                                         </td>
                                         <td><select class="form-select"
@@ -145,8 +145,8 @@
                                                     class="form-control overflow-auto"
                                                     id="customControlMeasures"></textarea>
                                                 <button
-                                                    class="btn btn-info rounded-5 mx-1"
-                                                    onclick="addTextField()">+</button>
+                                                    class="btn  rounded-5 mx-1"
+                                                    onclick="addTextField()"><i class="fa-sharp fa-solid fa-plus"></i></button>
                                             </div>
                                         </td>
 
@@ -164,12 +164,15 @@
 
                         <!-- tabel end -->
                         <div class="saveButton d-flex justify-content-center">
-                            <button class="btn btn-success m-3"
-                                onclick="submitForm('submit','fromSaved')"> Submit </button>
-                            <button class="btn btn-info m-3"
-                                onclick="submitForm('save','fromSavedSave')"> Save </button>
+                            
+                            
+                                
                             <button class="btn btn-dark m-3"
-                                onclick="backToList()">Back</button>
+                                onclick="backToList()"><i class="fa-sharp fa-solid fa-arrow-left"></i> Back </button>
+                                <button class="btn btn-secondary m-3"
+                                onclick="submitForm('save','fromSavedSave')"> Save <i class="fa-sharp fa-solid fa-floppy-disk"></i></button>
+                                <button class="btn btn-success m-3"
+                                onclick="submitForm('submit','fromSaved')"> Submit <i class="fa-sharp fa-solid fa-arrow-right"></i></button>
                             <!-- <button class="btn btn-info m-3" onclick="editForm()">Edit</button> -->
                         </div>
                         <!-- </form> -->
@@ -183,15 +186,15 @@
 <!-- AI -->
 <div class="container">
     <div class="card bg-dark">
-        <div class="card-title m-1 ">
-            <h5 class="text-light">Chat GPT</h5>
+        <div class="card-title m-3 ">
+            <h5 class="text-light">Chat GPT <i class="fa-solid fa-robot" style="color: #7d7f82;"></i></h5>
         </div>
         <div class="card-body ">
            <!-- <span><i class="fa-sharp fa-solid fa-paper-plane" style="color: #329bec;"></i></span> <i class="fa-sharp fa-solid fa-paper-plane" style="color: #329bec;"></i> -->
            <div class=" input-group  ">
             <div class="form-floating">
                 <input class="form-control" type="text" name="promt" id="askPromt" >
-                <label for="askPromt">Ask for suggestions</label>
+                <label for="askPromt">Ask for suggestions <i class="fa-solid fa-lightbulb" style="color: #ffc905;"></i></label>
             </div>
             
             
@@ -221,8 +224,13 @@
 <option value="all">All</option>
 </select> -->
 
-                <input class="form-control my-1" id="myInput"
-                    type="text" placeholder="Search..">
+<div class="input-group my-2">
+    <span class="input-group-text">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
+    <input class="form-control " id="myInput" type="text" placeholder="Search..">
+    
+</div>
 
                 <div class=" overflow-auto  text-black" style="height: 500px;">
                     <table
@@ -250,49 +258,7 @@
         </div>
 
         <!-- Risk Assessment form End -->
-        <!-- table custom -->
-        <!-- <button class="btn btn-info">Custom</button>
-<div class="container custom">
-    <h4>Custom</h4>
-    <table class="table table-bordered text-center">
-        <thead>
-            <tr>
-                <th>Risk Name</th>
-                <th>Possible Casualties</th>
-                <th>Probability of occurance</th>
-                <th>Degree of severity</th>
-                <th>Risk Level</th>
-                <th>Control measure</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table> 
-</div> -->
-        <!-- table custom end -->
-        <!-- pre populated -->
-        <!-- <div class="container pre-populated">
-            <h4>Suggestions</h4>
-            <table class="table table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th>Risk Name</th>
-                        <th>Casualties</th>
-                        <th>Probability of occurance</th>
-                        <th>Degree of severity</th>
-                        <th>Risk Level</th>
-                        <th>Control measure</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="suggestions">
-
-                </tbody>
-            </table>
-        </div> -->
-        <!-- pre populated end -->
+        
         <!-- View Form End-->
 
     </body>

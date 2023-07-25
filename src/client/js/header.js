@@ -33,8 +33,12 @@ async function createHeader(callback,navItem) {
                <li class="nav-item dropdown profile" >
                    <a class="nav-link dropdown-toggle  " role="button"
                        data-bs-toggle="dropdown" href="#">Profile</a>
-                   <ul class="dropdown-menu">
-                       <li><a class="dropdown-item" href="#" id="userEmail">${respone.userEmail}</a></li>
+                   <ul class="dropdown-menu  " >
+                   <li><div class="form-floating px-2">
+                   <input type="text" class="form-control border-0 " id="pwd" placeholder="Enter password" name="pswd" value="${respone.userEmail}" disabled> 
+                   <label for="pwd">${respone.userName}</label>
+                 </div></li>
+                    <!--    <li><a class="dropdown-item" href="#" id="userEmail">${respone.userEmail}</a></li>-->
                        <li><a class="dropdown-item" href="./index.html" >Logout</a></li>
                    </ul>
                </li>

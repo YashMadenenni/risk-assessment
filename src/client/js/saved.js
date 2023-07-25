@@ -27,15 +27,16 @@ async function getSavedForms() {
 
             var activity = element.activity;
 
-            globalForms.push(activity);
+           
 
             //console.log(activity);
 
             for (let activityIndex = 0; activityIndex < activity.length; activityIndex++) {
                 const elementActivity = activity[activityIndex]; //each activity
+                globalForms.push(elementActivity);
                 console.log(elementActivity);
-
-                document.getElementById("savedFormsTable").innerHTML += `<tr onclick="viewForm('${elementActivity.activityName}')"><td  class="col-3">`+elementActivity.activityName+`</td><td  class="col-3">`+elementActivity.date+`</td><td  class="col-6">`+elementActivity.description+`</td></tr>`;
+                //${elementActivity.activityName}
+                document.getElementById("savedFormsTable").innerHTML += `<tr onclick="viewForm('${activityIndex}')"><td  class="col-3">`+elementActivity.activityName+`</td><td  class="col-3">`+elementActivity.date+`</td><td  class="col-6">`+elementActivity.description+`</td><td><button class="btn btn-light" onclick="deleteForm('${activityIndex}')"><i class="fa-solid fa-trash-can" style="color: #ff1f0f;"></i></button></td></tr>`;
                 
             }
 
@@ -46,22 +47,26 @@ async function getSavedForms() {
         });
 }
 
-function viewForm(activityThis) {
+function viewForm(activityIndex) {
 
-    
+    var activityThis = globalForms[activityIndex];
 
     var selectedActivity = activityThis;
     console.log(selectedActivity);
     console.log(globalForms);
-   globalForms.forEach(element =>{
-    element.forEach(element =>{
+
+    var element = document.getElementsByTagName("body")[0];
+  element.classList.toggle("bg-black");
+//    globalForms.forEach(element =>{
+//     element.forEach(element =>{
         
-    if(element.activityName == selectedActivity){
-        console.log(element);
-        displayForm(element);
-    }
-    })
-   });
+//     if(element.activityName == selectedActivity){
+//         console.log(element);
+//         displayForm(element);
+//     }
+//     })
+//    });
+displayForm(selectedActivity)
 
 //    loadRisksContent(); //invoke the method in helper.js 
 getRisksSuggestion(); //invoke suggestions in home.js
@@ -73,11 +78,13 @@ function displayForm(formData){
     var date = formData.date;
     var description = formData.description;
     var risksArray = formData.risks;
+    var activityIndexInServer = formData.id
     //reset
 
     document.getElementById("activity").value = activity;
     document.getElementById("formDate").value = date;
     document.getElementById("formDescription").innerHTML = description;
+    document.getElementById("activityIndexInServer").innerHTML = activityIndexInServer;
     
     risksArray.forEach(element => {
         console.log(element.controlMeasure);
@@ -93,57 +100,13 @@ function displayForm(formData){
     document.getElementById("savedForms").style = "display:none";
 }
 
+
+
 function backToList() {
-    // document.getElementById("formDisplayBody").style = "display:none";
-    // document.getElementById("savedForms").style = "display:block";
+
 location.reload()
-    //resetForm();
+
 
 }
-
-// function resetForm() {
-//     document.getElementById("suggestions").innerHTML = "";
-//     document.getElementById("selectRiskName").innerHTML = '<option value="all">All</option>';
-
-
-//     document.getElementById('table-risk-body').innerHTML = '<tr id="customRow" > '+
-//     '<td><input type="text" class="form-control" id="customRiskName"></td>'+
-//     '<td class="d-flex flex-column" id="casual">'+
-//         '<div class="d-flex flex-row">'+
-//          '   <input type="text" class="form-control" id="customRiskHazards">'+
-//         '<button class="btn btn-info mx-1 rounded-5" onclick="addTextField("casual")">+</button>'+
-//         '</div>'+
-//     '</td>'+
-//     '<td><select class="form-select" id="occurance">'+
-//             '<option>1</option>'+
-//             '<option>2</option>'+
-//             '<option>3</option>'+
-
-//         '</select></td>'+
-//     '<td><select class="form-select" id="severity">'+
-//             '<option>1</option>'+
-//             '<option>2</option>'+
-//             '<option>3</option>'+
-
-//         '</select></td>'+
-//     '<td><select class="form-select" id="riskLevel">'+
-//             '<option>1</option>'+
-//             '<option>2</option>'+
-//             '<option>3</option>'+
-
-//         '</select></td>'+
-//     '<td class="d-flex flex-column" id="cntrlMeasures">'+
-//     '<div class="d-flex">'+
-//         '<textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>'+
-//         '<button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>'+
-//     '</div>    '+
-//     '</td>'+
-
-//         '<td>'+
-//             '<button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>'+
-//         '</td>'+
-// '</tr>'
-
-// }
 
 window.onload = () => createHeader(getSavedForms,"saved");

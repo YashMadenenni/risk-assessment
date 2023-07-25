@@ -77,6 +77,7 @@ router.post('/login', function (request, response) {
                     request.session.loggedIn = true;
                     request.session.userEmail = userEmail;
                     request.session.isAdmin = true;
+                    request.session.userName = doc[0].userName;
 
                     console.log('userEmail after setting session:', request.session.userEmail);
                     console.log(request.session);
@@ -107,6 +108,7 @@ router.post('/login', function (request, response) {
                     request.session.loggedIn = true;
                     request.session.userEmail = userEmail;
                     request.session.isAdmin = false;
+                    request.session.userName = doc[0].userName;
 
                     console.log('userEmail after setting session:', request.session.userEmail);
                     console.log(request.session);
@@ -157,9 +159,10 @@ router.post("/register", function (request, response) {
 router.get('/email', (req, res) => {
     const userEmail = req.session.userEmail;
     const isAdmin = req.session.isAdmin;
+    const userName = req.session.userName;
     // console.log(req.session);
     // console.log(userEmail);
-    res.json({ userEmail :userEmail, isAdmin:isAdmin });
+    res.json({ userEmail :userEmail, isAdmin:isAdmin ,userName:userName});
 });
 
 module.exports = router;

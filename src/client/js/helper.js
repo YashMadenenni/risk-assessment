@@ -1,3 +1,51 @@
+//Function to perform Chat GPT interactions
+async function loadChatGPT() {
+
+    const OPENAI_API_KEY = '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';
+    
+    var userQuestion = document.getElementById("askPromt").value;
+  
+    console.log(userQuestion);
+  
+    document.getElementById("aiResponse").innerHTML = '<span class="spinner-border spinner-border-sm"></span>Loading..'
+    
+  
+    const data = {
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'user', content: userQuestion }
+      ]
+    };
+  
+    const headers = {
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      'Content-Type': 'application/json'
+    };
+  
+    const requestOptions = {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(data)
+    };
+  
+  
+  
+    try {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', requestOptions);
+      const result = await response.json();
+      console.log(result.choices[0].message);
+  
+      var answerAI = result.choices[0].message.content;
+      document.getElementById("aiResponse").style.height = "300px";
+      document.getElementById("aiResponse").innerHTML = '<pre>'+answerAI+'</pre>';
+  
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+
 //Function to get all risks for suggestions table 
 async function getRisksSuggestion() {
 
@@ -6,6 +54,7 @@ async function getRisksSuggestion() {
     const responseRisks = await (risksRequest.json());
     console.log(responseRisks);
     getAllRisks(responseRisks, "onload") //helper method to get all pre filled risks
+    
 
 }
 
@@ -16,7 +65,7 @@ function getAllRisks(responseRisks, caller) {
     responseRisks.forEach(element => {
         console.log(element.riskname);
 
-        const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-outline-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
+        const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
         document.getElementById("suggestions").innerHTML += newRow;
 
         //append control measures 
@@ -140,7 +189,7 @@ function deleteRowFromMain(thisButton) {
 
     // add new button for remove row
     var dataCell = document.createElement('td');
-    dataCell.innerHTML += '<button class="btn btn-outline-success" onclick="addRowToMain(this)"> Add </button>'
+    dataCell.innerHTML += '<button class="btn btn-success" onclick="addRowToMain(this)"> Add </button>'
     newRow.appendChild(dataCell);
 
     if (thisButton.id != "custom") {
@@ -302,12 +351,12 @@ function addCustomRow(addButton) {
     </td>
 
         <td>
-            <button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>
+            <button class="btn btn-success" onclick="addCustomRow(this)">Add</button>
         </td>`
 }
 
 //function to submit form 
-function submitForm(button) {
+function submitForm(button,page) {
 
     var activityName = document.getElementById("activity").value;
     var date = document.getElementById("formDate").value;
@@ -349,6 +398,11 @@ function submitForm(button) {
             risks: riskData
         }
 
+        
+        if(page == "fromSavedSave"){
+            formData.formID = parseInt(document.getElementById("activityIndexInServer").innerHTML)
+        }
+
         console.log(formData);
 
         if (button == 'submit') {
@@ -362,6 +416,7 @@ function submitForm(button) {
             }).then(response => {
                 if (response.ok) {
                     window.alert("Submitted Successfully");
+                    location.reload();
                 } else {
                     window.alert("Error Submitting");
                 }
@@ -377,9 +432,10 @@ function submitForm(button) {
                 },
                 body: JSON.stringify(formData)
             }).then(response => {
-                window.alert("Saved Response");
+                // window.alert("Saved Response");
                 if (response.ok) {
                     window.alert("Saved Successfully");
+                    
                 } else {
                     window.alert("Error Saving");
                 }
@@ -405,7 +461,7 @@ async function displaySuggestion(optionSelect) {
 
             if (element.riskname == optionSelect) {
                 console.log(element);
-                const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id=""></td>' + '<td><button class="btn btn-outline-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
+                const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id=""></td>' + '<td><button class="btn btn-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
                 document.getElementById("suggestions").innerHTML += newRow;
                 //append control measures 
                 var controlList = document.createElement('ul')

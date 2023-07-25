@@ -19,42 +19,13 @@
         <script src="./js/home.js"></script>
         <script src="./js/header.js"></script>
         <script src="./js/helper.js"></script>
-    </head>
-    <body>
-        <!-- Header -->
-        <!-- <iframe src="header.html" frameborder="0" style="width: 100%; "></iframe> -->
-       
-        <!-- <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a href="" class="navbar-brand">Risk Assessment</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="mynavbar">
-                    <ul class="navbar-nav flex col-12">
-                        <li class="nav-item ">
-                            <a class="nav-link active" href="./home.html">New Form</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./savedForms.html" id="saved">Saved Forms</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./history.html" id="history">History</a>
-                        </li>
-                        <li class="nav-item dropdown profile" >
-                            <a class="nav-link dropdown-toggle  " role="button"
-                                data-bs-toggle="dropdown" href="#">Profile</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" id="userEmail"></a></li>
-                                <li><a class="dropdown-item" href="./index.html" id="userEmail">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                  </div>
-                
-            </div>
 
-        </nav> -->
+        <!-- Font awesome -->
+        <script src="https://kit.fontawesome.com/317e871bf2.js" crossorigin="anonymous"></script>
+      
+    </head>
+    <body class="bg-black">
+        
        
         <!-- Header End -->
 
@@ -72,12 +43,12 @@
                                 <label for="activity">Activity Name:</label>
                                 <input type="activity" class="form-control-sm"
                                     id="activity" placeholder="Activity"
-                                    name="activity">
+                                    name="activity" required="required">
                             </div>
                             <div
                                 class="form-group mb-3 col-sm-7  col-lg-3   ">
                                 <label for="date">Date:</label>
-                                <input type="date" class="form-control-sm" id="formDate">
+                                <input type="date" class="form-control-sm" id="formDate" required="required">
                             </div>
 
                             <div class="form-group mb-3 activity-desc ">
@@ -89,7 +60,7 @@
                         </div>
                         <!-- table -->
                         <div class="card-body">
-                            <table class="table table-bordered text-center" id="table-risk">
+                            <table class="table table-bordered text-center overflow-auto " id="table-risk">
                                 <thead>
                                     <tr>
                                         <th class="col-2">Risk Name</th>
@@ -150,8 +121,8 @@
 
                         <!-- tabel end -->
                         <div class="saveButton d-flex justify-content-center">
-                            <button class="btn btn-success m-3" onclick="submitForm('submit')"> Submit </button>
-                            <button class="btn btn-dark m-3" onclick="submitForm('save')"> Save </button>
+                            <button class="btn btn-success m-3" onclick="submitForm('submit','fromHome')"> Submit </button>
+                            <button class="btn btn-dark m-3" onclick="submitForm('save','fromHome')"> Save </button>
                         </div>
                         <!-- </form> -->
                     </div>
@@ -162,31 +133,44 @@
         </div>
 
         <!-- Risk Assessment form End -->
-<!-- table custom -->
-<!-- <button class="btn btn-info">Custom</button>
-<div class="container custom">
-    <h4>Custom</h4>
-    <table class="table table-bordered text-center">
-        <thead>
-            <tr>
-                <th>Risk Name</th>
-                <th>Possible Hazards</th>
-                <th>Probability of occurance</th>
-                <th>Degree of severity</th>
-                <th>Risk Level</th>
-                <th>Control measure</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
+
+
+<!-- AI -->
+<div class="container">
+    <div class="card bg-dark">
+        <div class="card-title m-1 ">
+            <h5 class="text-light">Chat GPT</h5>
+        </div>
+        <div class="card-body ">
+           <!-- <span><i class="fa-sharp fa-solid fa-paper-plane" style="color: #329bec;"></i></span> <i class="fa-sharp fa-solid fa-paper-plane" style="color: #329bec;"></i> -->
+           <div class=" input-group  ">
+            <div class="form-floating">
+                <input class="form-control" type="text" name="promt" id="askPromt" >
+                <label for="askPromt">Ask for suggestions</label>
+            </div>
             
-        </tbody>
-    </table> 
-</div> -->
-<!-- table custom end -->
+            
+            <button class="btn btn-primary " type="button" onclick="loadChatGPT()"><i class="fa-sharp fa-solid fa-paper-plane" style="color: white;"></i> </button>
+            
+           </div>
+
+           
+            <div class="card my-3">
+                <div class="card-body overflow-auto  aiResponse"  id="aiResponse">
+                    
+                </div>
+            </div>
+           
+
+           
+        </div>
+    </div>
+</div>
+<!-- AI end -->
+
 <!-- pre populated -->
-<div class="container pre-populated ">
-    <h4>Suggestions</h4>
+<div class="container pre-populated my-5 bg-secondary rounded-2">
+    <h4 class="text-light py-3">Suggestions</h4>
 
     <input class="form-control my-1" id="myInput" type="text" placeholder="Search..">
      
@@ -195,7 +179,7 @@
     </select>
      -->
 
-    <div class=" overflow-auto" style="height: 500px;">
+    <div class=" overflow-auto text-black " style="height: 500px;">
         <table class="table table-bordered text-center h-25 overflow-auto" id="suggestionsTable">
             <thead>
                 <tr>

@@ -22,7 +22,7 @@
  <link rel="stylesheet" href="./css/report.css">
 
 </head>
-<body>
+<body class="bg-black bg-opacity-50">
     
     <div class="container d-none" id="allReports">
 
@@ -81,26 +81,27 @@
         </div>
         <div class="row card-body ">
            <div class="col-6">
-            <form action="/incident/report" method="post" enctype="multipart/form-data">
+            <form action="/incident/report" method="post" enctype="multipart/form-data" class="needs-validated">
                 <div class="   d-flex flex-row" >
                     <label for="incident">Incident Name : </label>
-                    <input class="form-control" type="text" name="incident" id="incident">
+                    <input class="form-control" type="text" name="incident" id="incident" required>
                     
                 </div>
                 <div class="  my-4 d-flex flex-row" >
                     <label for="incidentDate">Date And Time : </label>
-                    <input class="form-control" type="datetime-local" name="incidentDate" id="incidentDate">
+                    <input class="form-control" type="datetime-local" name="incidentDate" id="incidentDate" required>
                     
                 </div>
               
                 <div class=" form-group d-flex flex-row">
                     <label for="incidentDescription">Incident Description :</label>
-                    <textarea maxlength="250" rows="5" cols="" class="form-control" name="incidentDescription" id="incidentDescription"></textarea>
+                    <textarea maxlength="250" rows="5" cols="" class="form-control" name="incidentDescription" id="incidentDescription" required></textarea>
                 </div>
 
                 <div class="form-group d-flex flex-row my-4">
                     <label for="incidentImage">Image :</label>
-                    <input type="file" class="ps-2" name="incidentImage" id="incidentImage"></input>
+                    <input type="file" class="ps-2" name="incidentImage" id="incidentImage" required></input>
+                    <div class="invalid-feedback">select an image</div>
                 </div>
                 <div class="col-12 text-center my-3">
                     <button class="btn btn-success " type="submit">Report</button>

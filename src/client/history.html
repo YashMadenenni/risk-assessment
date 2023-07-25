@@ -25,19 +25,22 @@
 
     </head>
     <body>
-        
+
         <!-- Submitted Body -->
         <div class=" container-fluid" id="submittedForms">
-           <div class="col-2 ms-auto">
-            <input class="form-control my-1" id="myInput" type="text" placeholder="Search..">
-           </div>
-            <table class="table table-hover" id="tableSubmitted" style="cursor: pointer;">
+            <div class="col-3 ">
+                <input class="form-control my-1" id="myInput" type="text"
+                    placeholder="Search..">
+            </div>
+            <table class="table table-hover" id="tableSubmitted"
+                style="cursor: pointer;">
                 <thead>
-                    <tr >
+                    <tr>
                         <th class="col-3" onclick="sortTable(0)">Activity Name</th>
-                        <th class="col-3" onclick="sortTable(1)">Date</th>
+                        <th class="col-2" onclick="sortTable(1)">Date</th>
                         <th class="col-4">Description</th>
-                        <th class="col-2" onclick="sortTable(3)">Status</th>
+                        <th class="col-2" onclick="sortTable(3)">User</th>
+                        <th class="col-1" onclick="sortTable(4)">Status</th>
                     </tr>
                 </thead>
                 <tbody id="submittedFormsTable" style="cursor: pointer;">
@@ -50,7 +53,8 @@
 
         <!-- View Form -->
         <!-- Risk Assement form -->
-        <div class="container card my-5" id="formDisplayBody" style="display: none;">
+        <div class="container card my-5" id="formDisplayBody"
+            style="display: none;">
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  ">
@@ -65,10 +69,7 @@
                             <label for="activity ">Activity Name:</label>
                             <label id="p-activity"></label>
                         </div>
-                        <div class="flex d-none">
-                            <label for="activity " id="author">Author</label>
-                            <label id="p-activity"></label>
-                        </div>
+
                         <div class="flex">
                             <label for="date">Date:</label>
                             <label id="p-date"></label>
@@ -79,11 +80,11 @@
                         </div>
                     </div>
                     <!-- form -->
-                    <div class="">
+                    <div class>
                         <!-- <form action="" method="post" class=""> -->
                         <div class="row flex-column d-print-none card-header">
                             <div class="form-group mt-3 mb-3">
-                                <label for="activity" >Activity Name:</label>
+                                <label for="activity">Activity Name:</label>
                                 <input type="activity" class="form-control-sm"
                                     id="activity" placeholder="Activity"
                                     name="activity" disabled>
@@ -93,6 +94,15 @@
                                 <label for="date">Date:</label>
                                 <input type="date" class="form-control-sm"
                                     id="formDate" disabled>
+                            </div>
+                            <div
+                                class="form-group mb-3 col-sm-7  col-lg-3 ms-lg-4  text-center">
+                                <label for="activity ">Author</label>
+                                <input type="text" class="form-control-sm" id="author" disabled>
+                            </div>
+                            <div class="flex d-none">
+                                <label for="activity " >FormID</label>
+                                <label id="formID"></label>
                             </div>
 
                             <div class="form-group mb-3 activity-desc ms-3">
@@ -112,7 +122,8 @@
                                     <tr>
                                         <th class="col-2">Risk Name</th>
                                         <th class="col-2">Hazards</th>
-                                        <th class="col-1">Probability of occurance</th>
+                                        <th class="col-1">Probability of
+                                            occurance</th>
                                         <th class="col-1">Degree of severity</th>
                                         <th class="col-1">Risk Level</th>
                                         <th class="col-5">Control measure</th>
@@ -120,59 +131,20 @@
                                     </tr>
                                 </thead>
                                 <tbody id="table-risk-body">
-                                    <!-- customRow -->
-                                    <!-- customRow -->
-                                    <!-- <tr id="customRow" >
-                                        <td><input type="text" class="form-control" id="customRiskName"></td>
-                                        <td class="d-flex flex-column" id="casual">
-                                            <div class="d-flex flex-row">
-                                                <input type="text" class="form-control" id="customRiskHazards">
-                                            <button class="btn btn-info mx-1 rounded-5" onclick="addTextField('casual')">+</button>
-                                            </div>
-                                        </td>
-                                        <td><select class="form-select" id="occurance">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                            
-                                            </select></td>
-                                        <td><select class="form-select" id="severity">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                            
-                                            </select></td>
-                                        <td><select class="form-select" id="riskLevel">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                            
-                                            </select></td>
-                                        <td class="d-flex flex-column" id="cntrlMeasures">
-                                        <div class="d-flex">
-                                            <textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>
-                                            <button class="btn btn-info rounded-5 mx-1" onclick="addTextField()">+</button>
-                                        </div>    
-                                        </td>
-                            
-                                            <td>
-                                                <button class="btn btn-outline-success" onclick="addCustomRow(this)">Add</button>
-                                            </td>
-                                    </tr> -->
-                                    <!-- customRow end -->
+
 
                                 </tbody>
                             </table>
                         </div>
 
                         <!-- tabel end -->
-                        <div class="saveButton d-flex justify-content-center">
+                        <div class="saveButton d-flex justify-content-center " style="cursor: pointer;">
                             <!-- <button class="btn btn-success m-3"
                                 onclick="submitForm('submitSaved')"> Submit </button> -->
                             <!-- <button class="btn btn-info m-3"
                                 onclick="submitForm('save')"> Save </button> -->
                             <button class="btn btn-warning m-3 text-white"
-                                onclick>Use Template</button>
+                                onclick="useTemplate()">Use Template</button>
 
                             <button class="btn btn-dark m-3"
                                 onclick="backToList()">Back</button>
@@ -186,36 +158,7 @@
                         </div>
                         <!-- </form> -->
 
-                        <!-- pre populated -->
-                        <!-- <div class="container pre-populated ">
-    <h4>Suggestions</h4>
-     
-    <select name="RiskName" id="selectRiskName" class="" required="required" onchange="displaySuggestion(value)">
-        <option value="all">All</option>
-    </select>
-    
-
-    <div class=" overflow-auto" style="height: 500px;">
-        <table class="table table-bordered text-center h-25 overflow-auto">
-            <thead>
-                <tr>
-                    <th>Risk Name</th>
-                    <th>Hazards</th>
-                    <th>Probability of occurance</th>
-                    <th>Degree of severity</th>
-                    <th>Risk Level</th>
-                    <th>Control measure</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="suggestions">
-                
-            </tbody>
-        </table> 
-    </div>
-</div> -->
-                        <!-- pre populated end -->
-                    </div>
+                                  </div>
                     <!-- form end -->
                 </div>
             </div>
@@ -223,49 +166,7 @@
         </div>
 
         <!-- Risk Assessment form End -->
-        <!-- table custom -->
-        <!-- <button class="btn btn-info">Custom</button>
-<div class="container custom">
-    <h4>Custom</h4>
-    <table class="table table-bordered text-center">
-        <thead>
-            <tr>
-                <th>Risk Name</th>
-                <th>Possible Casualties</th>
-                <th>Probability of occurance</th>
-                <th>Degree of severity</th>
-                <th>Risk Level</th>
-                <th>Control measure</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table> 
-</div> -->
-        <!-- table custom end -->
-        <!-- pre populated -->
-        <!-- <div class="container pre-populated">
-            <h4>Suggestions</h4>
-            <table class="table table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th>Risk Name</th>
-                        <th>Casualties</th>
-                        <th>Probability of occurance</th>
-                        <th>Degree of severity</th>
-                        <th>Risk Level</th>
-                        <th>Control measure</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="suggestions">
-
-                </tbody>
-            </table>
-        </div> -->
-        <!-- pre populated end -->
+        
         <!-- View Form End-->
     </body>
 </html>

@@ -50,20 +50,21 @@ async function getAllReports() {
       ${incidentDescription}
       </div>
         
-        <div class="card-footer">
+        <div class="card-footer text-center">
         
         <!--<a class="btn" data-bs-toggle="collapse" href="#collapse${response.indexOf(element)}">
         Description
       </a>-->
+      <button type="button" class="btn btn-warning text-white my-1" data-bs-toggle="modal" data-bs-target="#myModal" onclick="modalOpen('${incidentName}')">
+  Open Risk Assessmeent
+</button>
     </div>
     <!-- <div id="collapse${response.indexOf(element)}" class="collapse " data-bs-parent="#accordion">-->
       
     
             
       <!-- </div> -->
-        <button type="button" class="btn btn-warning text-white my-1" data-bs-toggle="modal" data-bs-target="#myModal" onclick="modalOpen('${incidentName}')">
-  Open Risk Assessmeent
-</button>
+        
 
 
     </div>`

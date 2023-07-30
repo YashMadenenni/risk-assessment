@@ -47,13 +47,13 @@ async function loadChatGPT() {
 
 
 //Function to get all risks for suggestions table 
-async function getRisksSuggestion() {
+async function getRisksSuggestion(caller) {
 
     // Risks fetch request for filling suggestions
     const risksRequest = await fetch('/risks/all', { method: "GET" });
     const responseRisks = await (risksRequest.json());
     console.log(responseRisks);
-    getAllRisks(responseRisks, "onload") //helper method to get all pre filled risks
+    getAllRisks(responseRisks, caller) //helper method to get all pre filled risks
     
 
 }
@@ -64,8 +64,12 @@ function getAllRisks(responseRisks, caller) {
 
     responseRisks.forEach(element => {
         console.log(element.riskname);
-
-        const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
+        var newRow ;
+        
+             newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-success sug-add" onclick="addRowToMain(this)">Select</button></td></tr>'
+        
+        
+        
         document.getElementById("suggestions").innerHTML += newRow;
 
         //append control measures 
@@ -90,6 +94,7 @@ function getAllRisks(responseRisks, caller) {
 // Add event listeners to the add function
 
 function addRowToMain(thisButton) {
+    
     var thisRow = thisButton.parentNode.parentNode;
     console.log(thisRow)
     var newRow = createNewRow(thisRow);
@@ -189,7 +194,7 @@ function deleteRowFromMain(thisButton) {
 
     // add new button for remove row
     var dataCell = document.createElement('td');
-    dataCell.innerHTML += '<button class="btn btn-success" onclick="addRowToMain(this)"> Add </button>'
+    dataCell.innerHTML += '<button class="btn btn-success" onclick="addRowToMain(this)"> Select </button>'
     newRow.appendChild(dataCell);
 
     if (thisButton.id != "custom") {
@@ -237,7 +242,7 @@ function createNewRow(thisRow) {
 function addTextField(type) {
     var newTextfield;
 
-    if (type === "casual") {
+    if (type === "casual" || type === "addRisk") {
         newTextfield = document.createElement("input");
 
     }
@@ -259,6 +264,9 @@ function addTextField(type) {
         var currentNode = document.getElementById("casual");
         currentNode.append(newDiv);
 
+    }else if (type === "addRisk") {
+        var currentNode = document.getElementById("addRisk");
+        currentNode.append(newDiv);
     }
     else {
         var currentNode = document.getElementById("cntrlMeasures");
@@ -351,7 +359,7 @@ function addCustomRow(addButton) {
     </td>
 
         <td>
-            <button class="btn btn-success" onclick="addCustomRow(this)">Add</button>
+            <button class="btn btn-success" onclick="addCustomRow(this)">Select</button>
         </td>`
 }
 
@@ -443,43 +451,45 @@ function submitForm(button,page) {
                 console.log("Error in request", error);
             });
         }
+    }else{
+        window.alert("Enter atleast one Risk Managment")
     }
 
 }
 
-async function displaySuggestion(optionSelect) {
-    // Risks fetch request for  suggestions
-    const risksRequest = await fetch('/risks/all', { method: "GET" });
-    const responseRisks = await (risksRequest.json());
+// async function displaySuggestion(optionSelect) {
+//     // Risks fetch request for  suggestions
+//     const risksRequest = await fetch('/risks/all', { method: "GET" });
+//     const responseRisks = await (risksRequest.json());
 
-    var rowsArray = responseRisks;
-    document.getElementById("suggestions").innerHTML = ""
-    if (optionSelect != "all") {
+//     var rowsArray = responseRisks;
+//     document.getElementById("suggestions").innerHTML = ""
+//     if (optionSelect != "all") {
 
 
-        rowsArray.forEach(element => {
+//         rowsArray.forEach(element => {
 
-            if (element.riskname == optionSelect) {
-                console.log(element);
-                const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id=""></td>' + '<td><button class="btn btn-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
-                document.getElementById("suggestions").innerHTML += newRow;
-                //append control measures 
-                var controlList = document.createElement('ul')
-                var controlListArray = element.precautions;
-                controlListArray.forEach(controlMeasure => {
-                    var ul = document.createElement('li');
-                    ul.innerHTML = controlMeasure;
-                    controlList.append(ul);
-                })
-                var controlListCell = document.getElementById(element.riskname);
-                controlListCell.appendChild(controlList);
-            }
+//             if (element.riskname == optionSelect) {
+//                 console.log(element);
+//                 const newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id=""></td>' + '<td><button class="btn btn-success sug-add" onclick="addRowToMain(this)">Add</button></td></tr>'
+//                 document.getElementById("suggestions").innerHTML += newRow;
+//                 //append control measures 
+//                 var controlList = document.createElement('ul')
+//                 var controlListArray = element.precautions;
+//                 controlListArray.forEach(controlMeasure => {
+//                     var ul = document.createElement('li');
+//                     ul.innerHTML = controlMeasure;
+//                     controlList.append(ul);
+//                 })
+//                 var controlListCell = document.getElementById(element.riskname);
+//                 controlListCell.appendChild(controlList);
+//             }
 
-        })
-    } else {
-        getAllRisks(responseRisks, "all");
-    }
-}
+//         })
+//     } else {
+//         getAllRisks(responseRisks, "all");
+//     }
+// }
 
 
 //function for search suggestion

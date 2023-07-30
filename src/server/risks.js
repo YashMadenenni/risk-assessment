@@ -5,6 +5,7 @@ const router = express.Router();
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 router.use(express.static(path.join(__dirname, '../client')));
+const crypto = require("crypto");
 
 // //MongoDB set up ans start server
 // //build url for client
@@ -16,14 +17,14 @@ let collecttionRisks = null; // initially null
 const insertStarterDataRisks = async function () {
     return collecttionRisks.insertMany([
         {
-           _id:1, riskname: "Position of oven",risks:["Sited in traffic routes being knocked over "],probability:"1",severity:"1",riskLevel:"1",precautions:["oven is sited in an area free of vehicle and pedestrian traffic with access limited to staff that operate the equipment. ","A suitable barrier is positioned around the oven to keep children and visitors etc away from hot surfaces","A sheltered position is used to help eliminate wind and other natural elements from blowing across the oven causing food to spill and smoke/embers from blowing into people. ","Only designated people fuel used to light the oven following manufacturer’s instructions on the packaging. "]
-          },{
-           _id:2,riskname: "Firefighting equipment",risks:["No provision to fight fire "],probability:"1",severity:"3",riskLevel:"1",precautions:["A fire extinguisher  or bucket of water is available, sited near the oven. "]
-          },{
-            _id:3,riskname: "Equipment",risks:["Infected cutlery/cooking implementation "],probability:"1",severity:"1",riskLevel:"1",precautions:["NO glass equipment is used or stored at the PIZZA OVEN service area.","All implements are thoroughly washed before and after the PIZZA OVEN to ensure the risk of bacterial infection is sufficiently controlled. ","Only designated people/cooks can use this equipment "]
-          },{
-            _id:4,riskname: "Food Safety",risks:["Food poisoning"],probability:"2",severity:"3",riskLevel:"2",precautions:["Food is thoroughly cooked before being served to people. ","Only enough food which can be cooked at any one time is taken out of the cool bag or refrigerator.","Manufacturer’s instructions are always followed when cooking.","If available, a refrigerator is used to store uncooked food. If not available a cool bag is used with ice to keep the food chilled. "]
-          }
+            _id: 1, riskname: "Position of oven", risks: ["Sited in traffic routes being knocked over "], probability: "1", severity: "1", riskLevel: "1", precautions: ["oven is sited in an area free of vehicle and pedestrian traffic with access limited to staff that operate the equipment. ", "A suitable barrier is positioned around the oven to keep children and visitors etc away from hot surfaces", "A sheltered position is used to help eliminate wind and other natural elements from blowing across the oven causing food to spill and smoke/embers from blowing into people. ", "Only designated people fuel used to light the oven following manufacturer’s instructions on the packaging. "]
+        }, {
+            _id: 2, riskname: "Firefighting equipment", risks: ["No provision to fight fire "], probability: "1", severity: "3", riskLevel: "1", precautions: ["A fire extinguisher  or bucket of water is available, sited near the oven. "]
+        }, {
+            _id: 3, riskname: "Equipment", risks: ["Infected cutlery/cooking implementation "], probability: "1", severity: "1", riskLevel: "1", precautions: ["NO glass equipment is used or stored at the PIZZA OVEN service area.", "All implements are thoroughly washed before and after the PIZZA OVEN to ensure the risk of bacterial infection is sufficiently controlled. ", "Only designated people/cooks can use this equipment "]
+        }, {
+            _id: 4, riskname: "Food Safety", risks: ["Food poisoning"], probability: "2", severity: "3", riskLevel: "2", precautions: ["Food is thoroughly cooked before being served to people. ", "Only enough food which can be cooked at any one time is taken out of the cool bag or refrigerator.", "Manufacturer’s instructions are always followed when cooking.", "If available, a refrigerator is used to store uncooked food. If not available a cool bag is used with ice to keep the food chilled. "]
+        }
     ])
         .then(res => console.log("data inserted with ID", res.insertedIds))
         .catch(err => {
@@ -44,15 +45,14 @@ client.connect()
     })
     .then(() => insertStarterDataRisks()) //invoke insert data for loading initial data
 
- //Endpoint to return all risks
- router.get("/all",function (request,response) {
+//Endpoint to return all risks
+router.get("/all", function (request, response) {
     collecttionRisks.find().toArray()
-    .then(doc=>
-        {
+        .then(doc => {
             try {
-                if(doc.length>0){
+                if (doc.length > 0) {
                     response.send(doc);
-                }else{
+                } else {
                     response.send("No documents");
                 }
             } catch (error) {
@@ -61,6 +61,125 @@ client.connect()
             }
         }
         )
- })
+});
 
- module.exports = router;
+var idCollection = [];
+
+router.post("/addRisk", function (request, respone) {
+
+    var risksArray = request.body.risksArray;
+    var isAdmin = request.session.isAdmin;
+
+    if(isAdmin){
+        risksArray.forEach(element => {
+
+            var riskName = element.riskName;
+            var risksArray = element.casualties;
+            var probability = element.probability;
+            var severity = element.severity;
+            var riskLevel = element.riskLevel;
+            var precautionsArray = element.controlMeasure;
+    
+            // generate Random id
+            var n = 0;
+            do {
+                n = crypto.randomInt(0, 100000);
+            } while (idCollection.includes(n));
+    
+            collecttionRisks.find({ riskname: riskName }).toArray().then(doc => {
+                // console.log("doc");
+                // console.log(doc);
+    
+                if (doc.length == 0) {
+                    collecttionRisks.insertOne(
+                        {
+                           _id:n, riskname: riskName, risks: risksArray, probability: probability, severity: severity, riskLevel: riskLevel, precautions: precautionsArray
+                        }).then(res => respone.status(200).json({ message: "success" })).catch(err => { respone.status(400).json({ message: "Error" }); console.log(err) })
+    
+                } else {
+                    respone.status(400).json({ message: "Document Exists" });
+                }
+            })
+        });
+    }else{
+        respone.status(400).json({ message: "Unauthorized" });
+    }
+
+
+})
+
+router.post("/editRisk", function (request, respone) {
+     
+    var riskName = request.body.riskName;
+    var risksArray = request.body.casualties;
+    var probability = request.body.probability;
+    var severity = request.body.severity;
+    var riskLevel = request.body.riskLevel;
+    var precautionsArray = request.body.controlMeasure;
+    var riskId = request.body.id;
+    var isAdmin = request.session.isAdmin; 
+    // console.log("riskId");
+    // console.log(riskId);
+   if (isAdmin) {
+    collecttionRisks.find({_id:riskId}).toArray()
+    .then(doc=>{
+        // console.log("doc")
+        // console.log(doc)
+        if (doc.length != 0 ) {
+            collecttionRisks.deleteOne({ _id:riskId })
+            .then(res => {
+                console.log("Success");
+                collecttionRisks.insertOne(
+                    {
+                        _id:riskId,  riskname: riskName, risks: risksArray, probability: probability, severity: severity, riskLevel: riskLevel, precautions: precautionsArray
+                    }).then(res => respone.status(200).json({ message: "success" })).catch(err => respone.status(400).json({ message: "Error" }))
+        }).catch(err => console.log("Error"))
+            
+           
+        
+        } else {
+            respone.status(400).json({ message: "Error Finding document" })
+        }
+    })
+   }
+    
+
+})
+
+router.delete('/delete/:id',function (request,respone) {
+    var riskID = parseInt(request.params.id)
+    
+    // console.log(riskID)
+    collecttionRisks.find({_id:riskID}).toArray()
+    .then(doc=>{
+        // console.log("doc")
+        // console.log(doc)
+        if (doc.length != 0 ) {
+            collecttionRisks.deleteOne({ _id:riskID })
+            .then(res => respone.status(200).json({ message: "success" })).catch(err => respone.status(400).json({ message: "Error" }))
+        }else{
+            respone.status(400).json({ message: "Error Finding document" })
+        }
+    })
+})
+
+router.get("/:id/:riskName", function (request, response) {
+    var id = parseInt(request.params.id);
+    var riskName = request.params.riskName;
+    collecttionRisks.find({ riskname: riskName }).toArray()
+        .then(doc => {
+            try {
+                if (doc.length > 0) {
+                    response.send(doc);
+                } else {
+                    response.send("No documents");
+                }
+            } catch (error) {
+                console.log(error);
+                response.send("error retriving documents");
+            }
+        }
+        )
+});
+
+module.exports = router;

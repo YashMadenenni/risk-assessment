@@ -11,22 +11,25 @@
             rel="stylesheet">
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap CDN End-->
+
         <link rel="stylesheet" href="css/home.css">
 
         <!-- JQuery CDN -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
         <script src="./js/home.js"></script>
         <script src="./js/header.js"></script>
         <script src="./js/helper.js"></script>
 
         <!-- Font awesome -->
-        <script src="https://kit.fontawesome.com/317e871bf2.js" crossorigin="anonymous"></script>
-      
+        <script src="https://kit.fontawesome.com/317e871bf2.js"
+            crossorigin="anonymous"></script>
+
     </head>
-    <body class="bg-black " >
-        
-       
+    <body class="bg-black ">
+
         <!-- Header End -->
 
         <!-- Risk Assement form -->
@@ -34,86 +37,116 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  card">
-                    <h4 class="card-title my-2" >Risk Assessment Form</h4 >
+                    <h4 class="card-title my-2">Risk Assessment Form</h4>
                     <!-- form -->
-                    <div class="" >
+                    <div class>
                         <!-- <form action="" method="post" class=""> -->
                         <div class="row flex-column card-header">
                             <div class="form-group mt-3 mb-3">
-                                <label for="activity">Activity Name:</label>
+                                <label for="activity">Activity Name<b class="text-danger">*</b>:</label>
                                 <input type="activity" class="form-control-sm"
                                     id="activity" placeholder="Activity"
                                     name="activity" required="required">
                             </div>
                             <div
                                 class="form-group mb-3 col-sm-7  col-lg-3   ">
-                                <label for="date">Date:</label>
-                                <input type="date" class="form-control-sm" id="formDate" required="required">
+                                <label for="date">Date<b class="text-danger">*</b>:</label>
+                                <input type="date" class="form-control-sm"
+                                    id="formDate" required="required">
                             </div>
 
                             <div class="form-group mb-3 activity-desc ">
-                                <label for="activity-description">Description:</label>
+                                <label for="activity-description">Description<b class="text-danger">*</b>:</label>
                                 <textarea rows="5"
-                                    class="form-control w-50 h-100 ms-1" id="formDescription"></textarea>
+                                    class="form-control w-50 h-100 ms-1"
+                                    id="formDescription"></textarea>
                             </div>
 
                         </div>
                         <!-- table -->
                         <div class="card-body">
-                            <div class=" overflow-auto  " >
-                                <table class="table table-bordered text-center  " id="table-risk">
+                            <div class=" overflow-auto  ">
+                                <table
+                                    class="table table-bordered text-center "
+                                    id="table-risk" >
                                     <thead>
+                                        
+                                        
+                                        
                                         <tr>
-                                            <th class="col-2">Risk Name</th>
-                                            <th class="col-2">Hazards</th>
-                                            <th class="col-1">Probability of occurance</th>
+                                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Risk Name</th>
+                                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Hazards</th>
+                                            <th class="col-1">Probability of
+                                                occurance</th>
                                             <th class="col-1">Degree of severity</th>
                                             <th class="col-1">Risk Level</th>
                                             <th class="col-5">Control measure</th>
-                                            <th class="col-2">Action</th>
+                                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-risk-body">
                                         <!-- customRow -->
                                         <tr id="customRow">
-                                            <td class=""><input type="text" class="form-control" id="customRiskName"></td>
-                                            <td class="d-flex flex-column " id="casual">
+                                            <td class><input type="text"
+                                                    class="form-control"
+                                                    id="customRiskName"></td>
+                                            <td class="d-flex flex-column "
+                                                id="casual">
                                                 <div class="d-flex flex-row">
-                                                    <input type="text" class="form-control" id="customRiskHazards">
-                                                <button class="btn btn-light mx-1 rounded-5" onclick="addTextField('casual')"><i class="fa-sharp fa-solid fa-plus"></i></button>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        id="customRiskHazards">
+                                                    <button
+                                                        class="btn btn-light mx-1 rounded-5"
+                                                        onclick="addTextField('casual')"><i
+                                                            class="fa-sharp fa-solid fa-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td><select class="form-select col-1" id="occurance">
+                                            <td><select
+                                                    class="form-select col-1"
+                                                    id="occurance">
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
                                                     <!-- <option value="1">High</option>
                                                     <option value="2">Medium</option>
                                                     <option value="3">Low</option> -->
-                                
+
                                                 </select></td>
-                                            <td><select class="form-select col-1" id="severity">
+                                            <td><select
+                                                    class="form-select col-1"
+                                                    id="severity">
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
-                                
+
                                                 </select></td>
-                                            <td><select class="form-select col-1" id="riskLevel">
+                                            <td><select
+                                                    class="form-select col-1"
+                                                    id="riskLevel">
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
-                                
+
                                                 </select></td>
-                                            <td class="d-flex flex-column " id="cntrlMeasures">
-                                            <div class="d-flex ">
-                                                <textarea type="text" class="form-control overflow-auto" id="customControlMeasures"></textarea>
-                                                <button class="btn btn-light rounded-5 mx-1" onclick="addTextField()"><i class="fa-sharp fa-solid fa-plus"></i></button>
-                                            </div>    
+                                            <td class="d-flex flex-column "
+                                                id="cntrlMeasures">
+                                                <div class="d-flex ">
+                                                    <textarea type="text"
+                                                        class="form-control overflow-auto"
+                                                        id="customControlMeasures"></textarea>
+                                                    <button
+                                                        class="btn btn-light rounded-5 mx-1"
+                                                        onclick="addTextField()"><i
+                                                            class="fa-sharp fa-solid fa-plus"></i></button>
+                                                </div>
                                             </td>
-                                
-                                                <td>
-                                                    <button class="btn btn-outline-success " onclick="addCustomRow(this)">Add</button>
-                                                </td>
+
+                                            <td>
+                                                <button
+                                                    class="btn btn-outline-success "
+                                                    onclick="addCustomRow(this)">Add</button>
+                                            </td>
                                         </tr>
                                         <!-- customRow end -->
                                     </tbody>
@@ -123,10 +156,18 @@
 
                         <!-- tabel end -->
                         <div class="saveButton d-flex justify-content-center">
-                            <button class="btn btn-light m-3" ><a class="link-secondary text-decoration-none" href="./home.html">Reset <i class="fa-solid fa-eraser"></i></a></button>
-                            <button class="btn btn-secondary  m-3" onclick="submitForm('save','fromHome')"> Save <i class="fa-sharp fa-solid fa-floppy-disk"></i></button>
-                            <button class="btn btn-success m-3" onclick="submitForm('submit','fromHome')"> Submit <i class="fa-sharp fa-solid fa-arrow-right"></i></button>
-                            
+                            <button class="btn btn-light m-3"><a
+                                    class="link-secondary text-decoration-none"
+                                    href="./home.html">Reset <i
+                                        class="fa-solid fa-eraser"></i></a></button>
+                            <button class="btn btn-secondary  m-3"
+                                onclick="submitForm('save','fromHome')"> Save <i
+                                    class="fa-sharp fa-solid fa-floppy-disk"></i></button>
+                            <button class="btn btn-success m-3"
+                                onclick="submitForm('submit','fromHome')">
+                                Submit <i
+                                    class="fa-sharp fa-solid fa-arrow-right"></i></button>
+
                         </div>
                         <!-- </form> -->
                     </div>
@@ -138,77 +179,83 @@
 
         <!-- Risk Assessment form End -->
 
+        <!-- AI -->
+        <div class="container">
+            <div class="card bg-dark">
+                <div class="card-title m-2 ">
+                    <h5 class="text-light">Chat GPT <i class="fa-solid fa-robot"
+                            style="color: #7d7f82;"></i></h5>
+                </div>
+                <div class="card-body ">
+                    <!-- <span><i class="fa-sharp fa-solid fa-paper-plane" style="color: #329bec;"></i></span> <i class="fa-sharp fa-solid fa-paper-plane" style="color: #329bec;"></i> -->
+                    <div class=" input-group  ">
+                        <div class="form-floating">
+                            <input class="form-control" type="text" name="promt"
+                                id="askPromt">
+                            <label for="askPromt">Ask for suggestions <i
+                                    class="fa-solid fa-lightbulb"
+                                    style="color: #ffc905;"></i></label>
+                        </div>
 
-<!-- AI -->
-<div class="container">
-    <div class="card bg-dark">
-        <div class="card-title m-2 ">
-            <h5 class="text-light">Chat GPT <i class="fa-solid fa-robot" style="color: #7d7f82;"></i></h5>
-        </div>
-        <div class="card-body ">
-           <!-- <span><i class="fa-sharp fa-solid fa-paper-plane" style="color: #329bec;"></i></span> <i class="fa-sharp fa-solid fa-paper-plane" style="color: #329bec;"></i> -->
-           <div class=" input-group  ">
-            <div class="form-floating">
-                <input class="form-control" type="text" name="promt" id="askPromt" >
-                <label for="askPromt">Ask for suggestions <i class="fa-solid fa-lightbulb" style="color: #ffc905;"></i></label>
-            </div>
-            
-            
-            <button class="btn btn-primary " type="button" onclick="loadChatGPT()"><i class="fa-sharp fa-solid fa-paper-plane" style="color: white;"></i> </button>
-            
-           </div>
+                        <button class="btn btn-primary " type="button"
+                            onclick="loadChatGPT()"><i
+                                class="fa-sharp fa-solid fa-paper-plane"
+                                style="color: white;"></i> </button>
 
-           
-            <div class="card my-3">
-                <div class="card-body overflow-auto  aiResponse"  id="aiResponse">
-                    
+                    </div>
+
+                    <div class="card my-3">
+                        <div class="card-body overflow-auto  aiResponse"
+                            id="aiResponse">
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
-           
-
-           
         </div>
-    </div>
-</div>
-<!-- AI end -->
+        <!-- AI end -->
 
-<!-- pre populated -->
-<div class="container pre-populated my-5 bg-secondary rounded-2">
-    <h4 class="text-light py-3">Suggestions </h4>
+        <!-- pre populated -->
+        <div class="container pre-populated my-5 bg-secondary rounded-2">
+            <h4 class="text-light py-3">Suggestions </h4>
 
-    <div class="input-group my-2">
-        <span class="input-group-text">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </span>
-        <input class="form-control " id="myInput" type="text" placeholder="Search..">
-        
-    </div>
-     
-    <!-- <select name="RiskName" id="selectRiskName" class="" required="required" onchange="displaySuggestion(value)">
+            <div class="input-group my-2">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input class="form-control " id="myInput" type="text"
+                    placeholder="Search..">
+
+            </div>
+
+            <!-- <select name="RiskName" id="selectRiskName" class="" required="required" onchange="displaySuggestion(value)">
         <option value="all">All</option>
     </select>
      -->
 
-    <div class=" overflow-auto text-black " style="height: 500px;">
-        <table class="table table-bordered text-center h-25 overflow-auto" id="suggestionsTable">
-            <thead>
-                <tr>
-                    <th class="col-2">Risk Name</th>
-                    <th class="col-2">Hazards</th>
-                    <th class="col-1">Probability of occurance</th>
-                    <th class="col-1">Degree of severity</th>
-                    <th class="col-1">Risk Level</th>
-                    <th class="col-5">Control measure</th>
-                    <th class="col-2">Action</th>
-                </tr>
-            </thead>
-            <tbody id="suggestions">
-                
-            </tbody>
-        </table> 
-    </div>
-</div>
-<!-- pre populated end -->
+            <div class=" overflow-auto text-black " style="height: 500px;">
+                <table
+                    class="table table-bordered text-center h-25 overflow-auto"
+                    id="suggestionsTable">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Risk Name</th>
+                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Hazards</th>
+                            <th class="col-1">Probability of occurance</th>
+                            <th class="col-1">Degree of severity</th>
+                            <th class="col-1">Risk Level</th>
+                            <th class="col-5">Control measure</th>
+                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="suggestions">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- pre populated end -->
         <!-- Footer -->
         <iframe src="footer.html" frameborder="0"></iframe>
         <!-- Footer End -->

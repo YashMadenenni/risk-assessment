@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Risks</title>
+
+        <!-- Bootstrap CDN -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap CDN End-->
+
+        <link rel="stylesheet" href="css/home.css">
+
+        <!-- JQuery CDN -->
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+        <script src="./js/addRisks.js"></script>
+        <script src="./js/header.js"></script>
+        <script src="./js/helper.js"></script>
+
+        <!-- Font awesome -->
+        <script src="https://kit.fontawesome.com/317e871bf2.js"
+            crossorigin="anonymous"></script>
+
+    </head>
+    <body class="bg-black">
+
+        <div class="my-4 container actionButtons" style="cursor: pointer;" >
+            <div class="row">
+
+                <div class="col-3 card me-auto ms-auto" data-bs-toggle="modal"
+                    data-bs-target="#myModal" onclick="addRiskBody()">
+                    <div class="card-body">
+                        <i class="fa-solid fa-plus fa-xl"
+                            style="color: #ec4b22;"></i> Add Risk
+                    </div>
+                </div>
+                <div class="col-3 card me-auto ms-auto" onclick="editRiskBody()">
+                    <div class="card-body ">
+                        <i class="fa-solid fa-pencil fa-xl"
+                            style="color: #ec4b22;"></i> Edit Risk
+                    </div>
+                </div>
+                <div class="col-3 card me-auto" onclick="removeRiskBody()">
+                    <div class="card-body ">
+
+                        <i class="fa-solid fa-trash fa-xl" style="color: #ec4b22;"></i> Remove Risk
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal Add Risk-->
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalTitle">Add Risk</h4>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p id="riskIDEdit" class="d-none"></p>
+                        <div class="input-group">
+                            <label for="addRiskName"> Enter Risk Name <input
+                                    type="text"
+                                    class="form-control"
+                                    id="addRiskName"></label>
+
+                        </div>
+                        <div class="input-group">
+                            <label for="addRiskHazards"> Enter Hazards </label>
+
+                        </div>
+                        <div class id="addRisk">
+                            <div class="d-flex flex-row" id="casual">
+                                <input type="text"
+                                    class="form-control"
+                                    id="addRiskHazards">
+                                <button
+                                    class="btn btn-light mx-1 rounded-5"
+                                    onclick="addTextField('addRisk')"><i
+                                        class="fa-sharp fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="addOccurance">Risk Occurance <select
+                                    class="form-select"
+                                    id="addOccurance">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+
+                                </select></label>
+                        </div>
+                        <div class="input-group">
+                            <label for="addSeverity">Degree of severity <select
+                                    class="form-select"
+                                    id="addSeverity">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+
+                                </select></label>
+                        </div>
+                        <div class="input-group">
+                            <label for="riskLevel">Risk Level <select
+                                    class="form-select"
+                                    id="addRiskLevel">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+
+                                </select></label>
+                        </div>
+                        
+                            <div class="input-group d-flex " id="cntrlMeasures">
+                                <label for="riskLevel">Control Measures
+                                    <textarea type="text" cols="40"
+                                        class="form-control overflow-auto"
+                                        id="addControlMeasures"></textarea></label>
+                                <button
+                                    class="btn btn-light rounded-5 mx-1 my-3 mt-4"
+                                    onclick="addTextField()"><i
+                                        class="fa-sharp fa-solid fa-plus"></i></button>
+                            </div>
+                        
+                        <div class="text-center my-3">
+                            <button
+                                class="btn btn-danger  text-white bg-gradient"
+                                onclick="addRisk()" id="addRiskButton">
+                                Add Risk
+                            </button>
+                            <button
+                                class="btn btn-warning text-white bg-gradient" style="display: none;"
+                                onclick="editRisk()" id="editRiskButton">
+                                Edit Risk
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger"
+                            data-bs-dismiss="modal" onclick="location.reload()">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--Modal Add Risk End-->
+
+      
+
+        <!-- pre populated -->
+        <div class="container pre-populated my-5 bg-secondary rounded-2"
+            id="editRiskBody" style="display: none;">
+            <h4 class="text-light py-3">Edit Exsisting Suggestions</h4>
+
+            <!-- <select name="RiskName" id="selectRiskName" class="" required="required" onchange="displaySuggestion(value)">
+<option value="all">All</option>
+</select> -->
+
+            <div class="input-group my-2">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input class="form-control " id="myInput" type="text"
+                    placeholder="Search..">
+
+            </div>
+
+            <div class=" overflow-auto  text-black" style="height: 500px;">
+                <table
+                    class="table table-bordered text-center h-25 overflow-auto"
+                    id="suggestionsTable">
+                    <thead>
+                        <tr>
+                            <th>Risk Name</th>
+                            <th>Hazards</th>
+                            <th>Probability of occurance</th>
+                            <th>Degree of severity</th>
+                            <th>Risk Level</th>
+                            <th>Control measure</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="suggestions">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- pre populated end -->
+    </body>
+</html>

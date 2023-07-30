@@ -19,7 +19,7 @@ async function createHeader(callback,navItem) {
          <div class="collapse navbar-collapse" id="mynavbar">
            <ul class="navbar-nav flex col-12">
                <li class="nav-item ">
-                   <a class="nav-link active" href="./home.html" id="new"><i class="fa-sharp fa-solid fa-plus"></i> New</a>
+                   <a class="nav-link active" href="./home.html" id="newForm"><i class="fa-sharp fa-solid fa-plus"></i> New</a>
                </li>
                <li class="nav-item">
                    <a class="nav-link" href="./savedForms.html" id="saved"><i class="fa-sharp fa-solid fa-floppy-disk"></i> Saved </a>
@@ -27,6 +27,9 @@ async function createHeader(callback,navItem) {
                <li class="nav-item">
                    <a class="nav-link" href="./history.html" id="history"><i class="fa-sharp fa-solid fa-right-to-bracket"></i> Submitted</a>
                </li>
+               <li class="nav-item" id="addRisksLi">
+                            <a class="nav-link" href="./addRisks.html" id="addRisks"><i class="fa-regular fa-lightbulb"></i> Risk Suggestions</a>
+                        </li>
                <li class="nav-item">
                             <a class="nav-link" href="./report.html" id="report"><i class="fa-sharp fa-solid fa-flag"></i> Report</a>
                         </li>
@@ -51,19 +54,31 @@ async function createHeader(callback,navItem) {
     if(navItem == "history"){
         document.getElementById("history").classList.add("active");
         document.getElementById("saved").classList.remove("active");
-        document.getElementById("new").classList.remove("active");
+        document.getElementById("newForm").classList.remove("active");
         document.getElementById("report").classList.remove("active");
     }else if (navItem=="saved") {
         document.getElementById("saved").classList.add("active");
         document.getElementById("history").classList.remove("active");
-        document.getElementById("new").classList.remove("active");
+        document.getElementById("newForm").classList.remove("active");
         document.getElementById("report").classList.remove("active");
     }else if (navItem=="report") {
         document.getElementById("saved").classList.remove("active");
         document.getElementById("history").classList.remove("active");
-        document.getElementById("new").classList.remove("active");
+        document.getElementById("newForm").classList.remove("active");
+        document.getElementById("addRisks").classList.remove("active");
         document.getElementById("report").classList.add("active");
+    }else if (navItem=="addRisk") {
+        document.getElementById("saved").classList.remove("active");
+        document.getElementById("history").classList.remove("active");
+        document.getElementById("newForm").classList.remove("active");
+        document.getElementById("report").classList.remove("active");
+        document.getElementById("addRisks").classList.add("active");
     }
+
+    if (respone.isAdmin == false) {
+        document.getElementById("addRisksLi").style.display="none";
+    }
+
      if (callback != undefined) {
         callback();
      }

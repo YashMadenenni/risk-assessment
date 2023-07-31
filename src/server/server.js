@@ -1,7 +1,7 @@
 const express = require("express");
 const MongoClient = require('mongodb').MongoClient;
 const path = require("path");
-const API_PORT = 8000;
+const API_PORT = 3000 || process.env.port; //24120
 const app = express();
 const login = require('./Login');
 const risks = require('./risks');
@@ -15,13 +15,11 @@ app.use(express.json());
 app.use(sessionMiddleware);
  app.use(cookieParser());
 //Change to express sessions
-const globalUser = {  
-    userEmail : ""
-}
-
+ 
 //MongoDB set up ans start server
 //build url for client 
 const url = `mongodb+srv://yashwanthkumarms11:WBQsOI0CMrzpUbQl@cluster0.zf3rn5p.mongodb.net/`;
+ //const url = `mongodb://${username}:${password}@${clusterHost}`;
 const client = new MongoClient(url, { useUnifiedTopology: true });
 let collection = null; // initially null 
 let collectionLogin = null;

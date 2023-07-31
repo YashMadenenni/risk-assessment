@@ -1,7 +1,7 @@
 const express = require("express");
 const MongoClient = require('mongodb').MongoClient;
 const path = require("path");
-const API_PORT = 3000 || process.env.port; //24120
+const API_PORT = 8000; // 
 const app = express();
 const login = require('./Login');
 const risks = require('./risks');

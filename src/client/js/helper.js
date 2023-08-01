@@ -231,7 +231,7 @@ function createNewRow(thisRow) {
         const element = rowData[index];
         var dataCell = document.createElement('td');
         dataCell.innerHTML +=   element;
-        dataCell.classList.add("font-mobile")
+        
         newRow.appendChild(dataCell);
     }
 

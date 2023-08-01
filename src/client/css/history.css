@@ -21,3 +21,10 @@ body{
     
 
   }
+  
+  @media only screen and (max-width: 900px) {
+    #table-risk {
+      width: 1050px;
+      font-size:  var(--bs-body-font-size);;
+    }
+    }

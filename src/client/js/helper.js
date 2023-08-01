@@ -231,6 +231,7 @@ function createNewRow(thisRow) {
         const element = rowData[index];
         var dataCell = document.createElement('td');
         dataCell.innerHTML +=   element;
+        dataCell.classList.add("font-mobile")
         newRow.appendChild(dataCell);
     }
 
@@ -359,7 +360,7 @@ function addCustomRow(addButton) {
     </td>
 
         <td>
-            <button class="btn btn-success" onclick="addCustomRow(this)">Select</button>
+            <button class="btn btn-success" onclick="addCustomRow(this)">Add</button>
         </td>`
 }
 

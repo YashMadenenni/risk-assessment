@@ -12,7 +12,7 @@ body{
     #table-risk,#suggestionsTable {
       width: 1050px;
     }
-    #table-risk td {
+    .font-mobile {
       font-size: 16px;
   }
   }

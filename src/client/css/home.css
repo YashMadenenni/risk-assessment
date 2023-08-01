@@ -13,6 +13,6 @@ body{
       width: 1050px;
     }
     .font-mobile {
-      font-size: 16px;
+      font-size: 16px !important;
   }
   }

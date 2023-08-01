@@ -2,48 +2,48 @@
 async function loadChatGPT() {
 
     const OPENAI_API_KEY = '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';
-    
+
     var userQuestion = document.getElementById("askPromt").value;
-  
+
     console.log(userQuestion);
-  
+
     document.getElementById("aiResponse").innerHTML = '<span class="spinner-border spinner-border-sm"></span>Loading..'
-    
-  
+
+
     const data = {
-      model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: userQuestion }
-      ]
+        model: 'gpt-3.5-turbo',
+        messages: [
+            { role: 'system', content: 'You are a helpful assistant.' },
+            { role: 'user', content: userQuestion }
+        ]
     };
-  
+
     const headers = {
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-      'Content-Type': 'application/json'
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        'Content-Type': 'application/json'
     };
-  
+
     const requestOptions = {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(data)
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data)
     };
-  
-  
-  
+
+
+
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', requestOptions);
-      const result = await response.json();
-      console.log(result.choices[0].message);
-  
-      var answerAI = result.choices[0].message.content;
-      document.getElementById("aiResponse").style.height = "300px";
-      document.getElementById("aiResponse").innerHTML = '<pre>'+answerAI+'</pre>';
-  
+        const response = await fetch('https://api.openai.com/v1/chat/completions', requestOptions);
+        const result = await response.json();
+        console.log(result.choices[0].message);
+
+        var answerAI = result.choices[0].message.content;
+        document.getElementById("aiResponse").style.height = "300px";
+        document.getElementById("aiResponse").innerHTML = '<pre>' + answerAI + '</pre>';
+
     } catch (error) {
-      console.error('Error:', error);
+        console.error('Error:', error);
     }
-  }
+}
 
 
 //Function to get all risks for suggestions table 
@@ -54,7 +54,7 @@ async function getRisksSuggestion(caller) {
     const responseRisks = await (risksRequest.json());
     console.log(responseRisks);
     getAllRisks(responseRisks, caller) //helper method to get all pre filled risks
-    
+
 
 }
 
@@ -64,12 +64,12 @@ function getAllRisks(responseRisks, caller) {
 
     responseRisks.forEach(element => {
         console.log(element.riskname);
-        var newRow ;
-        
-             newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-success sug-add" onclick="addRowToMain(this)">Select</button></td></tr>'
-        
-        
-        
+        var newRow;
+
+        newRow = ' <tr ><td><label type="text">' + element.riskname + '</td>' + '<td><label type="text">' + element.risks + '</td>' + '<td><label type="text">' + element.probability + '</td>' + '<td><label type="text">' + element.severity + '</td>' + '<td><label type="text">' + element.riskLevel + '</td>' + '<td><label type="text" id="' + element.riskname + '"></td>' + '<td><button class="btn btn-success sug-add" onclick="addRowToMain(this)">Select</button></td></tr>'
+
+
+
         document.getElementById("suggestions").innerHTML += newRow;
 
         //append control measures 
@@ -83,7 +83,7 @@ function getAllRisks(responseRisks, caller) {
         var controlListCell = document.getElementById(element.riskname);
         controlListCell.appendChild(controlList);
 
-       //Suggestions append option
+        //Suggestions append option
         // if (caller != "all") {
         //     const newOption = ' <option value="' + element.riskname + '" >' + element.riskname + '</option>';
         //     document.getElementById("selectRiskName").innerHTML += newOption;
@@ -94,7 +94,7 @@ function getAllRisks(responseRisks, caller) {
 // Add event listeners to the add function
 
 function addRowToMain(thisButton) {
-    
+
     var thisRow = thisButton.parentNode.parentNode;
     console.log(thisRow)
     var newRow = createNewRow(thisRow);
@@ -110,7 +110,7 @@ function addRowToMain(thisButton) {
     // console.log(rowData);
 
     // delete row from current table
-   // document.getElementById("suggestions").deleteRow(thisRow);
+    // document.getElementById("suggestions").deleteRow(thisRow);
 
     // delete row from current table
     var tableBody = document.getElementById("suggestions");
@@ -142,9 +142,9 @@ function editRowInMain(thisButton) {
     var controlMeasures = [];
     var controlMeasuresTextareas = rowCells[5].querySelector('label').querySelector('ul').querySelectorAll('li');
     document.getElementById("customControlMeasures").value = controlMeasuresTextareas[0].innerHTML // put the first value to exsisting textarea
-    
+
     for (var j = 1; j < controlMeasuresTextareas.length; j++) {
-       
+
         controlMeasures.push(controlMeasuresTextareas[j].innerHTML);
 
 
@@ -178,7 +178,7 @@ function editRowInMain(thisButton) {
     document.getElementById("occurance").value = rowData[2]
     document.getElementById("severity").value = rowData[3]
     document.getElementById("riskLevel").value = rowData[4]
-    
+
     // document.getElementById()
 
 
@@ -230,8 +230,8 @@ function createNewRow(thisRow) {
     for (let index = 0; index < rowData.length - 1; index++) {
         const element = rowData[index];
         var dataCell = document.createElement('td');
-        dataCell.innerHTML +=   element;
-        
+        dataCell.innerHTML += element;
+
         newRow.appendChild(dataCell);
     }
 
@@ -265,7 +265,7 @@ function addTextField(type) {
         var currentNode = document.getElementById("casual");
         currentNode.append(newDiv);
 
-    }else if (type === "addRisk") {
+    } else if (type === "addRisk") {
         var currentNode = document.getElementById("addRisk");
         currentNode.append(newDiv);
     }
@@ -319,14 +319,14 @@ function addCustomRow(addButton) {
         '<td><label>' + severity + '</label></td>' +
         '<td><label>' + riskLevel + '</label></td>' +
         '<td><label><ul>' + controlMeasuresList + '</ul></label></td>' +
-        '<td><button class="btn " onclick="deleteRowFromMain(this)" id="custom"> <i class="fa-solid fa-trash-can" style="color: #ff1f0f;"></i> </button>'+
+        '<td><button class="btn " onclick="deleteRowFromMain(this)" id="custom"> <i class="fa-solid fa-trash-can" style="color: #ff1f0f;"></i> </button>' +
         '<button class="btn  my-3" onclick="editRowInMain(this)" id="custom"> <i class="fa-solid fa-pen-to-square"></i> </button>'
-        '</td>';
+    '</td>';
     //   var newRow = createNewRow(tableRow);
     // append the new row to main table
     document.getElementById("table-risk-body").appendChild(newRow);
-   
-   //Reset custom row
+
+    //Reset custom row
     document.getElementById("customRow").innerHTML = `<td><input type="text" class="form-control" id="customRiskName"></td>
     <td class="d-flex flex-column" id="casual">
         <div class="d-flex flex-row">
@@ -365,7 +365,7 @@ function addCustomRow(addButton) {
 }
 
 //function to submit form 
-function submitForm(button,page) {
+function submitForm(button, page) {
 
     var activityName = document.getElementById("activity").value;
     var date = document.getElementById("formDate").value;
@@ -376,84 +376,97 @@ function submitForm(button,page) {
     var tbody = table.getElementsByTagName("tbody")[0];
     var rows = tbody.getElementsByTagName("tr");
     var riskData = [];
-    if (rows.length > 1) {
-        for (let index = 1; index < rows.length; index++) {
-            const elementrow = rows[index];
-            var riskName = elementrow.cells[0].querySelector('label').innerHTML;
-            var casualties = elementrow.cells[1].querySelector('label').innerHTML;
-            var probability = elementrow.cells[2].querySelector('label').innerHTML;
-            var severity = elementrow.cells[3].querySelector('label').innerHTML;
-            var riskLevel = elementrow.cells[4].querySelector('label').innerHTML;
-            var controlMeasure = elementrow.cells[5].querySelector('label').innerHTML;
-            
 
-            var risk = {
-                riskName: riskName,
-                casualties: casualties,
-                probability: probability,
-                severity: severity,
-                riskLevel: riskLevel,
-                controlMeasure: controlMeasure
+    if (activityName != "") {
+        if (date != "") {
+            if (description != "") {
+                if (rows.length > 1) {
+                    for (let index = 1; index < rows.length; index++) {
+                        const elementrow = rows[index];
+                        var riskName = elementrow.cells[0].querySelector('label').innerHTML;
+                        var casualties = elementrow.cells[1].querySelector('label').innerHTML;
+                        var probability = elementrow.cells[2].querySelector('label').innerHTML;
+                        var severity = elementrow.cells[3].querySelector('label').innerHTML;
+                        var riskLevel = elementrow.cells[4].querySelector('label').innerHTML;
+                        var controlMeasure = elementrow.cells[5].querySelector('label').innerHTML;
+
+
+                        var risk = {
+                            riskName: riskName,
+                            casualties: casualties,
+                            probability: probability,
+                            severity: severity,
+                            riskLevel: riskLevel,
+                            controlMeasure: controlMeasure
+                        }
+
+                        riskData.push(risk);
+                    }
+
+                    var formData = {
+                        //  userEmail: userEmail,
+                        activity: activityName,
+                        date: date,
+                        description: description,
+                        risks: riskData
+                    }
+
+
+                    if (page == "fromSavedSave") {
+                        formData.formID = parseInt(document.getElementById("activityIndexInServer").innerHTML)
+                    }
+
+                    console.log(formData);
+
+                    if (button == 'submit') {
+                        //POST submit Request 
+                        fetch("/forms/submit", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(formData)
+                        }).then(response => {
+                            if (response.ok) {
+                                window.alert("Submitted Successfully");
+                                location.reload();
+                            } else {
+                                window.alert("Error Submitting");
+                            }
+                        }).catch(error => {
+                            console.log("Error in sending request", error);
+                        });
+                    } else {
+                        //POST save Request 
+                        fetch("/forms/save", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(formData)
+                        }).then(response => {
+                            // window.alert("Saved Response");
+                            if (response.ok) {
+                                window.alert("Saved Successfully");
+
+                            } else {
+                                window.alert("Error Saving");
+                            }
+                        }).catch(error => {
+                            console.log("Error in request", error);
+                        });
+                    }
+                } else {
+                    window.alert("Enter atleast one Risk Managment")
+                }
+            } else {
+                window.alert(" Enter Description")
             }
-
-            riskData.push(risk);
-        }
-
-        var formData = {
-          //  userEmail: userEmail,
-            activity: activityName,
-            date: date,
-            description: description,
-            risks: riskData
-        }
-
-        
-        if(page == "fromSavedSave"){
-            formData.formID = parseInt(document.getElementById("activityIndexInServer").innerHTML)
-        }
-
-        console.log(formData);
-
-        if (button == 'submit') {
-            //POST submit Request 
-            fetch("/forms/submit", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            }).then(response => {
-                if (response.ok) {
-                    window.alert("Submitted Successfully");
-                    location.reload();
-                } else {
-                    window.alert("Error Submitting");
-                }
-            }).catch(error => {
-                console.log("Error in sending request", error);
-            });
         } else {
-            //POST save Request 
-            fetch("/forms/save", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            }).then(response => {
-                // window.alert("Saved Response");
-                if (response.ok) {
-                    window.alert("Saved Successfully");
-                    
-                } else {
-                    window.alert("Error Saving");
-                }
-            }).catch(error => {
-                console.log("Error in request", error);
-            });
+            window.alert("Enter Date")
         }
-    }else{
-        window.alert("Enter atleast one Risk Managment")
+    } else {
+        window.alert("Enter Activity Name")
     }
 
 }
@@ -494,11 +507,11 @@ function submitForm(button,page) {
 
 
 //function for search suggestion
-$(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#suggestionsTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
+$(document).ready(function () {
+    $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#suggestionsTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
     });
-  });
+});

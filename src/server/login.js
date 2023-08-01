@@ -67,10 +67,14 @@ router.post('/login', function (request, response) {
     const userEmail = (request.body.userEmail).toLowerCase();
     const password = request.body.password;
     const isAdmin = request.body.isAdmin;
+    console.log("password");
+    console.log(password);
+    
 
     if (isAdmin) {
-        collectionLoginAdmin.find({ _id: userEmail }, { password: password }).toArray()
+        collectionLoginAdmin.find({ _id: userEmail ,  password: password }).toArray()
             .then(doc => {
+                console.log(doc)
                 if (doc.length > 0) {
 
                     // Set session data
@@ -100,8 +104,10 @@ router.post('/login', function (request, response) {
 
             });
     } else {
-        collectionLogin.find({ _id: userEmail }, { password: password }).toArray()
+        collectionLogin.find({ _id: userEmail , password: password }).toArray()
             .then(doc => {
+                console.log("doc");
+    console.log(doc);
                 if (doc.length > 0) {
 
                     // Set session data

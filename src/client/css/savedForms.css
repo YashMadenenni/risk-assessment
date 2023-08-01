@@ -5,9 +5,9 @@ body{
 }
 
 @media only screen and (max-width: 900px) {
-    #table-risk {
-      width: 1050px;
-    }
+    #table-risk,#suggestionsTable {
+        width: 1050px;
+      }
 
     #suggestionsTable td {
         font-size: 16px;

@@ -9,10 +9,10 @@ body{
 }
 
 @media only screen and (max-width: 900px) {
-    #table-risk {
+    #table-risk,#suggestionsTable {
       width: 1050px;
     }
-    #suggestionsTable td {
+    #table-risk td {
       font-size: 16px;
   }
   }

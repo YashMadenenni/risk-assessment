@@ -82,4 +82,10 @@ async function createHeader(callback,navItem) {
      if (callback != undefined) {
         callback();
      }
+
+     if (respone.userEmail == undefined) {
+        if (window.confirm("Server Restarted, Login Again :)")) {
+           document.location.href = "/index.html"
+        }
+     }
 }

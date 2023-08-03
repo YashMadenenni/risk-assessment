@@ -36,12 +36,14 @@ async function getAllReports() {
     response.forEach(element => {
         var imageSRC = 'data:image/png;base64,' + element.incidentImage.data;
         var incidentName = element.incident;
+        var activityName = element.activity;
         var incidentDate = element.incidentDate;
         var incidentDescription = element.incidentDescription;
 
         document.getElementById("allIncidents").innerHTML += `<div class="m-3 col-xs-3 col-sm-3 col-md-3 col-lg-3 card ">
         <div class="card-title text-center">
             <h5>${incidentName}</h5>
+            <h5>${activityName}</h5>
             <h8>${incidentDate}</h8>
         </div>
         
@@ -55,7 +57,7 @@ async function getAllReports() {
         <!--<a class="btn" data-bs-toggle="collapse" href="#collapse${response.indexOf(element)}">
         Description
       </a>-->
-      <button type="button" class="btn btn-warning text-white my-1" data-bs-toggle="modal" data-bs-target="#myModal" onclick="modalOpen('${incidentName}')">
+      <button type="button" class="btn btn-warning text-white my-1" data-bs-toggle="modal" data-bs-target="#myModal" onclick="modalOpen('${activityName}')">
   Open Risk Assessmeent
 </button>
     </div>

@@ -162,6 +162,30 @@ router.post("/register", function (request, response) {
         });
 })
 
+router.post("/reset", function (request, response) {
+    const userEmail = (request.body.userEmail).toLowerCase();
+    const password = request.body.password;
+    console.log("userEmail")
+    console.log(userEmail)
+    collectionLogin.find({ _id: userEmail }).toArray()
+        .then(doc => {
+            console.log(doc);
+            if (doc.length != 0) {
+                collectionLogin.updateOne({ _id: userEmail},{$set:{ password: password }}).then(res=>{
+                    response.status(200).json({ message: "Success Login Now" })
+                }).catch(err=>{
+                    response.status(404).json({ message: "Error Updating Try Again" })
+                })
+                
+            } else {
+                response.status(404).json({ message: "User with this email doesn't exsists" })
+            }
+        }).catch(err => {
+            console.log(err);
+            response.status(404).json({ message: `Error finding data` })
+        });
+})
+
 router.get('/email', (req, res) => {
     const userEmail = req.session.userEmail;
     const isAdmin = req.session.isAdmin;

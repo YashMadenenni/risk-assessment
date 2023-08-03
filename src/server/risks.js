@@ -24,6 +24,145 @@ const insertStarterDataRisks = async function () {
             _id: 3, riskname: "Equipment", risks: ["Infected cutlery/cooking implementation "], probability: "1", severity: "1", riskLevel: "1", precautions: ["NO glass equipment is used or stored at the PIZZA OVEN service area.", "All implements are thoroughly washed before and after the PIZZA OVEN to ensure the risk of bacterial infection is sufficiently controlled. ", "Only designated people/cooks can use this equipment "]
         }, {
             _id: 4, riskname: "Food Safety", risks: ["Food poisoning"], probability: "2", severity: "3", riskLevel: "2", precautions: ["Food is thoroughly cooked before being served to people. ", "Only enough food which can be cooked at any one time is taken out of the cool bag or refrigerator.", "Manufacturer’s instructions are always followed when cooking.", "If available, a refrigerator is used to store uncooked food. If not available a cool bag is used with ice to keep the food chilled. "]
+        }, {
+            _id: 6,
+            riskname: "BBQ Equipment Safety",
+            risks: ["Gas leak or malfunction of BBQ equipment"],
+            probability: 2,
+            severity: 3,
+            riskLevel: 6,
+            precautions: [
+                "Regularly inspect and maintain BBQ equipment for any signs of damage or gas leaks.",
+                "Ensure proper installation of gas cylinders and connections.",
+                "Only authorized personnel should handle the BBQ equipment.",
+                "Have a fire extinguisher nearby and train staff on its proper use."
+            ]
+        },
+        {
+            _id: 7,
+            riskname: "Food Allergy Management",
+            risks: ["Cross-contamination of allergens in pizza or BBQ food items"],
+            probability: 3,
+            severity: 2,
+            riskLevel: 6,
+            precautions: [
+                "Ask participants for food allergy information in advance and plan the menu accordingly.",
+                "Label food items with allergen information.",
+                "Use separate utensils and preparation areas for allergen-free dishes.",
+                "Educate staff about food allergens and cross-contamination prevention."
+            ]
+        },
+        {
+            _id: 8,
+            riskname: "Outdoor Cooking Safety",
+            risks: ["Burns or injuries from hot surfaces or open flames"],
+            probability: 2,
+            severity: 2,
+            riskLevel: 4,
+            precautions: [
+                "Provide clear instructions to participants on safe cooking practices.",
+                "Set up designated cooking areas away from high-traffic zones.",
+                "Use caution signs and barriers to keep children and visitors away from cooking areas.",
+                "Have a first aid kit available for any minor injuries."
+            ]
+        },
+        {
+            _id: 9,
+            riskname: "Weather Contingency",
+            risks: ["Unfavorable weather conditions for outdoor event"],
+            probability: 2,
+            severity: 2,
+            riskLevel: 4,
+            precautions: [
+                "Monitor weather forecasts leading up to the event and have a backup indoor venue if possible.",
+                "Provide adequate shelter and tents to protect participants from rain or sun.",
+                "Keep walkways and outdoor areas free from water puddles to prevent slips and falls.",
+                "Inform participants about the event's rain plan and any changes in schedule."
+            ]
+        },
+        {
+            _id: 10,
+            riskname: "Fire Safety",
+            risks: ["Accidental fire outbreak during cooking or lighting"],
+            probability: 1,
+            severity: 3,
+            riskLevel: 3,
+            precautions: [
+                "Have fire extinguishers, fire blankets, and water buckets readily available.",
+                "Educate staff and participants about fire safety and the use of fire extinguishers.",
+                "Ensure designated areas for cooking or lighting are clear of flammable materials.",
+                "Supervise all fire-related activities closely."
+            ]
+        },
+        {
+            _id: 11,
+            riskname: "Crowd Management",
+            risks: ["Overcrowding and difficulty in managing large groups"],
+            probability: 3,
+            severity: 2,
+            riskLevel: 6,
+            precautions: [
+                "Limit the number of attendees to manageable levels.",
+                "Assign trained staff to assist with crowd control and provide clear event guidelines.",
+                "Have emergency exits and evacuation plans in case of any incidents.",
+                "Maintain clear communication channels to relay important information to participants."
+            ]
+        },
+        {
+            _id: 12,
+            riskname: "Hygiene and Sanitation",
+            risks: ["Contamination due to poor hygiene practices"],
+            probability: 2,
+            severity: 1,
+            riskLevel: 2,
+            precautions: [
+                "Provide handwashing stations and hand sanitizers throughout the event area.",
+                "Educate participants on proper handwashing techniques and encourage regular hand hygiene.",
+                "Regularly clean and sanitize cooking and serving utensils.",
+                "Dispose of waste properly and maintain clean event spaces."
+            ]
+        },
+        {
+            _id: 13,
+            riskname: "Children's Safety",
+            risks: ["Potential hazards to children during the event"],
+            probability: 3,
+            severity: 2,
+            riskLevel: 6,
+            precautions: [
+                "Designate child-friendly areas and supervise children's activities.",
+                "Remove any potential hazards like sharp objects or hot surfaces from children's reach.",
+                "Ensure proper child-to-staff ratios for activities involving children.",
+                "Inform parents and guardians about child safety measures in place."
+            ]
+        },
+        {
+            _id: 14,
+            riskname: "Allergen-Free Food Preparation",
+            risks: ["Accidental inclusion of allergens in food items"],
+            probability: 1,
+            severity: 2,
+            riskLevel: 2,
+            precautions: [
+                "Use separate cooking and preparation areas for allergen-free dishes.",
+                "Educate kitchen staff about allergen-free food handling procedures.",
+                "Label allergen-free dishes clearly and inform attendees about their availability.",
+                "Have an allergy alert system in place for participants to identify their dietary needs."
+            ]
+        },
+        {
+            _id: 15,
+            riskname: "Waste Management",
+            risks: ["Improper waste disposal leading to environmental impact"],
+            probability: 2,
+            severity: 1,
+            riskLevel: 2,
+            precautions: [
+                "Provide recycling bins and clearly label waste disposal areas.",
+                "Encourage participants to minimize waste by using reusable or biodegradable utensils.",
+                "Arrange for waste collection and disposal in an environmentally responsible manner.",
+                "Educate participants about the importance of waste management during the event."
+            ]
         }
     ])
         .then(res => console.log("data inserted with ID", res.insertedIds))

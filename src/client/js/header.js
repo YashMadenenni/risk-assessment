@@ -1,13 +1,9 @@
-// window.onload = 
+// Funtion that is called to create header 
 async function createHeader(callback,navItem) {
 
     const request = await fetch(`/user/email`);
     const respone = await (request.json());
-    //console
-    // console.log("Email ", respone);
-    // document.getElementById("userEmail").innerHTML += respone.userEmail;
 
-    
    let header =  document.createElement('nav');
    header.className = 'navbar navbar-expand-sm navbar-dark bg-dark'
    header.innerHTML = `

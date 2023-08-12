@@ -38,7 +38,7 @@ client.connect()
 
 
     
-    // Handle the form submission
+    // Handle the incident form submission
     router.post('/report', upload.single('incidentImage'), async (request, response) => {
     try {
       const { incident,activity, incidentDate, incidentDescription } = request.body;  

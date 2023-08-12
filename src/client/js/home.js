@@ -1,5 +1,9 @@
-window.onload = () => createHeader(checkForUrlParams) // callbackfunction in header.js
+//function to call create header function
+// callbackfunction in header.js
+window.onload = () => createHeader(checkForUrlParams) 
 
+
+//function to check if home page was redirected with params
 async function checkForUrlParams() {
   const currentURL = window.location.href;
 

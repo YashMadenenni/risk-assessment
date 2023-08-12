@@ -8,7 +8,7 @@ async function createHeader(callback,navItem) {
    header.className = 'navbar navbar-expand-sm navbar-dark bg-dark'
    header.innerHTML = `
    <div class="container-fluid">
-       <a href="" class="navbar-brand">Risk Assessment</a>
+       <a class="navbar-brand" href="./home.html">Risk Assessment</a>
        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
            <span class="navbar-toggler-icon"></span>
          </button>

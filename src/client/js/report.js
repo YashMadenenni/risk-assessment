@@ -1,6 +1,6 @@
 window.onload = () => createHeader(previewImage, "report")
 
-
+//Function to preview uploaded image
 async function previewImage() {
     document.getElementById("incidentImage").addEventListener("change", () => {
         const fileInput = document.getElementById("incidentImage").files[0];
@@ -24,6 +24,7 @@ async function previewImage() {
     }
 }
 
+//Function to send fetch request to get all reported incidents
 async function getAllReports() {
 
     //document.getElementById("allIncidents").innerHTML=""
@@ -76,6 +77,8 @@ async function getAllReports() {
 
 
 }
+
+//Function to send fetch request to get related risk assessments for an incident
 async function getRelatedRsiskAssessment() {
     var globalForms = [];
 
@@ -137,9 +140,8 @@ function modalOpen(riskName) {
     console.log(riskName)
 }
 
+//Function to send fetch request to view related risk assessment for an incident
 async function viewFormReport(formID,userEmail) {
-    // var formID = document.getElementById('formID').innerHTML;
-    // var userEmail = document.getElementById("author").value;
   
     console.log(formID,userEmail)
     var request = await fetch(`/forms/related-risk/${formID}/${userEmail}`);

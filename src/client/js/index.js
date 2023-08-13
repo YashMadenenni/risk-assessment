@@ -1,5 +1,5 @@
 
-
+//Function to send fetch request to authenticate user
 async function login(userEmail,userName,userPassword,userType) {
     var email ;
     var password ;
@@ -24,8 +24,7 @@ async function login(userEmail,userName,userPassword,userType) {
         
         const request = await fetch(`/user/login`, { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userEmail: email, password: password,isAdmin:isAdmin }) });
 
-         //const respone = await (request.json());
-        // console.log(respone.message);
+        
         if (request.redirected) {
             window.location.href = request.url;
             
@@ -35,14 +34,13 @@ async function login(userEmail,userName,userPassword,userType) {
             window.alert("Login Failed")
           }
         
-        // if (request.ok) {
-        //     window.location.href = `http://localhost:8000/home.html?user=`+encodeURIComponent(email);
-        // }
+
     }
 
 
 }
 
+//Function to send fetch request to register user
 async function registerUser() {
     const userEmail = document.getElementById('email-r').value;
     const userName = document.getElementById('name-r').value;
@@ -68,11 +66,13 @@ async function registerUser() {
 
 }
 
+
 function forgottenPswrdBody() {
     document.getElementById("loginBody").classList.toggle("d-none")
     document.getElementById("forgottenPswBody").classList.toggle("d-none")
 }
 
+//Function to send fetch request to change password
 async function forgottenPswrd() {
    var userEmail = document.getElementById("email-fgtn").value;
    var password = document.getElementById("password-fgtn").value;
@@ -93,6 +93,7 @@ async function forgottenPswrd() {
 
 }
 
+//helper function to check password match
 function comparePswd() {
     var password = document.getElementById("password-fgtn").value;
     var password2 =  document.getElementById("password2-fgtn").value;

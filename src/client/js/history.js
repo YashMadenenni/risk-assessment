@@ -2,6 +2,8 @@
 //global value that stores all forms 
 var globalForms = [];
 
+
+//Function to check for any URL params, if its redirected from report.html page there is id of the selected form in url
 async function checkForUrlParams() {
   const currentURL = window.location.href;
 
@@ -22,10 +24,11 @@ async function checkForUrlParams() {
 
   getAllHistoryForms();
 
-   //loadChatGPT();
+   
   
 }
 
+//Function to get all the submitted forms
 async function getAllHistoryForms() {
 
 
@@ -74,6 +77,8 @@ async function getAllHistoryForms() {
     });
 }
 
+
+//Function to view selected from from table
 async function viewForm(activityThisIndex, userName) {
 
   var elementBody = document.getElementsByTagName("body")[0];
@@ -106,18 +111,13 @@ async function viewForm(activityThisIndex, userName) {
   else if (element.approval == "no") {
     document.getElementById("rejectBtn").setAttribute("disabled", "disabled")
   }
-  // }
-  // })
-  // });
 
-
-
-  //    loadRisksContent(); //invoke the method in helper.js 
-  //getRisksSuggestion(); //invoke suggestions in home.js
 
 
 }
 
+
+//Helper method to display form
 function displayForm(formData, userName) {
   var activity = formData.activityName;
   var date = formData.date;
@@ -150,6 +150,8 @@ function displayForm(formData, userName) {
 
 }
 
+
+
 function backToList() {
 
   location.reload();
@@ -157,6 +159,7 @@ function backToList() {
 
 }
 
+//Function to send useTamplete request to server - redirects to home page with params
 async function useTemplate() {
   var formID = document.getElementById('formID').innerHTML;
   var userEmail = document.getElementById("author").value;
@@ -167,6 +170,7 @@ async function useTemplate() {
   }
 }
 
+//Function to send fetch request to approve form
 async function approveForm(value) {
   var formID = document.getElementById('formID').innerHTML;
   var userEmail = document.getElementById("author").value;
@@ -195,7 +199,7 @@ async function approveForm(value) {
   }
 }
 
-// w3schools. (n.d.). How To Sort a Table. W3Schools. https://www.w3schools.com/howto/howto_js_sort_table.asp
+//Code form: w3schools. (n.d.). How To Sort a Table. W3Schools. https://www.w3schools.com/howto/howto_js_sort_table.asp
 //Function to sort the table 
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;

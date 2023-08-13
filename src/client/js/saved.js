@@ -2,17 +2,12 @@
 //global value that stores all forms 
 var globalForms=[];
 
-// window.onload = 
 
-
+//Function to send fetch request to get all saved forms
 async function getSavedForms() {
     globalForms=[]
     document.getElementById("savedFormsTable").innerHTML=""
-    // const request = await fetch(`/user/email`);
-    // const respone = await (request.json());
-    // console.log("Email ", respone.userEmail);
-    // document.getElementById("userEmail").innerHTML += respone.userEmail;
-
+ 
     fetch(`/forms/saved/`, { method: 'GET' }).then(response => {
         if (response.ok) {
             return response.json();
@@ -48,6 +43,7 @@ async function getSavedForms() {
         });
 }
 
+//Function to view form
 function viewForm(activityIndex) {
 
     var activityThis = globalForms[activityIndex];
@@ -58,22 +54,14 @@ function viewForm(activityIndex) {
 
     var element = document.getElementsByTagName("body")[0];
   element.classList.toggle("bg-black");
-//    globalForms.forEach(element =>{
-//     element.forEach(element =>{
-        
-//     if(element.activityName == selectedActivity){
-//         console.log(element);
-//         displayForm(element);
-//     }
-//     })
-//    });
+
 displayForm(selectedActivity)
 
-//    loadRisksContent(); //invoke the method in helper.js 
 getRisksSuggestion(); //invoke suggestions in home.js
 
 }
 
+//Function view selected form
 function displayForm(formData){
     var activity = formData.activityName;
     var date = formData.date;
@@ -101,6 +89,7 @@ function displayForm(formData){
     document.getElementById("savedForms").style = "display:none";
 }
 
+//Function to send fetch request to delete a form
 async function deleteForm(activityIndex) {
     var request = await fetch(`forms/remove/${activityIndex}`,{method:"DELETE"})
     if(request.ok){
@@ -115,4 +104,5 @@ location.reload()
 
 }
 
+//Function to call create header 
 window.onload = () => createHeader(getSavedForms,"saved");

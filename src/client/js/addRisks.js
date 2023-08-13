@@ -156,7 +156,7 @@ async function deleteRisk(currentRow,Id) {
     
 }
  
-//funtion to get seleted risk details 
+//funtion to get seleted risk details and add to edit placeholders in modal
 function select(thisButton,id) {
 
     var currentRow = thisButton.parentNode.parentNode;

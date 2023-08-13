@@ -27,7 +27,7 @@ async function checkForUrlParams() {
 }
 
 
-
+//Function to display form
 function displayForm(formData) {
   var activity = formData.activityName;
   var date = formData.date;

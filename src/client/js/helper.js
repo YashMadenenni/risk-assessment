@@ -335,21 +335,21 @@ function addCustomRow(addButton) {
         </div>
     </td>
     <td><select class="form-select" id="occurance">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
 
         </select></td>
     <td><select class="form-select" id="severity">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
 
         </select></td>
     <td><select class="form-select" id="riskLevel">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
 
         </select></td>
     <td class="d-flex flex-column" id="cntrlMeasures">

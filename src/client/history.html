@@ -176,9 +176,14 @@
                                     class="fa-solid fa-recycle"></i> Use
                                 Template </button>
                             <button class="btn btn-success m-3"
-                                onclick="approveForm()" id="approveBtn">Approve
+                                onclick="approveForm('yes')" id="approveBtn">Approve
                                 <i class="fa-solid fa-thumbs-up"></i></button>
-                            <button class="btn  m-3"
+
+                                <button class="btn btn-danger m-3"
+                                onclick="approveForm('no')" id="rejectBtn">Reject
+                                <i class="fa-solid fa-thumbs-down" ></i></button>
+
+                            <button class="btn m-3"
                                 onclick='window.print()'><i
                                     class="fa-solid fa-arrow-down fa-lg"></i> <i
                                     class="fa-solid fa-file-pdf fa-lg "

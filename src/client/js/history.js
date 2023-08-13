@@ -52,8 +52,10 @@ async function getAllHistoryForms() {
         const activityIndexInGlobal = globalForms.indexOf(element);
         const elementActivity = element;
         var approved = "Pending";
-        if (elementActivity.approval) {
+        if (elementActivity.approval == "yes") {
           approved = "Approved"
+        }else if (elementActivity.approval == "no") {
+          approved = "Rejected"
         }
         document.getElementById("submittedFormsTable").innerHTML += `<tr onclick="viewForm('${activityIndexInGlobal}','${userEmail}')"><td  class="col-3">` + elementActivity.activityName + `</td><td  class="col-2">` + elementActivity.date + `</td><td  class="col-2">` + userEmail + `</td><td class='${approved.toLowerCase()}  col-1'>` + approved + `</td><td  class="col-4">` + elementActivity.description + `</td></tr>`;
       })
@@ -96,9 +98,13 @@ async function viewForm(activityThisIndex, userName) {
 
   if (respone.isAdmin == false) {
     document.getElementById("approveBtn").style.display = "none";
+    document.getElementById("rejectBtn").style.display = "none";
   }
-  else if (element.approval == "true") {
+  else if (element.approval == "yes") {
     document.getElementById("approveBtn").setAttribute("disabled", "disabled")
+  }
+  else if (element.approval == "no") {
+    document.getElementById("rejectBtn").setAttribute("disabled", "disabled")
   }
   // }
   // })
@@ -161,14 +167,16 @@ async function useTemplate() {
   }
 }
 
-async function approveForm() {
+async function approveForm(value) {
   var formID = document.getElementById('formID').innerHTML;
   var userEmail = document.getElementById("author").value;
+  var formValue = value;
 
   var request = await fetch(`/forms/approve`, {
     method: "POST", body: JSON.stringify({
       formID: formID,
-      userEmail: userEmail
+      userEmail: userEmail,
+      formValue: formValue
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8"
@@ -176,9 +184,14 @@ async function approveForm() {
   })
   var response = await request.json()
   console.log(response);
-  if (response.message == "Successful") {
+  if (response.message == "yes") {
     window.alert("Approved");
     document.getElementById("approveBtn").setAttribute("disabled", "disabled")
+    document.getElementById("rejectBtn").removeAttribute("disabled", "disabled")
+  }else if (response.message == "no") {
+    window.alert("Rejected");
+    document.getElementById("rejectBtn").setAttribute("disabled", "disabled")
+    document.getElementById("approveBtn").removeAttribute("disabled", "disabled")
   }
 }
 

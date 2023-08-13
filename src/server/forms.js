@@ -36,7 +36,7 @@ router.post("/submit", function (request, response) {
     var date = request.body.date;
     var description = request.body.description;
     var risks = request.body.risks;
-    var approval = false;
+    var approval = "Pending";
     // generate Random id
     var n = 0;
     do {
@@ -214,6 +214,8 @@ router.get('/submitted', function (request, response) {
 router.post('/approve', function (request, response) {
     var formID = parseInt(request.body.formID);
     var userEmail = request.body.userEmail;
+    var formValue = request.body.formValue;
+    
     //console.log("here")
     console.log(formID)
     console.log(userEmail)
@@ -222,8 +224,8 @@ router.post('/approve', function (request, response) {
             if (doc.length == 0) {
                 console.log("error")
             } else {
-                collecttionForms.updateOne({ _id: userEmail, "activity.id": formID }, { $set: { "activity.$.approval": "true" } })
-                    .then(response.status(200).json({ "message": "Successful" }))
+                collecttionForms.updateOne({ _id: userEmail, "activity.id": formID }, { $set: { "activity.$.approval": formValue } })
+                    .then(response.status(200).json({ "message": formValue }))
                     .catch(err => { response.status(400).json({ message: "Error Approving" }); console.log(err) })
             }
         })

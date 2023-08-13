@@ -5,6 +5,9 @@
 .approved{
     color: green;
 }
+.rejected{
+    color: red;
+}
 
 body{
     font-family:math;

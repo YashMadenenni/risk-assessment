@@ -216,10 +216,14 @@ function addRiskBody() {
 
 function editRiskBody() {
     // resetModal()
+    
+    document.getElementById("suggestions").innerHTML =""
+    getRiskCustom()
      document.getElementById("addRiskButton").style.display = "none"
     document.getElementById("editRiskBody").style.display = "block"
     document.getElementById("editRiskButton").style.display = "block"
     document.getElementById("modalTitle").innerHTML = "Edit Risk"
+    
 }
 
 function removeRiskBody() {
@@ -227,36 +231,7 @@ function removeRiskBody() {
     document.getElementById("suggestions").innerHTML =""
          getRisksSuggestions("deleteRisk");
     document.getElementById("editRiskBody").style.display = "block"
-
-             
-         
+    document.getElementById("modalTitle").innerHTML = "Delete Risk"
 
 }
 
-// function resetModal() { 
-//     document.getElementById("addRiskName").value = ""
-//      document.getElementById("addRisk").innerHTML = `<div class="d-flex flex-row" id="casual">
-//      <input type="text"
-//          class="form-control"
-//          id="addRiskHazards">
-//      <button
-//          class="btn btn-light mx-1 rounded-5"
-//          onclick="addTextField('addRisk')"><i
-//              class="fa-sharp fa-solid fa-plus"></i></button>
-//  </div>`
-//      document.getElementById("addOccurance").value = ""
-//      document.getElementById("addSeverity").value = ""
-//      document.getElementById("addRiskLevel").value = ""
-//      document.getElementById("cntrlMeasures").innerHTML = `<label for="riskLevel">Control Measures
-//      <textarea type="text" cols="40"
-//          class="form-control overflow-auto"
-//          id="addControlMeasures"></textarea></label>
-//  <button
-//      class="btn btn-light rounded-5 mx-1 my-3 mt-4"
-//      onclick="addTextField()"><i
-//          class="fa-sharp fa-solid fa-plus"></i></button>`;
-
-//          document.getElementById("suggestions").innerHTML =""
-//          getRisksSuggestions("editRisk")
-
-//  }

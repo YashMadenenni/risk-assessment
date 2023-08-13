@@ -1,5 +1,6 @@
 window.onload = () => createHeader(getRiskCustom, "addRisk")
 
+//helper function
 function getRiskCustom() {
     getRisksSuggestions("editRisk")
 }
@@ -49,6 +50,7 @@ async function getAllRisksNew(responseRisks, caller) {
     });
 }
 
+//Function to get an risk object which includes all the details of that risk 
  function getAllRiskValues() {
     var riskName = document.getElementById("addRiskName").value
     var probability = document.getElementById("addOccurance").value
@@ -82,7 +84,7 @@ async function getAllRisksNew(responseRisks, caller) {
 }
 
 
-
+//Function to send fetch request to add new risk
 async function addRisk() {
 
     var riskData = [];
@@ -114,6 +116,7 @@ async function addRisk() {
 
 }
 
+//function to send fetch request to edit risk
 async function editRisk() {
     var id = document.getElementById("riskIDEdit").innerHTML; //get the risk id
     var risk = getAllRiskValues() //get all risk values
@@ -136,7 +139,7 @@ async function editRisk() {
 
 
 }
-
+//function to send fetch request to delete risk
 async function deleteRisk(currentRow,Id) {
    
 
@@ -153,7 +156,7 @@ async function deleteRisk(currentRow,Id) {
     
 }
  
-
+//funtion to get seleted risk details 
 function select(thisButton,id) {
 
     var currentRow = thisButton.parentNode.parentNode;
@@ -185,7 +188,7 @@ function select(thisButton,id) {
 
         var newDiv = document.createElement('div');
         newDiv.appendChild(newTextfield);
-        // newDiv.appendChild(buttonRemove);
+        
         newDiv.innerHTML += '<button class="btn  rounded-5" onclick="removeTextField(this)"> <i class="fa-solid fa-trash-can" style="color: #ff1f0f;"></i> </button>'
         newDiv.className = "d-flex";
 
@@ -205,17 +208,18 @@ function select(thisButton,id) {
     
 }
 
-
+//helper function to toggle selection 
 function addRiskBody() {
-    // resetModal()
+   
     document.getElementById("addRiskButton").style.display = "block"
     document.getElementById("editRiskBody").style.display = "none"
     document.getElementById("editRiskButton").style.display = "none"
     document.getElementById("modalTitle").innerHTML = "Add Risk"
 }
 
+//helper function to toggle selection 
 function editRiskBody() {
-    // resetModal()
+   
     
     document.getElementById("suggestions").innerHTML =""
     getRiskCustom()
@@ -226,6 +230,7 @@ function editRiskBody() {
     
 }
 
+//helper function to toggle selection 
 function removeRiskBody() {
    
     document.getElementById("suggestions").innerHTML =""

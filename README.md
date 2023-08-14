@@ -34,6 +34,10 @@ npm install mongodb
 
 npm install cookie-parser
 
+7. Install the express sessions package.
+
+npm install express-session.
+
 ## Starting the Server
 To start the server, follow these steps:
 

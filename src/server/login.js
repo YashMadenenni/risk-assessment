@@ -86,13 +86,9 @@ router.post('/login', function (request, response) {
                     console.log('userEmail after setting session:', request.session.userEmail);
                     console.log(request.session);
 
-                    //response.sendFile('home.html',{root:path.join(__dirname,"../client")});
-                    // Redirect after session values are saved
-                    // request.session.save(() => {
+                    
                         response.redirect('/home.html');
-                    // });
-                   // response.status(200).json({ message: `Login Successful` });
-                    //globalUser.userEmail = userEmail;//set the user email to global variable
+                  
                 } else {
                     response.status(401).json({ message: `Unauthorised` })
                 }
@@ -119,13 +115,9 @@ router.post('/login', function (request, response) {
                     console.log('userEmail after setting session:', request.session.userEmail);
                     console.log(request.session);
 
-                    // response.sendFile('home.html',{root:path.join(__dirname,"../client")});
-                    // Redirect after session values are saved
-                    // request.session.save(() => {
+                    
                         response.redirect('/home.html');
-                    // });
-                   // response.status(200).json({ message: `Login Successful` });
-                    //globalUser.userEmail = userEmail;//set the user email to global variable
+                    
                 } else {
                     response.status(401).json({ message: `Unauthorised` })
                 }
@@ -145,7 +137,7 @@ router.post("/register", function (request, response) {
     const userEmail = (request.body.userEmail).toLowerCase();
     const userName = (request.body.userName).toLowerCase();
     const password = request.body.password;
-    console.log(userEmail)
+    //console.log(userEmail)
 
     collectionLogin.find({ _id: userEmail }).toArray()
         .then(doc => {
@@ -162,14 +154,15 @@ router.post("/register", function (request, response) {
         });
 })
 
+//Endpoint to reset password
 router.post("/reset", function (request, response) {
     const userEmail = (request.body.userEmail).toLowerCase();
     const password = request.body.password;
-    console.log("userEmail")
-    console.log(userEmail)
+    // console.log("userEmail")
+    // console.log(userEmail)
     collectionLogin.find({ _id: userEmail }).toArray()
         .then(doc => {
-            console.log(doc);
+            //console.log(doc);
             if (doc.length != 0) {
                 collectionLogin.updateOne({ _id: userEmail},{$set:{ password: password }}).then(res=>{
                     response.status(200).json({ message: "Success Login Now" })
@@ -186,6 +179,7 @@ router.post("/reset", function (request, response) {
         });
 })
 
+//Endpoint to get user details
 router.get('/email', (req, res) => {
     const userEmail = req.session.userEmail;
     const isAdmin = req.session.isAdmin;

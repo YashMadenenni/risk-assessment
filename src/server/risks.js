@@ -204,6 +204,8 @@ router.get("/all", function (request, response) {
 
 var idCollection = [];
 
+
+//Endpoint to add risk
 router.post("/addRisk", function (request, respone) {
 
     var risksArray = request.body.risksArray;
@@ -247,6 +249,7 @@ router.post("/addRisk", function (request, respone) {
 
 })
 
+//endpoint to edit risk
 router.post("/editRisk", function (request, respone) {
 
     var riskName = request.body.riskName;
@@ -285,6 +288,7 @@ router.post("/editRisk", function (request, respone) {
 
 })
 
+//Endpoint to delete risk
 router.delete('/delete/:id', function (request, respone) {
     var riskID = parseInt(request.params.id)
 
@@ -302,6 +306,7 @@ router.delete('/delete/:id', function (request, respone) {
         })
 })
 
+//Endpoint to get risk
 router.get("/:id/:riskName", function (request, response) {
     var id = parseInt(request.params.id);
     var riskName = request.params.riskName;

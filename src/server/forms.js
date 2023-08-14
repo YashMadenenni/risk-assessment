@@ -58,13 +58,11 @@ router.post("/submit", function (request, response) {
 
 
             } else {
-                // var newActivity = doc[0].activity;
-                // newActivity = 
-                // //     .then(doc => {})
+                
                 collecttionForms.updateOne({ _id: userEmail }, { $push: { activity: { activityName: activity, date: date, description: description, risks: risks, approval: approval, id: n } } })
                     .then(res => {
                         response.status(200).json({ message: "Success" });
-                        console.log("New activity submitted successfully");
+                        // console.log("New activity submitted successfully");
 
                     }).catch((res) => {
 
@@ -76,8 +74,8 @@ router.post("/submit", function (request, response) {
 
     collecttionFormsSave.find({ _id: userEmail, "activity.activityName": activity }).toArray()
         .then(doc => {
-            console.log("in delete saved")
-            console.log(doc);
+            // console.log("in delete saved")
+            // console.log(doc);
             if (doc.length) {
                 collecttionFormsSave.updateOne({ "_id": userEmail }, { $pull: { "activity": { "activityName": activity } } }).then(console.log("deleted"))
             }
@@ -87,6 +85,7 @@ router.post("/submit", function (request, response) {
 //to store randomly generated id
 var idCollection = [];
 
+//Endpoint to save a form
 router.post("/save", function (request, response) {
     var userEmail = request.session.userEmail;
     var activity = request.body.activity;
@@ -95,8 +94,8 @@ router.post("/save", function (request, response) {
     var description = request.body.description;
     var risks = request.body.risks;
 
-    console.log(formRandomID);
-    console.log(userEmail);
+    // console.log(formRandomID);
+    // console.log(userEmail);
 
     collecttionFormsSave.find({ _id: userEmail }).toArray()
         .then(doc => {
@@ -119,15 +118,15 @@ router.post("/save", function (request, response) {
 
             } else {
 
-                console.log("in 1")
+                // console.log("in 1")
                 //if user has saved documents then check if this document is already there to edit it
                 collecttionFormsSave.find({ _id: userEmail, "activity.id": formRandomID }).toArray()
 
                     .then(doc => {
                         // console.log("in 2")
                         if (doc.length == 0) {
-                            console.log("in 3")
-                            console.log(doc)
+                            // console.log("in 3")
+                            // console.log(doc)
                             //if activity is not there
 
                             // generate Random id
@@ -136,7 +135,7 @@ router.post("/save", function (request, response) {
                                 n = crypto.randomInt(0, 100000);
                             } while (idCollection.includes(n));
                             idCollection.push(n);
-                            console.log(n);
+                            // console.log(n);
 
                             collecttionFormsSave.updateOne({ _id: userEmail }, { $push: { activity: { activityName: activity, date: date, description: description, risks: risks, id: n } } })
                                 .then(res => {
@@ -150,7 +149,7 @@ router.post("/save", function (request, response) {
                         } else {
 
                             //if activity already exsists
-                            console.log("here in object")
+                            // console.log("here in object")
 
                             collecttionFormsSave.updateOne({ _id: userEmail, "activity.id": formRandomID }, {
                                 $set: {
@@ -162,7 +161,7 @@ router.post("/save", function (request, response) {
                                 .then(res => {
 
                                     response.status(200).json({ message: "Success" });
-                                    console.log("Editing saved successfully");
+                                    // console.log("Editing saved successfully");
 
                                 }).catch(error => { console.error("Catch :", error); response.status(400).json({ message: "Error editing saved activity" }) });
                         }
@@ -173,29 +172,30 @@ router.post("/save", function (request, response) {
         }).catch(error => { console.error("Catch :", error); response.status(400).json({ message: "Error editing saved activity" }) });
 });
 
-
+//Endpoint to return all saved forms
 router.get('/saved', function (request, response) {
     // console.log("here");
     var userEmail = request.session.userEmail;
-    console.log(userEmail)
+    // console.log(userEmail)
     collecttionFormsSave.find({ _id: userEmail }).toArray()
         .then(doc => {
-            console.log(doc)
+            // console.log(doc)
             response.status(200).json({ "saved": doc });
         }).catch(err => { response.status(404).json({ message: "Error finding " }); });
 
 })
 
+//Endpoint to return all submitted forms
 router.get('/submitted', function (request, response) {
 
     var userEmail = request.session.userEmail;
     var isAdmin = request.session.isAdmin;
 
     if (isAdmin) {
-        console.log(isAdmin)
+        // console.log(isAdmin)
         collecttionForms.find({}).toArray()
             .then(doc => {
-                console.log(doc)
+                // console.log(doc)
                 response.status(200).json({ "submitted": doc });
             }).catch(err => { response.status(404).json({ message: "Error finding " }); });
 
@@ -203,7 +203,7 @@ router.get('/submitted', function (request, response) {
 
         collecttionForms.find({ _id: userEmail }).toArray()
             .then(doc => {
-                console.log(doc)
+                // console.log(doc)
                 response.status(200).json({ "submitted": doc });
             }).catch(err => { response.status(404).json({ message: "Error finding " }); });
     }
@@ -211,14 +211,15 @@ router.get('/submitted', function (request, response) {
 
 })
 
+//Endpoint to approve a form
 router.post('/approve', function (request, response) {
     var formID = parseInt(request.body.formID);
     var userEmail = request.body.userEmail;
     var formValue = request.body.formValue;
-    
+
     //console.log("here")
-    console.log(formID)
-    console.log(userEmail)
+    // console.log(formID)
+    // console.log(userEmail)
     collecttionForms.find({ _id: userEmail, "activity.id": formID }).toArray()
         .then(doc => {
             if (doc.length == 0) {
@@ -231,6 +232,7 @@ router.post('/approve', function (request, response) {
         })
 });
 
+//Endpoint to redirect to home page with form details
 router.get('/template/:formID/:userEmail',function (request,response) {
     var formID = encodeURIComponent(request.params.formID);
     var userEmail = encodeURIComponent(request.params.userEmail);
@@ -242,6 +244,7 @@ router.get('/template/:formID/:userEmail',function (request,response) {
     }
 });
 
+//Endpoint to redirect to show submitted form details
 router.get('/related-risk/:formID/:userEmail',function (request,response) {
     var formID = encodeURIComponent(request.params.formID);
     var userEmail = encodeURIComponent(request.params.userEmail);
@@ -258,7 +261,7 @@ router.get('/:userEmail/:formID',function (request,response) {
     var formID = parseInt(request.params.formID);
     var userEmail = request.params.userEmail;
 
-    console.log(formID, userEmail)
+    // console.log(formID, userEmail)
     collecttionForms.find({_id:userEmail,"activity.id":formID}).toArray()
     .then(doc=>{
         if(doc.length == 0){
@@ -269,11 +272,12 @@ router.get('/:userEmail/:formID',function (request,response) {
     })
 });
 
+//Endpoint to delete form 
 router.delete('/remove/:formID',function (request,response) {
     var formID = parseInt(request.params.formID);
     var userEmail = request.session.userEmail;
 
-    console.log(formID , userEmail)
+    // console.log(formID , userEmail)
 
     collecttionFormsSave.find({ _id: userEmail, "activity.id":formID }).toArray()
         .then(doc => {

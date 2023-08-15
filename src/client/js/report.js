@@ -48,7 +48,7 @@ async function getAllReports() {
             <h8>${incidentDate}</h8>
         </div>
         
-            <img class="card-img-top " id="image" src="${imageSRC}" alt="">
+            <div class="image-resize"><img class="card-img-top " id="image" src="${imageSRC}" alt=""></div>
             <div class="card-body">
       ${incidentDescription}
       </div>

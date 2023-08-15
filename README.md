@@ -1,56 +1,72 @@
-# README - Risk Assessment
+# README - Risk Assessment :memo:
 
-This document provides instructions on how to set up and run the Risk Assessment application. Please follow the steps outlined below to ensure a successful installation and execution of the application.
 
-## Requirements
+This document provides instructions on how to set up and run the Risk Assessment application locally. Please follow the steps outlined below to ensure a successful installation and execution of the application.
+
+## Requirements :hammer_and_wrench:
 Before proceeding, make sure you have the following requirements installed on your machine:
 
 - Node.js
 - Express (npm package)
+- Express-Sessions
 - MongoDB for Node.js
 - Cookie Parser (npm package)
+- Multer
 
-## Installation Steps
+## Installation Steps :ladder:
 
 1. Clone the repository to your local machine.
 
 2. Navigate to the server directory.
-    
+    ```
     cd server
+    ```
 
 3. Install the required Node.js dependencies using npm.
-
-npm install
-
+    ```
+    npm install
+    ```
 4. Install the Express package.
-
-npm install express
-
+    ```
+    npm install express
+    ```
 5. Install MongoDB for Node.js.
-
-npm install mongodb
-
+    ```
+    npm install mongodb
+    ```
 6. Install the Cookie Parser package.
-
-npm install cookie-parser
-
+    ```
+    npm install cookie-parser
+    ```
 7. Install the express sessions package.
+    ```
+    npm install express-session.
+    ```
+8. Install the multer module
+    ```
+    npm multer
+    ```
+    
+    #### Starting the Server Locally :computer:
+    To start the server, follow these steps:
 
-npm install express-session.
+    1. Navigate to the server directory if you are not already there.
 
-## Starting the Server
-To start the server, follow these steps:
+    2. Run the server using the Node.js command.
+   ```
+   node server.js
+   ```
+   This will start the server on PORT 8000.
+   
+   Once the server is running, you should see a success message indicating that the server has started. As shown below:
 
-1. Navigate to the server directory if you are not already there.
+    Login: Connected to Database Login <br>
+    Incident: Connected to Database Incident <br>
+    Risks: Connected to Database Risks <br>
+    Forms: Connected to Database Forms <br>
+    Server: Connected to Database <br>
+    Server Started in port:8000 <br>
 
-2. Run the server using the Node.js command.
-Once the server is running, you should see a success message indicating that the server has started. As shown below
-
-Forms: Connected to Database Forms
-Login: Connected to Database Login
-Server: Connected to Database
-Server Started in port:8000
-Risks: Connected to Database Risks
-
-## Accessing the Application
-You can now access the Risk Assessment application by opening a web browser and navigating to the appropriate URL. The exact URL will depend on the server configuration.
+    ### Accessing the Application :link:
+    You can now access the Risk Assessment application by opening a web browser and navigating to the appropriate URL. The exact URL will      depend on the server configuration.
+    Example: `http://localhost:8000/` 

@@ -70,3 +70,5 @@ Before proceeding, make sure you have the following requirements installed on yo
     ### Accessing the Application :link:
     You can now access the Risk Assessment application by opening a web browser and navigating to the appropriate URL. The exact URL will      depend on the server configuration.
     Example: `http://localhost:8000/` 
+## Accessing the Online Application :link:
+ `https://risk-assessment.onrender.com/`

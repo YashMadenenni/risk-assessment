@@ -92,3 +92,13 @@ Before proceeding, make sure you have the following requirements installed on yo
     Example: `http://localhost:8000/` 
 ## Accessing the Online Application :link:
  `https://risk-assessment.onrender.com/`
+
+## Screenshots
+### Home Page 
+![alt text](https://github.com/YashMadenenni/risk-assessment/blob/afd2d8fac81c5bb1f4a9e7323bee99cc8e6cd9fe/screencapture-risk-assessment-onrender-home-html-2023-09-28-13_32_44.png)
+
+### Submitted Form
+![alt text](https://github.com/YashMadenenni/risk-assessment/blob/afd2d8fac81c5bb1f4a9e7323bee99cc8e6cd9fe/screencapture-risk-assessment-onrender-history-html-2023-09-28-13_34_31.png)
+
+### Incident report 
+![alt text](https://github.com/YashMadenenni/risk-assessment/blob/afd2d8fac81c5bb1f4a9e7323bee99cc8e6cd9fe/screencapture-risk-assessment-onrender-report-html-2023-09-28-13_35_08.png)

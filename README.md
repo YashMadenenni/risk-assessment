@@ -12,6 +12,26 @@ Before proceeding, make sure you have the following requirements installed on yo
 - MongoDB for Node.js
 - Cookie Parser (npm package)
 - Multer
+  ### Login Credentials
+  You can either create your own credentials or use one of these credentials used during application testing <br>
+  #### User
+  User Email
+  ```
+  test@gmail.com
+  ```
+  Password
+  ```
+  test@123
+  ```
+  #### Admin
+   ```
+  testadmin@gmail.com
+  ```
+  Password
+  ```
+  test@123
+  ```
+  
 
 ## Installation Steps :ladder:
 
